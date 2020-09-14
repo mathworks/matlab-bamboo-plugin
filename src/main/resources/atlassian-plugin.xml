@@ -20,5 +20,7 @@
 
         <context>matlab-bamboo-plugin</context>
     </web-resource>
-    
+
+    <!-- MATLAB Plugin info to be added in next PR -->
+
 </atlassian-plugin>
