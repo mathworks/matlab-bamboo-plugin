@@ -1,3 +1,7 @@
+*.sh
+*.bat
+LICENSE
+Atlassian-SDK-README
 target
 build
 .settings
