@@ -151,6 +151,8 @@
                         <configuration>
                             <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v0/run-matlab-command.zip</url>
                             <unpack>true</unpack>
+                            <skipCache> true </skipCache>
+                            <overwrite> true </overwrite>
                             <outputDirectory>${basedir}/src/main/resources</outputDirectory>
                         </configuration>
                     </execution>
@@ -161,6 +163,7 @@
                 <groupId>com.atlassian.plugin</groupId>
                 <artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
                 <version>${atlassian.spring.scanner.version}</version>
+
                 <executions>
                     <execution>
                         <goals>
