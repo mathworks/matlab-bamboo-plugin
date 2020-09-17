@@ -8,19 +8,32 @@
     </plugin-info>
 
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="matlab-bamboo-plugin"/>
+    <resource type="i18n" name="matlab-bamboo-plugin" location="matlab-bamboo-plugin"/>
     
     <!-- add our web resources -->
-    <web-resource key="matlab-bamboo-plugin-resources" name="matlab-bamboo-plugin Web Resources">
+    <web-resource key="plugin-resources" name="plugin Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         
-        <resource type="download" name="matlab-bamboo-plugin.css" location="/css/matlab-bamboo-plugin.css"/>
-        <resource type="download" name="matlab-bamboo-plugin.js" location="/js/matlab-bamboo-plugin.js"/>
+        <resource type="download" name="plugin.css" location="/css/plugin.css"/>
+        <resource type="download" name="plugin.js" location="/js/plugin.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>matlab-bamboo-plugin</context>
+        <context>plugin</context>
+
     </web-resource>
 
-    <!-- MATLAB Plugin info to be added in next PR -->
+    <!-- TASKS -->
 
+    <!-- MATLAB Command Task -->
+    <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MATLABCommandTask">
+        <description>Execute a MATLAB script or statement</description>
+        <category name="builder"/>
+        <category name="test"/>
+        <configuration class="org.bamboo.plugins.configuration.MATLABCommandTaskConfigurator"/>
+        <executable key="matlab" nameKey="MATLAB" />
+        <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
+        <!--<resource type="freemarker" name="view" location="templates/viewMATLABCommandTask.ftl"/> -->
+        <!-- placeholder for task image -->
+        <!-- placeholder for help link /doc -->
+    </taskType>
 </atlassian-plugin>
