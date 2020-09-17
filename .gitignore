@@ -1,0 +1,15 @@
+LICENSE.txt
+Atlassian-SDK-README.txt
+js
+css
+target
+build
+.settings
+.project
+.classpath
+*.iml
+*.ipr
+*.iws
+*.asv
+work
+.idea

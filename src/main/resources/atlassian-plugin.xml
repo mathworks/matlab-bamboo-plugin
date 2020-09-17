@@ -1,0 +1,26 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="matlab-bamboo-plugin"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="matlab-bamboo-plugin-resources" name="matlab-bamboo-plugin Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="matlab-bamboo-plugin.css" location="/css/matlab-bamboo-plugin.css"/>
+        <resource type="download" name="matlab-bamboo-plugin.js" location="/js/matlab-bamboo-plugin.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>matlab-bamboo-plugin</context>
+    </web-resource>
+
+    <!-- MATLAB Plugin info to be added in next PR -->
+
+</atlassian-plugin>
