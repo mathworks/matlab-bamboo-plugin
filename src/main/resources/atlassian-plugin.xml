@@ -29,11 +29,25 @@
         <description>Execute a MATLAB script or statement</description>
         <category name="builder"/>
         <category name="test"/>
-        <configuration class="org.bamboo.plugins.configuration.MATLABCommandTaskConfigurator"/>
+        <configuration class="com.mathworks.ci.configuration.MATLABCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" />
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
         <!--<resource type="freemarker" name="view" location="templates/viewMATLABCommandTask.ftl"/> -->
         <!-- placeholder for task image -->
         <!-- placeholder for help link /doc -->
     </taskType>
+
+    <!-- MATLAB Test Task -->
+
+    <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.task.MATLABTestTask">
+        <description>Run all MATLAB tests and generate test artifacts</description>
+        <category name="test"/>
+        <configuration class="com.mathworks.ci.configuration.MATLABTestTaskConfigurator"/>
+        <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
+        <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
+        <!--<resource type="freemarker" name="view" location="templates/viewMATLABTestTask.ftl"/> -->
+        <!-- < placeholder for task image> -->
+        <!-- < placeholder for help link/doc > -->
+    </taskType>
+
 </atlassian-plugin>

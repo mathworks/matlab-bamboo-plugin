@@ -16,20 +16,29 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 
-public class MATLABCommandTask extends BaseMATLABTaskType
+public class MATLABTestTask extends BaseMATLABTaskType
 {
 
     @NotNull
     @Override
     public TaskResult execute(@NotNull TaskContext taskContext) {
-        //TaskResultBuilder builder = TaskResultBuilder.create(taskContext);
-        final String MATLABCommand = taskContext.getConfigurationMap().get("matlabcommand");
-        final String MATLABRoot = taskContext.getConfigurationMap().get("builder.MATLAB.executable");
+       // TaskResultBuilder builder = TaskResultBuilder.create(taskContext);
+       // final String matlabCommand = taskContext.getConfigurationMap().get("matlabcommand");
+       // final String matlabRoot = taskContext.getConfigurationMap().get("MATLABVersion");
 
         // TODO
-        // logic with using Run MATLAB Command
-        //
+        // To replace this logic with using Run MATLAB Command script
+        // Also account for linux and windows
+       /** ExternalProcess process = processService.createExternalProcess(taskContext,
+                new ExternalProcessBuilder()
+                        .command(Arrays.asList(matlabRoot, "-batch", matlabCommand))
+                        .workingDirectory(taskContext.getWorkingDirectory()));
+
+        process.execute();**/
+
         return null;
     }
-  
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.mathworks.ci;
+package com.mathworks.ci.task;
 
 import com.atlassian.bamboo.process.ExternalProcessBuilder;
 import com.atlassian.bamboo.process.ProcessService;
