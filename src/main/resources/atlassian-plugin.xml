@@ -14,11 +14,11 @@
     <web-resource key="plugin-resources" name="plugin Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         
-        <resource type="download" name="plugin.css" location="/css/plugin.css"/>
-        <resource type="download" name="plugin.js" location="/js/plugin.js"/>
+        <resource type="download" name="matlab-bamboo-plugin.css" location="/css/matlab-bamboo-plugin.css"/>
+        <resource type="download" name="matlab-bamboo-plugin.js" location="/js/matlab-bamboo-plugin.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>plugin</context>
+        <context>matlab-bamboo-plugin</context>
 
     </web-resource>
 
