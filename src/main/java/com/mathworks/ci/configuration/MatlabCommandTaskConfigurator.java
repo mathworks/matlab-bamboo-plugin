@@ -31,7 +31,7 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
 
     public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext)
     {
-        super(capabilityContext,uiConfigSupport);
+        super(capabilityContext);
 
     }
 

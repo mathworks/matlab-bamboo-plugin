@@ -27,7 +27,7 @@ import java.util.Set;
 // Implement interface for adding requirements
 public class MatlabTaskConfigurator extends AbstractTaskConfigurator {
     //private static final String UI_CONFIG_SUPPORT = "uiConfigSupport";
-    private static final Logger LOGGER = LoggerFactory.getLogger(MATLABTaskConfigurator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MatlabTaskConfigurator.class);
     private UIConfigSupport uiConfigSupport;
     private List<String> matlabExecutableList;
 
