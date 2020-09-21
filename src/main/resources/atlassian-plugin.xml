@@ -25,12 +25,12 @@
     <!-- TASKS -->
 
     <!-- MATLAB Command Task -->
-    <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MATLABCommandTask">
+    <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MatlabCommandTask">
         <description>Execute a MATLAB script or statement</description>
         <category name="builder"/>
         <category name="test"/>
-        <configuration class="com.mathworks.ci.configuration.MATLABCommandTaskConfigurator"/>
-        <executable key="matlab" nameKey="MATLAB" />
+        <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
+        <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
         <!--<resource type="freemarker" name="view" location="templates/viewMATLABCommandTask.ftl"/> -->
         <!-- placeholder for task image -->
@@ -39,10 +39,10 @@
 
     <!-- MATLAB Test Task -->
 
-    <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.task.MATLABTestTask">
+    <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.task.MatlabTestTask">
         <description>Run all MATLAB tests and generate test artifacts</description>
         <category name="test"/>
-        <configuration class="com.mathworks.ci.configuration.MATLABTestTaskConfigurator"/>
+        <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
         <!--<resource type="freemarker" name="view" location="templates/viewMATLABTestTask.ftl"/> -->

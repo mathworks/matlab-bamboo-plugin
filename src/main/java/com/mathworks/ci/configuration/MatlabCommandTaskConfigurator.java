@@ -6,6 +6,8 @@ import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
 import com.atlassian.bamboo.v2.build.agent.capability.Capability;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
+import com.atlassian.bamboo.ww2.actions.build.admin.create.UIConfigSupport;
+import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.struts.TextProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -23,13 +25,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Map;
 
-
-public class MATLABCommandTaskConfigurator extends MATLABTaskConfigurator {
+@Scanned
+public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     private TextProvider textProvider;
 
-    public MATLABCommandTaskConfigurator(CapabilityContext capabilityContext)
+    public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext)
     {
-        super(capabilityContext);
+        super(capabilityContext,uiConfigSupport);
 
     }
 

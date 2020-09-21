@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.lang.ClassLoader;
 import java.lang.String;
 
-public abstract class BaseMATLABTaskType implements TaskType {
+public abstract class BaseMatlabTaskType implements TaskType {
 
     //TODO:
     // 

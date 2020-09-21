@@ -13,10 +13,8 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.utils.process.ExternalProcess;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
 @Scanned
-public class MATLABCommandTask extends BaseMATLABTaskType
+public class MatlabCommandTask extends BaseMatlabTaskType
 {
     @ComponentImport
     private final ProcessService processService;
@@ -24,7 +22,7 @@ public class MATLABCommandTask extends BaseMATLABTaskType
     @ComponentImport
     private final CapabilityContext capabilityContext;
 
-    public MATLABCommandTask(ProcessService processService, CapabilityContext capabilityContext) {
+    public MatlabCommandTask(ProcessService processService, CapabilityContext capabilityContext) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
     }

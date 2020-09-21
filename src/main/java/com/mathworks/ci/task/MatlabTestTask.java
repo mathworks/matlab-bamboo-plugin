@@ -9,14 +9,11 @@ import com.atlassian.bamboo.task.TaskType;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.utils.process.ExternalProcess;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
-
-public class MATLABTestTask extends BaseMATLABTaskType
+@Scanned
+public class MatlabTestTask extends BaseMatlabTaskType
 {
 
     @NotNull
