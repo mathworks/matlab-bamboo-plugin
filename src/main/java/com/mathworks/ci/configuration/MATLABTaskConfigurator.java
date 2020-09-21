@@ -28,31 +28,30 @@ import java.util.Set;
 public class MATLABTaskConfigurator extends AbstractTaskConfigurator {
     //private static final String UI_CONFIG_SUPPORT = "uiConfigSupport";
     private static final Logger LOGGER = LoggerFactory.getLogger(MATLABTaskConfigurator.class);
-    //private UIConfigSupport uiConfigSupport;
+    private UIConfigSupport uiConfigSupport;
     private List<String> MATLABExecutableList;
 
     @ComponentImport
-    public CapabilityContext capabilityContext;  //replacement Object for UIConfigSupport
+    protected CapabilityContext capabilityContext;  //replacement Object for UIConfigSupport
     public String MATLABroot;
 
-    public MATLABTaskConfigurator(){}
 
     public MATLABTaskConfigurator(CapabilityContext capabilityContext)
     {
-       
         this.capabilityContext = capabilityContext;
         this.MATLABExecutableList = new ArrayList<>();
     }
+
 
     //currently not working
     /**
      * Automatically called by Bamboo
      * @param uiConfigSupport
      */
-    //@SuppressWarnings("unused")
-    // public void setUiConfigSupport(UIConfigSupport uiconfigsupport) {
-    //    this.uiConfigSupport = uiconfigsupport;
-    //}
+    @SuppressWarnings("unused")
+     public void setUiConfigSupport(UIConfigSupport uiconfigsupport) {
+       this.uiConfigSupport = uiconfigsupport;
+    }
     
     
     @Override

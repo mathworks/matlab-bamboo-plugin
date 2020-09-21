@@ -15,9 +15,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-
+@Scanned
 public class MATLABCommandTask extends BaseMATLABTaskType
 {
+    @ComponentImport
+    private final ProcessService processService;
+
+    @ComponentImport
+    private final CapabilityContext capabilityContext;
+
+    public MATLABCommandTask(ProcessService processService, CapabilityContext capabilityContext) {
+        this.processService = processService;
+        this.capabilityContext = capabilityContext;
+    }
+
 
     @NotNull
     @Override

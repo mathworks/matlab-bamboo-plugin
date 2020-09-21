@@ -28,13 +28,11 @@ public class MATLABTestTaskConfigurator extends MATLABTaskConfigurator{
     @ComponentImport
     private CapabilityContext capabilityContext;
 
-    public MATLABTestTaskConfigurator(){}
-
     
     public MATLABTestTaskConfigurator(CapabilityContext capabilityContext)
     {
         super(capabilityContext);
-        this.capabilityContext=capabilityContext;
+
 
     }
 

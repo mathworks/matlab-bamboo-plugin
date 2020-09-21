@@ -26,18 +26,10 @@ import java.util.Map;
 
 public class MATLABCommandTaskConfigurator extends MATLABTaskConfigurator {
     private TextProvider textProvider;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MATLABCommandTaskConfigurator.class);
-    
-    @ComponentImport
-    private CapabilityContext capabilityContext;
 
-    public MATLABCommandTaskConfigurator(){}
-
-    
     public MATLABCommandTaskConfigurator(CapabilityContext capabilityContext)
     {
         super(capabilityContext);
-        this.capabilityContext=capabilityContext;
 
     }
 
