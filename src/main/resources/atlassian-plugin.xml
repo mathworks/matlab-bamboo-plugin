@@ -28,7 +28,6 @@
     <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MatlabCommandTask">
         <description>Execute a MATLAB script or statement</description>
         <category name="builder"/>
-        <category name="test"/>
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
