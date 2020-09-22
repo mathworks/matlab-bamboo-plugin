@@ -31,7 +31,6 @@ public class MatlabCommandTask extends BaseMatlabTaskType
     @NotNull
     @Override
     public TaskResult execute(@NotNull TaskContext taskContext) {
-        //TaskResultBuilder builder = TaskResultBuilder.create(taskContext);
         final String MATLABCommand = taskContext.getConfigurationMap().get("matlabcommand");
         final String MATLABRoot = taskContext.getConfigurationMap().get("builder.MATLAB.executable");
 

@@ -33,8 +33,6 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator{
     public MatlabTestTaskConfigurator(CapabilityContext capabilityContext)
     {
         super(capabilityContext);
-
-
     }
 
 

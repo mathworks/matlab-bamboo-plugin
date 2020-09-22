@@ -19,19 +19,7 @@ public class MatlabTestTask extends BaseMatlabTaskType
     @NotNull
     @Override
     public TaskResult execute(@NotNull TaskContext taskContext) {
-       // TaskResultBuilder builder = TaskResultBuilder.create(taskContext);
-       // final String matlabCommand = taskContext.getConfigurationMap().get("matlabcommand");
-       // final String matlabRoot = taskContext.getConfigurationMap().get("MATLABVersion");
 
-        // TODO
-        // To replace this logic with using Run MATLAB Command script
-        // Also account for linux and windows
-       /** ExternalProcess process = processService.createExternalProcess(taskContext,
-                new ExternalProcessBuilder()
-                        .command(Arrays.asList(matlabRoot, "-batch", matlabCommand))
-                        .workingDirectory(taskContext.getWorkingDirectory()));
-
-        process.execute();**/
 
         return null;
     }
