@@ -50,7 +50,6 @@ public class CapabilityListHelper {
             String key = capability.getKey();
             if (key.contains("system.builder.matlab.")) {
                 String Label = key.substring(key.lastIndexOf('.') + 1);
-                System.out.println(Label);
                 matlabCapabilityMap.put(Label, capability);
                 matlabExecutables.add(Label);
             }

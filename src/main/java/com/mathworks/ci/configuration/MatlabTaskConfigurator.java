@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
 import com.mathworks.ci.utils.CapabilityListHelper;
 import java.util.Map;
+import java.util.Set;
 
 
 
@@ -58,6 +59,7 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     }
 
     public void populateContextForAll(@NotNull final Map<String, Object> context) {
+        this.capabilityListHelper.populateMatlabExecutables();
         context.put(MATLAB_LIST_CFG_KEY, capabilityListHelper.getMatlabExecutablesList());
     }
 
