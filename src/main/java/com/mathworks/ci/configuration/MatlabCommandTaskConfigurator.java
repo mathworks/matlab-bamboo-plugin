@@ -28,6 +28,7 @@ import java.util.Map;
 @Scanned
 public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     private TextProvider textProvider;
+    private static final String MATLAB_COMMAND_CFG_KEY = "matlabCommand";
 
     public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext) {
         super(capabilityContext);
@@ -35,31 +36,27 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
 
     @NotNull
     @Override
-    // Function called by Bamboo on save
-    public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params,  final TaskDefinition previousTaskDefinition) {
-        super.generateTaskConfigMap(params,previousTaskDefinition);
+    public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
+        super.generateTaskConfigMap(params, previousTaskDefinition);
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
-        config.put("matlabCommand",params.getString("matlabCommand"));
+        config.put(MATLAB_COMMAND_CFG_KEY, params.getString(MATLAB_COMMAND_CFG_KEY));
         return config;
     }
 
 
     @Override
-    //Function called by Bamboo to create Task
     public void populateContextForCreate(@NotNull final Map<String, Object> context) {
         super.populateContextForCreate(context);
     }
 
     @Override
-    //Function called on edit
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
-        context.put("matlabCommand",taskDefinition.getConfiguration().get("matlabCommand"));
+        context.put(MATLAB_COMMAND_CFG_KEY, taskDefinition.getConfiguration().get(MATLAB_COMMAND_CFG_KEY));
     }
 
 
     @Override
-    //validate command field values here
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
     }
