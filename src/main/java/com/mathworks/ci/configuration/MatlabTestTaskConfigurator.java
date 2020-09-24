@@ -24,23 +24,19 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator{
+public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
 
-    @ComponentImport
-    private CapabilityContext capabilityContext;
 
-    
-    public MatlabTestTaskConfigurator(CapabilityContext capabilityContext)
-    {
+    public MatlabTestTaskConfigurator(CapabilityContext capabilityContext) {
         super(capabilityContext);
     }
-
 
 
     @NotNull
     @Override
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
+        super.generateTaskConfigMap(params, previousTaskDefinition);
         // create map with values captured from Task interface
         return config;
     }

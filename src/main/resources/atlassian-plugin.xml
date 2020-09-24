@@ -31,7 +31,6 @@
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
-        <!--<resource type="freemarker" name="view" location="templates/viewMATLABCommandTask.ftl"/> -->
         <!-- placeholder for task image -->
         <!-- placeholder for help link /doc -->
     </taskType>
@@ -44,7 +43,6 @@
         <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
-        <!--<resource type="freemarker" name="view" location="templates/viewMATLABTestTask.ftl"/> -->
         <!-- < placeholder for task image> -->
         <!-- < placeholder for help link/doc > -->
     </taskType>

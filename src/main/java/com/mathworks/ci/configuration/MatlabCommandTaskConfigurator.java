@@ -29,8 +29,7 @@ import java.util.Map;
 public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     private TextProvider textProvider;
 
-    public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext)
-    {
+    public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext) {
         super(capabilityContext);
     }
 
@@ -38,8 +37,9 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     @Override
     // Function called by Bamboo on save
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params,  final TaskDefinition previousTaskDefinition) {
+        super.generateTaskConfigMap(params,previousTaskDefinition);
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
-        // create map with values captured from Task interface
+        config.put("matlabCommand",params.getString("matlabCommand"));
         return config;
     }
 
@@ -54,7 +54,7 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     //Function called on edit
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
-
+        context.put("matlabCommand",taskDefinition.getConfiguration().get("matlabCommand"));
     }
 
 
@@ -62,8 +62,6 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     //validate command field values here
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
-
-       
     }
 
 }
