@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,12 +24,6 @@ import java.util.Objects;
 import java.util.Set;
 
 public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
-
-
-    public MatlabTestTaskConfigurator(CapabilityContext capabilityContext) {
-        super(capabilityContext);
-    }
-
 
     @NotNull
     @Override

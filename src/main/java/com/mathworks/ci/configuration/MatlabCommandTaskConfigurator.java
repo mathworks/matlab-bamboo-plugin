@@ -14,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,9 +28,6 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     private TextProvider textProvider;
     private static final String MATLAB_COMMAND_CFG_KEY = "matlabCommand";
 
-    public MatlabCommandTaskConfigurator(CapabilityContext capabilityContext) {
-        super(capabilityContext);
-    }
 
     @NotNull
     @Override
