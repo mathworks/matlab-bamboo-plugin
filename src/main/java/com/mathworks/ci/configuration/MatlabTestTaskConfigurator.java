@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,23 +23,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator{
-
-    @ComponentImport
-    private CapabilityContext capabilityContext;
-
-    
-    public MatlabTestTaskConfigurator(CapabilityContext capabilityContext)
-    {
-        super(capabilityContext);
-    }
-
-
+public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
 
     @NotNull
     @Override
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
+        super.generateTaskConfigMap(params, previousTaskDefinition);
         // create map with values captured from Task interface
         return config;
     }

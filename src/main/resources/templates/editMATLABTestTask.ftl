@@ -1,6 +1,6 @@
 [#assign addExecutableLink][@ui.displayAddExecutableInline executableKey='matlab'/][/#assign]
-[@ww.select cssClass="builderSelectWidget" labelKey="executable.type" name="MATLABVersion"
-extraUtility=addExecutableLink  required='true'/]
+[@ww.select cssClass="builderSelectWidget" labelKey="executable.type" name="matlabExecutable"
+extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
 
 [@ww.checkbox labelKey='matlab.test.results.exists' name='resultsChecked' toggle='true'/]
    [@ui.bambooSection dependsOn='resultsChecked' showOn=true]
