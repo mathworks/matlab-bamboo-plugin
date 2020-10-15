@@ -5,9 +5,6 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
     </plugin-info>
 
-    <!-- from our base plugin -->
-    <component-import key="myComponent" interface="com.mathworks.ci.api.MyPluginComponent"/>
-
     <!-- from the product container -->
     <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
     

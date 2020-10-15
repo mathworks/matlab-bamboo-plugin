@@ -32,7 +32,7 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     @NotNull
     @Override
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
-        super.generateTaskConfigMap(params, previousTaskDefinition);
+        //super.generateTaskConfigMap(params, previousTaskDefinition);
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
         config.put(MATLAB_COMMAND_CFG_KEY, params.getString(MATLAB_COMMAND_CFG_KEY));
         return config;

@@ -2,22 +2,23 @@
 [@ww.select cssClass="builderSelectWidget" labelKey="executable.type" name="matlabExecutable"
 extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
 
-[@ui.bambooSection titleKey='matlab.test.srcfolder']
+[@ui.bambooSection]
     [@ww.checkbox labelKey='matlab.test.srcfolder.exists' name='srcFolderChecked'  toggle='true'/]
     [@ui.bambooSection dependsOn='srcFolderChecked' showOn=true]
-        [@ww.textfield labelKey='matlab.tests.source.folder' cssClass="long-field" description="Specify the location of folders containing source code, relative to the working directory,<br>  as a colon-separated or a semicolon-separated list. <br> The specified folder and its subfolders are added to the top of the MATLAB search path." name='matlab.tests.source.folder' /]
+        [@ww.textfield labelKey='matlab.tests.source.folder' cssClass="long-field" name="srcfolder" description="Specify the location of folders containing source code, relative to the working directory,<br>  as a colon-separated or a semicolon-separated list.<br>
+         The specified folder and its subfolders are added to the top of the MATLAB search path."/]
         <small>To generate a coverage report, MATLAB uses only the source code in the specified folders and their subfolders.</small><br>
     [/@ui.bambooSection]
 [/@ui.bambooSection]
 
 [@ui.bambooSection titleKey='matlab.test.artifacts']
-    [@ww.checkbox labelKey='matlab.test.results.exists' name='resultsChecked' toggle='true'/]
+    [@ww.checkbox labelKey='matlab.test.results.exists' name='junitChecked' toggle='true'/]
     [@ui.bambooSection dependsOn='resultsChecked' showOn=true]
-        [@ww.textfield labelKey='matlab.tests.results.file' cssClass="long-field" description="Specify a path relative to the working directory." value="artifacts/junit/results.xml" name='matlab.tests.results.file' /]
+        [@ww.textfield labelKey='matlab.tests.results.file' name="junit" cssClass="long-field" description="Specify a path relative to the working directory." /]
     [/@ui.bambooSection]
 
-    [@ww.checkbox labelKey='matlab.test.coverage.exists' name='coverageChecked' toggle='true'/]
+    [@ww.checkbox labelKey='matlab.test.coverage.exists' name='htmlcoverageChecked' toggle='true'/]
     [@ui.bambooSection dependsOn='coverageChecked' showOn=true]
-        [@ww.textfield labelKey='matlab.code.coverage.directory' cssClass="long-field" description="Specify a path relative to the working directory." value="artifacts/htmlcoverage" name='matlab.code.coverage.directory' /]
+        [@ww.textfield labelKey='matlab.code.coverage.directory' name="html" cssClass="long-field" description="Specify a path relative to the working directory." /]
     [/@ui.bambooSection]
 [/@ui.bambooSection]
