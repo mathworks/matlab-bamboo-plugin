@@ -31,7 +31,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     private static final String JUNIT_FILE = "junit";
     private static final String HTML_FOLDER = "html";
     private static final String SRC_FLDR_CHX = "srcFolderChecked";
-    private static final String HTML_CODECOV_CHX ="htmlcoverageChecked";
+    private static final String HTML_CODECOV_CHX ="htmlCoverageChecked";
     private static final String JUNIT_RESULTS_CHX ="junitChecked";
     private static final String JUNIT_DEFAULT_FILE ="matlab-artifacts/test-reports/junit.xml";
     private static final String HTML_DEFAULT_DIR ="matlab-artifacts/code-coverage";
