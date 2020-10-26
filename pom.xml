@@ -15,7 +15,7 @@
     </organization>
 
     <name>matlab-bamboo-plugin</name>
-    <description>MATLAB plugin for Atlassian Bamboo.</description>
+    <description>Continuous Integration with MATLAB on Atlassian Bamboo.</description>
     <packaging>atlassian-plugin</packaging>
 
     <properties>
@@ -65,6 +65,12 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>2.6.1</version>
         </dependency>
 
         <!-- WIRED TEST RUNNER DEPENDENCIES -->
@@ -156,6 +162,20 @@
                             <skipCache> true </skipCache>
                             <overwrite> true </overwrite>
                             <outputDirectory>${basedir}/src/main/resources</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>get-matlab-gen-script</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://ssd.mathworks.com/supportfiles/ci/matlab-script-generator/v0/matlab-script-generator.zip</url>
+                            <unpack>false</unpack>
+                            <outputDirectory>${basedir}/src/main/resources</outputDirectory>
+                            <skipCache>true</skipCache>
+                            <overwrite>true</overwrite>
                         </configuration>
                     </execution>
                 </executions>

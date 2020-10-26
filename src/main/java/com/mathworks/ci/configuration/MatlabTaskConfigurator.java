@@ -20,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
-import com.mathworks.ci.utils.CapabilityListHelper;
 import java.util.Map;
 import java.util.Set;
 
