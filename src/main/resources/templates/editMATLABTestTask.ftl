@@ -5,8 +5,8 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
 [@ui.bambooSection]
     [@ww.checkbox labelKey='matlab.test.srcfolder.exists' name='srcFolderChecked'  toggle='true'/]
     [@ui.bambooSection dependsOn='srcFolderChecked' showOn=true]
-        [@ww.textfield labelKey='matlab.tests.source.folder' cssClass="long-field" name="srcfolder" description="Specify the locations of folders containing source code, relative to the working directory,<br>  as a colon-separated or a semicolon-separated list.<br>
-         The specified folder and their subfolders are added to the top of the MATLAB search path."/]
+        [@ww.textfield labelKey='matlab.tests.source.folder' cssClass="long-field" name="srcfolder" description="Specify the locations of folders containing source code, relative to the working directory,<br>  as a colon-separated or semicolon-separated list.<br>
+         The specified folders and their subfolders are added to the top of the MATLAB search path."/]
         <small>To generate a coverage report, MATLAB uses only the source code in the specified folders and their subfolders.</small><br>
     [/@ui.bambooSection]
 [/@ui.bambooSection]
