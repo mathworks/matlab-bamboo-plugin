@@ -15,7 +15,7 @@
     </organization>
 
     <name>matlab-bamboo-plugin</name>
-    <description>MATLAB plugin for Atlassian Bamboo.</description>
+    <description>Continuous Integration with MATLAB on Atlassian Bamboo.</description>
     <packaging>atlassian-plugin</packaging>
 
     <properties>
@@ -65,6 +65,12 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>2.6.1</version>
         </dependency>
 
         <!-- WIRED TEST RUNNER DEPENDENCIES -->
