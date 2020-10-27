@@ -22,15 +22,13 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
+import com.mathworks.ci.helper.MatlabBuilderConstants;
 
 
 @Scanned
 public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements BuildTaskRequirementSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(MatlabTaskConfigurator.class);
-    private static final String MATLAB_PREFIX = "system.builder.matlab";
-    private static final String MATLAB_CFG_KEY = "matlabExecutable";
-    private static final String UI_CONFIG_SUPPORT = "uiConfigSupport";
-
+ 
     @ComponentImport
     private UIConfigSupport uiConfigSupport;
 
@@ -46,7 +44,7 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     @Override
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
-        config.put(MATLAB_CFG_KEY, params.getString(MATLAB_CFG_KEY));
+        config.put(MatlabBuilderConstants.MATLAB_CFG_KEY, params.getString(MatlabBuilderConstants.MATLAB_CFG_KEY));
         return config;
     }
 
@@ -61,11 +59,11 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         populateContextForAll(context);
-        context.put(MATLAB_CFG_KEY, taskDefinition.getConfiguration().get(MATLAB_CFG_KEY));
+        context.put(MatlabBuilderConstants.MATLAB_CFG_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_CFG_KEY));
     }
 
     public void populateContextForAll(@NotNull final Map<String, Object> context) {
-        context.put(UI_CONFIG_SUPPORT, uiConfigSupport);
+        context.put(MatlabBuilderConstants.UI_CONFIG_SUPPORT, uiConfigSupport);
     }
 
 
@@ -81,14 +79,13 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     public Set<Requirement> calculateRequirements(@NotNull TaskDefinition taskDefinition, @NotNull Job job) {
         Set<Requirement> requirements = Sets.newHashSet();
 
-        if (StringUtils.isNotBlank(MATLAB_PREFIX)) {
-            final String matlabExecutableLabel = taskDefinition.getConfiguration().get(MATLAB_CFG_KEY);
+        if (StringUtils.isNotBlank(MatlabBuilderConstants.MATLAB_PREFIX)) {
+            final String matlabExecutableLabel = taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_CFG_KEY);
             if (matlabExecutableLabel != null) {
-                requirements.add(new RequirementImpl(MATLAB_PREFIX + "." + matlabExecutableLabel, true, ".*"));
+                requirements.add(new RequirementImpl(MatlabBuilderConstants.MATLAB_PREFIX + matlabExecutableLabel, true, ".*"));
             }
         }
         return requirements;
     }
 
 } 
-
