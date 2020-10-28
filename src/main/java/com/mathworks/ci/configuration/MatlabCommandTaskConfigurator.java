@@ -31,20 +31,20 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
 
     @NotNull
     @Override
-    public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
-        final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
+    public Map < String, String > generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
+        final Map < String, String > config = super.generateTaskConfigMap(params, previousTaskDefinition);
         config.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, params.getString(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY));
         return config;
     }
 
 
     @Override
-    public void populateContextForCreate(@NotNull final Map<String, Object> context) {
+    public void populateContextForCreate(@NotNull final Map < String, Object > context) {
         super.populateContextForCreate(context);
     }
 
     @Override
-    public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
+    public void populateContextForEdit(@NotNull final Map < String, Object > context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         context.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY));
     }
@@ -53,6 +53,9 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     @Override
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
+        if (StringUtils.isBlank(params.getString(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY))) {
+            errorCollection.addError(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "Please specify a MATLAB Command");
+        }
     }
 
 }

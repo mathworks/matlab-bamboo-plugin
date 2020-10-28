@@ -62,7 +62,7 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             return taskResultBuilder.failedWithError().build();
         }
         matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
-        buildLogger.addBuildLogEntry("Running MATLAB command: "+ matlabCommand);
+        buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
         try {
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
                 .workingDirectory(workingDirectory)
@@ -73,8 +73,8 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             taskResultBuilder.checkReturnCode(process);
             clearWorkingDirectory(workingDirectory);
         } catch (Exception e) {
-             buildLogger.addErrorLogEntry(e.getMessage());
-          }
+            buildLogger.addErrorLogEntry(e.getMessage());
+        }
         return taskResultBuilder.build();
     }
 
@@ -90,7 +90,7 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
         return command;
     }
 
-       // Create a new command runner script in the temp folder.
+    // Create a new command runner script in the temp folder.
     private void createMatlabScriptByName(File uniqeTmpFolderPath, String uniqueScriptName, File workspace) throws IOException {
         final File matlabCommandFile =
             new File(uniqeTmpFolderPath, uniqueScriptName + ".m");
