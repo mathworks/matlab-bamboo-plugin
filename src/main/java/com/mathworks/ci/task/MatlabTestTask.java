@@ -13,7 +13,7 @@ import com.atlassian.utils.process.ExternalProcess;
 import org.jetbrains.annotations.NotNull;
 
 @Scanned
-public class MatlabTestTask extends BaseMatlabTaskType
+public class MatlabTestTask implements TaskType
 {
 
     @NotNull

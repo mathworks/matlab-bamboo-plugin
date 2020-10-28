@@ -1,5 +1,12 @@
 package ut.com.mathworks.ci.task;
 
+/**
+ * 
+ * 
+ * Test class for MatlabCommandTask
+ * 
+ */
+
 import org.junit.Test;
 import com.mathworks.ci.task.MatlabCommandTask;
 import com.atlassian.bamboo.task.TaskContext;

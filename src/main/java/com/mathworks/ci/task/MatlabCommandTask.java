@@ -54,10 +54,15 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
     @NotNull
     @Override
     public TaskResult execute(@NotNull TaskContext taskContext) throws TaskException {
-        List < String > command = new ArrayList < > ();
         TaskResultBuilder taskResultBuilder = TaskResultBuilder.newBuilder(taskContext);
+        BuildLogger buildLogger = taskContext.getBuildLogger();
         File workingDirectory = getTempWorkingDirectory();
+        if (!workingDirectory.isDirectory()) {
+            buildLogger.addErrorLogEntry("Working directory " + workingDirectory.getPath() + " does not exist.");
+            return taskResultBuilder.failedWithError().build();
+        }
         matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
+        buildLogger.addBuildLogEntry("Running MATLAB command: "+ matlabCommand);
         try {
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
                 .workingDirectory(workingDirectory)
@@ -67,7 +72,9 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             process.execute();
             taskResultBuilder.checkReturnCode(process);
             clearWorkingDirectory(workingDirectory);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+             buildLogger.addErrorLogEntry(e.getMessage());
+          }
         return taskResultBuilder.build();
     }
 
@@ -83,9 +90,8 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
         return command;
     }
 
+       // Create a new command runner script in the temp folder.
     private void createMatlabScriptByName(File uniqeTmpFolderPath, String uniqueScriptName, File workspace) throws IOException {
-
-        // Create a new command runner script in the temp folder.
         final File matlabCommandFile =
             new File(uniqeTmpFolderPath, uniqueScriptName + ".m");
         final String matlabCommandFileContent =
