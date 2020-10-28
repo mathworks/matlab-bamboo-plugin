@@ -5,7 +5,11 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
     </plugin-info>
 
+    <!-- from our base plugin -->
+    <component-import key="MatlabCommandTask" interface="com.mathworks.ci.task.MatlabCommandTask"/>
+
     <!-- from the product container -->
     <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    <component-import key="capabilityContext" interface="com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext" />
     
 </atlassian-plugin>
