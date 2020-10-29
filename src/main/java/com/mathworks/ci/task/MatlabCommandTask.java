@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
 import com.atlassian.bamboo.utils.SystemProperty;
 import com.mathworks.ci.helper.MatlabBuild;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
@@ -56,37 +57,40 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
     public TaskResult execute(@NotNull TaskContext taskContext) throws TaskException {
         TaskResultBuilder taskResultBuilder = TaskResultBuilder.newBuilder(taskContext);
         BuildLogger buildLogger = taskContext.getBuildLogger();
-        File workingDirectory = getTempWorkingDirectory();
-        if (!workingDirectory.isDirectory()) {
-            buildLogger.addErrorLogEntry("Working directory " + workingDirectory.getPath() + " does not exist.");
+        File tempDirectory = getTempWorkingDirectory();
+        matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
+        String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
+        //TODO: Need to validate matlabRoot  
+        if (!StringUtils.isNotEmpty(matlabRoot)) {
+            buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();
         }
-        matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
         buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
         try {
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
-                .workingDirectory(workingDirectory)
-                .command(getMatlabCommandScript(taskContext.getRootDirectory(), workingDirectory))
-                .env(SystemProperty.PATH.getKey(), getMatlabRoot(taskContext, capabilityContext));
+                .workingDirectory(taskContext.getRootDirectory())
+                .command(getMatlabCommandScript(taskContext.getRootDirectory(), tempDirectory))
+                .env(SystemProperty.PATH.getKey(),matlabRoot);
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
-            clearWorkingDirectory(workingDirectory);
+            clearWorkingDirectory(tempDirectory);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
         }
         return taskResultBuilder.build();
     }
 
-    private List < String > getMatlabCommandScript(File rootDirectory, File workingDirectory) throws IOException {
+    private List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
         List < String > command = new ArrayList < > ();
         final String uniqueCommandFile =
             "command_" + getUniqueNameForRunnerFile().replaceAll("-", "_");
+        String commandToExecute = "cd('" + tempDirectory.toString().replaceAll("'","''") + "');" + uniqueCommandFile;
 
         // Create MATLAB script
-        createMatlabScriptByName(workingDirectory, uniqueCommandFile, rootDirectory);
-        command.add(getPlatformSpecificRunner(workingDirectory));
-        command.add(uniqueCommandFile);
+        createMatlabScriptByName(tempDirectory, uniqueCommandFile, rootDirectory);
+        command.add(getPlatformSpecificRunner(tempDirectory));
+        command.add(commandToExecute);
         return command;
     }
 
@@ -96,6 +100,7 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             new File(uniqeTmpFolderPath, uniqueScriptName + ".m");
         final String matlabCommandFileContent =
             "cd '" + workspace.toString().replaceAll("'", "''") + "';\n" + matlabCommand;
+        System.out.println(matlabCommandFileContent);
         BufferedWriter writer = new BufferedWriter(new FileWriter(matlabCommandFile));
         writer.write(matlabCommandFileContent);
         writer.close();

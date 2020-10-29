@@ -13,7 +13,7 @@ public class MatlabBuilderConstants {
     public static final String MATLAB_COMMAND_CFG_KEY = "matlabCommand";
 
     // Matlab Runner files 
-    public static final String BAT_RUNNER_SCRIPT = "run_matlab_command.bat";
-    public static final String SHELL_RUNNER_SCRIPT = "run_matlab_command.sh";
+    public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
+    public static final String SHELL_RUNNER_FILE = "run_matlab_command.sh";
 
 }

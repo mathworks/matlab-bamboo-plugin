@@ -36,23 +36,23 @@ public interface MatlabBuild {
 
     default File getTempWorkingDirectory() {
         File tmpDir = SystemUtils.getJavaIoTmpDir();
-        File workingDirectory = new File(tmpDir, getUniqueNameForRunnerFile());
-        workingDirectory.mkdirs();
-        return workingDirectory;
+        File tempDirectory = new File(tmpDir, getUniqueNameForRunnerFile());
+        tempDirectory.mkdirs();
+        return tempDirectory;
     }
 
     default String getUniqueNameForRunnerFile() {
         return UUID.randomUUID().toString();
     }
 
-    default String getPlatformSpecificRunner(File workingDirectory) throws IOException {
+    default String getPlatformSpecificRunner(File tempDirectory) throws IOException {
 
         if (SystemUtils.IS_OS_WINDOWS) {
-            copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_SCRIPT, workingDirectory);
-            return "run_matlab_command.bat";
+            copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_FILE, tempDirectory);
+            return tempDirectory +"\\" + "run_matlab_command.bat";
         } else {
-            copyFileInWorkspace(MatlabBuilderConstants.SHELL_RUNNER_SCRIPT, workingDirectory);
-            return "./run_matlab_command.sh";
+            copyFileInWorkspace(MatlabBuilderConstants.SHELL_RUNNER_FILE, tempDirectory);
+            return tempDirectory + "/" + "run_matlab_command.sh";
         }
     }
 
@@ -73,7 +73,6 @@ public interface MatlabBuild {
         destination.setReadable(true, true);
         destination.setWritable(true);
         destination.setExecutable(true, true);
-        System.out.println(destination);
     }
 
     default void clearWorkingDirectory(File workspace) throws IOException {
