@@ -1,5 +1,9 @@
 package com.mathworks.ci.helper;
 
+/**
+ * Copyright 2020 The MathWorks, Inc.
+ */
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.atlassian.bamboo.task.TaskContext;

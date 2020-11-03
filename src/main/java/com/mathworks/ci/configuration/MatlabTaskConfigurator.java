@@ -1,5 +1,9 @@
 package com.mathworks.ci.configuration;
 
+/**
+ * Copyright 2020 The MathWorks, Inc.
+ */
+
 import com.atlassian.bamboo.build.Job;
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.task.AbstractTaskConfigurator;

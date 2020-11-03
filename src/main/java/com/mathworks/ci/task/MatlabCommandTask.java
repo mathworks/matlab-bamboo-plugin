@@ -1,5 +1,9 @@
 package com.mathworks.ci.task;
 
+/**
+ * Copyright 2020 The MathWorks, Inc.
+ */
+
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMap;
 import com.atlassian.bamboo.process.ExternalProcessBuilder;

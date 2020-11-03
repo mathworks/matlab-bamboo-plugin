@@ -1,5 +1,9 @@
 package com.mathworks.ci.helper;
 
+/**
+ * Copyright 2020 The MathWorks, Inc.
+ */
+
 public class MatlabBuilderConstants {
 
     // MATLAB executable
