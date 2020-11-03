@@ -30,7 +30,7 @@ public interface MatlabBuild {
                 matlabRoot = Strings.emptyToNull(capability.getValue());
             }
         }
-        return matlabRoot;
+        return matlabRoot+File.separator+"bin";
     }
 
 

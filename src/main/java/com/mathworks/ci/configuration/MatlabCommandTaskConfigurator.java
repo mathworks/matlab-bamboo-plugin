@@ -54,7 +54,7 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
         if (StringUtils.isBlank(params.getString(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY))) {
-            errorCollection.addError(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "Please specify a MATLAB Command");
+            errorCollection.addError(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "Please specify a MATLAB command");
         }
     }
 
