@@ -74,7 +74,7 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
-            clearWorkingDirectory(tempDirectory);
+            clearTempDirectory(tempDirectory);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
         }

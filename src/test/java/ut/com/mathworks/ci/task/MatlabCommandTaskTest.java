@@ -76,7 +76,7 @@ public class MatlabCommandTaskTest {
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl(map);
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
-        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext), "local-ssd/Downloads/R2019b");
+        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext), "local-ssd/Downloads/R2019b/bin");
     }
 
 

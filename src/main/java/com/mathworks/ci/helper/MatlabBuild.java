@@ -75,7 +75,7 @@ public interface MatlabBuild {
         destination.setExecutable(true, true);
     }
 
-    default void clearWorkingDirectory(File workspace) throws IOException {
+    default void clearTempDirectory(File workspace) throws IOException {
         FileUtils.cleanDirectory(workspace);
         FileUtils.deleteDirectory(workspace);
     }
