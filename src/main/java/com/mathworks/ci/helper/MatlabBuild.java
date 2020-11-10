@@ -17,8 +17,10 @@ import org.apache.commons.lang3.SystemUtils;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import java.util.*;
 import java.io.*;
+import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public interface MatlabBuild {
 
@@ -79,9 +81,36 @@ public interface MatlabBuild {
         destination.setExecutable(true, true);
     }
 
+
+    // This method prepares the temp folder by coping all helper files in it.
+    default void prepareTmpFldr(File tmpFldr, String runnerScript) throws IOException{
+        // Write MATLAB scratch file in temp folder.
+        File scriptFile = new File(tmpFldr, (getValidMatlabFileName(FilenameUtils.getBaseName(tmpFldr.toString())) + ".m"));
+        System.out.println(scriptFile);
+        FileUtils.writeStringToFile(scriptFile,runnerScript,"UTF-8");
+        //scriptFile.write(runnerScript, "UTF-8");
+        // copy genscript package
+        copyFileInWorkspace("matlab-script-generator.zip",tmpFldr);
+        File zipFileLocation = new File(tmpFldr, "matlab-script-generator.zip");
+        // Unzip the file in temp folder.
+        ZipFile zipFile = new ZipFile(zipFileLocation);
+        zipFile.extractAll(tmpFldr.toString());
+    }
+
+
     default void clearTempDirectory(File workspace) throws IOException {
         FileUtils.cleanDirectory(workspace);
         FileUtils.deleteDirectory(workspace);
+    }
+
+     default String getRunnerScript(String script, String params) {
+        script = script.replace("${PARAMS}", params);
+        return script;
+    }
+
+     default String getValidMatlabFileName(String actualName) {
+        return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX
+                + actualName.replaceAll("-", "_");
     }
 
 

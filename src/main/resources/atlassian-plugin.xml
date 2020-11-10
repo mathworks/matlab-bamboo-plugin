@@ -18,7 +18,7 @@
         <resource type="download" name="matlab-bamboo-plugin.js" location="/js/matlab-bamboo-plugin.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>matlab-bamboo-plugin</context>
+        <context>MATLAB for Bamboo</context>
 
     </web-resource>
 
