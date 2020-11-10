@@ -31,8 +31,7 @@ import java.io.*;
  */
 
 @Scanned
-public class MatlabTestTask implements TaskType, MatlabBuild
-{
+public class MatlabTestTask implements TaskType, MatlabBuild {
 
     private String matlabTestOptions;
 
@@ -42,19 +41,19 @@ public class MatlabTestTask implements TaskType, MatlabBuild
     @ComponentImport
     private final CapabilityContext capabilityContext;
 
-     public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
+    public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
     }
 
     @NotNull
     @Override
-    public TaskResult execute(@NotNull TaskContext taskContext) throws TaskException{
-     TaskResultBuilder taskResultBuilder = TaskResultBuilder.newBuilder(taskContext);
-     BuildLogger buildLogger = taskContext.getBuildLogger();
-     File tempDirectory = getTempWorkingDirectory();
-     matlabTestOptions = getInputArguments(taskContext);
-     String matlabRoot = getMatlabRoot(taskContext, capabilityContext); 
+    public TaskResult execute(@NotNull TaskContext taskContext) throws TaskException {
+        TaskResultBuilder taskResultBuilder = TaskResultBuilder.newBuilder(taskContext);
+        BuildLogger buildLogger = taskContext.getBuildLogger();
+        File tempDirectory = getTempWorkingDirectory();
+        matlabTestOptions = getInputArguments(taskContext);
+        String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();
@@ -64,7 +63,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
                 .workingDirectory(taskContext.getRootDirectory())
                 .command(getMatlabCommandScript(taskContext.getRootDirectory(), tempDirectory))
-                .env(SystemProperty.PATH.getKey(),matlabRoot);
+                .env(SystemProperty.PATH.getKey(), matlabRoot);
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
@@ -77,46 +76,46 @@ public class MatlabTestTask implements TaskType, MatlabBuild
 
     private List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
         List < String > command = new ArrayList < > ();
-      
+
         command.add(getPlatformSpecificRunner(tempDirectory));
         command.add(constructCommandForTest(tempDirectory));
         prepareTmpFldr(tempDirectory, getRunnerScript(
-                   MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions));
+            MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions));
         return command;
     }
 
     private String constructCommandForTest(File scriptPath) {
-       final String matlabScriptName = getValidMatlabFileName(FilenameUtils.getBaseName(scriptPath.toString()));
-       final String runCommand = "addpath('" + scriptPath.toString().replaceAll("'", "''")
-                + "'); " + matlabScriptName;
-       return runCommand;
+        final String matlabScriptName = getValidMatlabFileName(FilenameUtils.getBaseName(scriptPath.toString()));
+        final String runCommand = "addpath('" + scriptPath.toString().replaceAll("'", "''") +
+            "'); " + matlabScriptName;
+        return runCommand;
     }
 
 
     // Concatenate the input arguments
     private String getInputArguments(TaskContext taskContext) {
 
-        final List<String> inputArgsList = new ArrayList<String>();
+        final List < String > inputArgsList = new ArrayList < String > ();
         inputArgsList.add("'Test'");
 
-        if(Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))){
-        inputArgsList.add("'" + "JUnitTestResults"  + "'" + "," + "'" + taskContext.getConfigurationMap().get("junit") + "'");
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))) {
+            inputArgsList.add("'" + "JUnitTestResults" + "'" + "," + "'" + taskContext.getConfigurationMap().get("junit") + "'");
         }
 
-        if(Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlCoverageChecked"))){
-        inputArgsList.add("'" + "HTMLCodeCoverage"  + "'" + "," + "'" + taskContext.getConfigurationMap().get("html") + "'");
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlCoverageChecked"))) {
+            inputArgsList.add("'" + "HTMLCodeCoverage" + "'" + "," + "'" + taskContext.getConfigurationMap().get("html") + "'");
         }
 
         /*
-        * Add source folder options to argument.
-        * */
-        
-        if(Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))){
-        List<String> listOfSrcFolders = Arrays.asList((taskContext.getConfigurationMap().get("srcfolder")).trim());
-        listOfSrcFolders.replaceAll(val -> "'" + val + "'");
-        inputArgsList.add("'" + "SourceFolder"  + "'" + "," +  listOfSrcFolders);
+         * Add source folder options to argument.
+         * */
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))) {
+            List < String > listOfSrcFolders = Arrays.asList((taskContext.getConfigurationMap().get("srcfolder")).trim());
+            listOfSrcFolders.replaceAll(val - > "'" + val + "'");
+            inputArgsList.add("'" + "SourceFolder" + "'" + "," + listOfSrcFolders);
         }
-        
+
         return String.join(",", inputArgsList);
     }
 

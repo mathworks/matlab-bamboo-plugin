@@ -29,14 +29,14 @@ import java.util.Set;
 
 
 public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
-    
+
     @NotNull
     @Override
-    public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
-        final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
-        config.put(MatlabBuilderConstants.SRC_FLDR_CHX,String.valueOf(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)));
-        config.put(MatlabBuilderConstants.HTML_CODECOV_CHX,String.valueOf(params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX)));
-        config.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX,String.valueOf(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)));
+    public Map < String, String > generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
+        final Map < String, String > config = super.generateTaskConfigMap(params, previousTaskDefinition);
+        config.put(MatlabBuilderConstants.SRC_FLDR_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)));
+        config.put(MatlabBuilderConstants.HTML_CODECOV_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX)));
+        config.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)));
         config.put(MatlabBuilderConstants.SOURCE_FOLDER, params.getString(MatlabBuilderConstants.SOURCE_FOLDER));
         config.put(MatlabBuilderConstants.JUNIT_FILE, params.getString(MatlabBuilderConstants.JUNIT_FILE));
         config.put(MatlabBuilderConstants.HTML_FOLDER, params.getString(MatlabBuilderConstants.HTML_FOLDER));
@@ -45,7 +45,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
 
 
     @Override
-    public void populateContextForCreate(@NotNull final Map<String, Object> context) {
+    public void populateContextForCreate(@NotNull final Map < String, Object > context) {
         super.populateContextForCreate(context);
         context.put(MatlabBuilderConstants.JUNIT_FILE, MatlabBuilderConstants.JUNIT_DEFAULT_FILE);
         context.put(MatlabBuilderConstants.HTML_FOLDER, MatlabBuilderConstants.HTML_DEFAULT_DIR);
@@ -54,7 +54,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     }
 
     @Override
-    public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
+    public void populateContextForEdit(@NotNull final Map < String, Object > context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         context.put(MatlabBuilderConstants.SOURCE_FOLDER, taskDefinition.getConfiguration().get(MatlabBuilderConstants.SOURCE_FOLDER));
         context.put(MatlabBuilderConstants.JUNIT_FILE, taskDefinition.getConfiguration().get(MatlabBuilderConstants.JUNIT_FILE));
@@ -68,14 +68,14 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     @Override
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
-        if(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.SOURCE_FOLDER)))){
-           errorCollection.addError(MatlabBuilderConstants.SOURCE_FOLDER, "Please specify Source folder"); 
+        if (params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.SOURCE_FOLDER)))) {
+            errorCollection.addError(MatlabBuilderConstants.SOURCE_FOLDER, "Please specify Source folder");
         }
-        if(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.JUNIT_FILE)))){
-           errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Please specify JUnit results path"); 
+        if (params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.JUNIT_FILE)))) {
+            errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Please specify JUnit results path");
         }
-        if(params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_FOLDER)))){
-           errorCollection.addError(MatlabBuilderConstants.HTML_FOLDER, "Please specify a directory for code coverage"); 
+        if (params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_FOLDER)))) {
+            errorCollection.addError(MatlabBuilderConstants.HTML_FOLDER, "Please specify a directory for code coverage");
         }
 
     }

@@ -36,7 +36,7 @@ public interface MatlabBuild {
                 matlabRoot = Strings.emptyToNull(capability.getValue());
             }
         }
-        return matlabRoot+File.separator+"bin";
+        return matlabRoot + File.separator + "bin";
     }
 
 
@@ -55,7 +55,7 @@ public interface MatlabBuild {
 
         if (SystemUtils.IS_OS_WINDOWS) {
             copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_FILE, tempDirectory);
-            return tempDirectory +"\\" + "run_matlab_command.bat";
+            return tempDirectory + "\\" + "run_matlab_command.bat";
         } else {
             copyFileInWorkspace(MatlabBuilderConstants.SHELL_RUNNER_FILE, tempDirectory);
             return tempDirectory + "/" + "run_matlab_command.sh";
@@ -83,13 +83,13 @@ public interface MatlabBuild {
 
 
     // This method prepares the temp folder by coping all helper files in it.
-    default void prepareTmpFldr(File tmpFldr, String runnerScript) throws IOException{
+    default void prepareTmpFldr(File tmpFldr, String runnerScript) throws IOException {
         // Write MATLAB scratch file in temp folder.
         File scriptFile = new File(tmpFldr, (getValidMatlabFileName(FilenameUtils.getBaseName(tmpFldr.toString())) + ".m"));
-        FileUtils.writeStringToFile(scriptFile,runnerScript,"UTF-8");
+        FileUtils.writeStringToFile(scriptFile, runnerScript, "UTF-8");
 
         // copy genscript package
-        copyFileInWorkspace("matlab-script-generator.zip",tmpFldr);
+        copyFileInWorkspace("matlab-script-generator.zip", tmpFldr);
         File zipFileLocation = new File(tmpFldr, "matlab-script-generator.zip");
 
         // Unzip the file in temp folder.
@@ -103,14 +103,14 @@ public interface MatlabBuild {
         FileUtils.deleteDirectory(workspace);
     }
 
-     default String getRunnerScript(String script, String params) {
+    default String getRunnerScript(String script, String params) {
         script = script.replace("${PARAMS}", params);
         return script;
     }
 
-     default String getValidMatlabFileName(String actualName) {
-        return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX
-                + actualName.replaceAll("-", "_");
+    default String getValidMatlabFileName(String actualName) {
+        return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX +
+            actualName.replaceAll("-", "_");
     }
 
 
