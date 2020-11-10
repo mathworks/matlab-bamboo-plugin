@@ -102,11 +102,11 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         inputArgsList.add("'Test'");
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))) {
-            inputArgsList.add("'" + "JUnitTestResults" + "'" + "," + "'" + taskContext.getConfigurationMap().get("junit") + "'");
+            inputArgsList.add("'" + "JUnitTestResults" + "'" + "," + "'" + taskContext.getConfigurationMap().get("junit").trim().replaceAll("'", "''") + "'");
         }
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlCoverageChecked"))) {
-            inputArgsList.add("'" + "HTMLCodeCoverage" + "'" + "," + "'" + taskContext.getConfigurationMap().get("html") + "'");
+            inputArgsList.add("'" + "HTMLCodeCoverage" + "'" + "," + "'" + taskContext.getConfigurationMap().get("html").trim().replaceAll("'", "''") + "'");
         }
 
         /*
@@ -114,7 +114,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
          * */
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))) {
-            inputArgsList.add("'" + "SourceFolder" + "'" + "," + "'" + taskContext.getConfigurationMap().get("srcfolder").trim() + "'");
+            inputArgsList.add("'" + "SourceFolder" + "'" + "," + "'" + taskContext.getConfigurationMap().get("srcfolder").trim().replaceAll("'", "''") + "'");
         }
 
         return String.join(",", inputArgsList);
