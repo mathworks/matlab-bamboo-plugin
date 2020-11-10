@@ -24,6 +24,12 @@ import org.apache.commons.io.FilenameUtils;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Run MATLAB Test Task Invocation
+ *
+ *
+ */
+
 @Scanned
 public class MatlabTestTask implements TaskType, MatlabBuild
 {
@@ -48,9 +54,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild
      BuildLogger buildLogger = taskContext.getBuildLogger();
      File tempDirectory = getTempWorkingDirectory();
      matlabTestOptions = getInputArguments(taskContext);
-     System.out.println(matlabTestOptions);
-     String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
-     //TODO: Need to validate matlabRoot  
+     String matlabRoot = getMatlabRoot(taskContext, capabilityContext); 
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();
@@ -64,7 +68,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
-            //clearTempDirectory(tempDirectory);
+            clearTempDirectory(tempDirectory);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
         }
@@ -78,15 +82,13 @@ public class MatlabTestTask implements TaskType, MatlabBuild
         command.add(constructCommandForTest(tempDirectory));
         prepareTmpFldr(tempDirectory, getRunnerScript(
                    MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions));
-        System.out.println(command);
         return command;
     }
 
-    public String constructCommandForTest(File scriptPath) {
+    private String constructCommandForTest(File scriptPath) {
        final String matlabScriptName = getValidMatlabFileName(FilenameUtils.getBaseName(scriptPath.toString()));
        final String runCommand = "addpath('" + scriptPath.toString().replaceAll("'", "''")
                 + "'); " + matlabScriptName;
-       System.out.println(runCommand);
        return runCommand;
     }
 
@@ -107,7 +109,6 @@ public class MatlabTestTask implements TaskType, MatlabBuild
 
         /*
         * Add source folder options to argument.
-        * For source folder we create a MATLAB cell array and add it to input argument list.
         * */
         
         if(Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))){

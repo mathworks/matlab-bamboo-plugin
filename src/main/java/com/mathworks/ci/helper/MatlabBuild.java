@@ -86,12 +86,12 @@ public interface MatlabBuild {
     default void prepareTmpFldr(File tmpFldr, String runnerScript) throws IOException{
         // Write MATLAB scratch file in temp folder.
         File scriptFile = new File(tmpFldr, (getValidMatlabFileName(FilenameUtils.getBaseName(tmpFldr.toString())) + ".m"));
-        System.out.println(scriptFile);
         FileUtils.writeStringToFile(scriptFile,runnerScript,"UTF-8");
-        //scriptFile.write(runnerScript, "UTF-8");
+
         // copy genscript package
         copyFileInWorkspace("matlab-script-generator.zip",tmpFldr);
         File zipFileLocation = new File(tmpFldr, "matlab-script-generator.zip");
+
         // Unzip the file in temp folder.
         ZipFile zipFile = new ZipFile(zipFileLocation);
         zipFile.extractAll(tmpFldr.toString());

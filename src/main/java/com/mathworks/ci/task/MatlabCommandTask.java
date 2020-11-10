@@ -64,7 +64,6 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
         File tempDirectory = getTempWorkingDirectory();
         matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
-        //TODO: Need to validate matlabRoot  
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();

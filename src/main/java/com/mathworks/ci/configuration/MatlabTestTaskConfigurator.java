@@ -28,7 +28,6 @@ import java.util.Objects;
 import java.util.Set;
 
 
-//TODO: Error handling pending
 public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     
     @NotNull
@@ -69,6 +68,15 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     @Override
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
+        if(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.SOURCE_FOLDER)))){
+           errorCollection.addError(MatlabBuilderConstants.SOURCE_FOLDER, "Please specify Source folder"); 
+        }
+        if(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.JUNIT_FILE)))){
+           errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Please specify JUnit results path"); 
+        }
+        if(params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX)&&(StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_FOLDER)))){
+           errorCollection.addError(MatlabBuilderConstants.HTML_FOLDER, "Please specify a directory for code coverage"); 
+        }
 
     }
 
