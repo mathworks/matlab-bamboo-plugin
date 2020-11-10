@@ -32,8 +32,8 @@ public class MatlabBuilderConstants {
 
     // MATLAB runner script
     public static final String TEST_RUNNER_SCRIPT = "testScript = genscript(${PARAMS});\n" + "\n"
-            + "disp('Running MATLAB script with content:');\n"
-            + "disp(strtrim(testScript.writeToText()));\n"
+            + "disp('Running MATLAB script with contents:');\n"
+            + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
     String testOptions="";
 

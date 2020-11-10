@@ -69,13 +69,13 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
         if (params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.SOURCE_FOLDER)))) {
-            errorCollection.addError(MatlabBuilderConstants.SOURCE_FOLDER, "Please specify Source folder");
+            errorCollection.addError(MatlabBuilderConstants.SOURCE_FOLDER, "Specify a valid path to the source folder");
         }
         if (params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.JUNIT_FILE)))) {
-            errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Please specify JUnit results path");
+            errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Specify a valid location for the JUnit test report");
         }
         if (params.getBoolean(MatlabBuilderConstants.HTML_CODECOV_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_FOLDER)))) {
-            errorCollection.addError(MatlabBuilderConstants.HTML_FOLDER, "Please specify a directory for code coverage");
+            errorCollection.addError(MatlabBuilderConstants.HTML_FOLDER, "Specify a valid location for the HTML code coverage report");
         }
 
     }

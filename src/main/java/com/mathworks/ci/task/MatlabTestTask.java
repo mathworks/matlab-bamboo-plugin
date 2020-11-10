@@ -25,7 +25,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Run MATLAB Test Task Invocation
+ * Run MATLAB  Task Invocation
  *
  *
  */
@@ -67,9 +67,12 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
-            clearTempDirectory(tempDirectory);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
+        } finally {
+            if (tempDirectory.exists()) {
+                clearTempDirectory(tempDirectory, buildLogger);
+            }
         }
         return taskResultBuilder.build();
     }
@@ -111,9 +114,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
          * */
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))) {
-            List < String > listOfSrcFolders = Arrays.asList((taskContext.getConfigurationMap().get("srcfolder")).trim());
-            listOfSrcFolders.replaceAll(val - > "'" + val + "'");
-            inputArgsList.add("'" + "SourceFolder" + "'" + "," + listOfSrcFolders);
+            inputArgsList.add("'" + "SourceFolder" + "'" + "," + "'" + taskContext.getConfigurationMap().get("srcfolder").trim() + "'");
         }
 
         return String.join(",", inputArgsList);

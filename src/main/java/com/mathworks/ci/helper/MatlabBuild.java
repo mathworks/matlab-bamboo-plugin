@@ -3,7 +3,7 @@ package com.mathworks.ci.helper;
 /**
  * Copyright 2020 The MathWorks, Inc.
  */
-
+import com.atlassian.bamboo.build.logger.BuildLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.atlassian.bamboo.task.TaskContext;
@@ -98,9 +98,13 @@ public interface MatlabBuild {
     }
 
 
-    default void clearTempDirectory(File workspace) throws IOException {
-        FileUtils.cleanDirectory(workspace);
-        FileUtils.deleteDirectory(workspace);
+    default void clearTempDirectory(File workspace, BuildLogger buildLogger) {
+        try {
+            FileUtils.cleanDirectory(workspace);
+            FileUtils.deleteDirectory(workspace);
+        } catch (Exception e) {
+            buildLogger.addErrorLogEntry(e.getMessage());
+        }
     }
 
     default String getRunnerScript(String script, String params) {
