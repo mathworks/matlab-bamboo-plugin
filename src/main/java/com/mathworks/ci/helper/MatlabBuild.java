@@ -3,7 +3,7 @@ package com.mathworks.ci.helper;
 /**
  * Copyright 2020 The MathWorks, Inc.
  */
-
+import com.atlassian.bamboo.build.logger.BuildLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.atlassian.bamboo.task.TaskContext;
@@ -17,8 +17,10 @@ import org.apache.commons.lang3.SystemUtils;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import java.util.*;
 import java.io.*;
+import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public interface MatlabBuild {
 
@@ -34,7 +36,7 @@ public interface MatlabBuild {
                 matlabRoot = Strings.emptyToNull(capability.getValue());
             }
         }
-        return matlabRoot+File.separator+"bin";
+        return matlabRoot + File.separator + "bin";
     }
 
 
@@ -53,7 +55,7 @@ public interface MatlabBuild {
 
         if (SystemUtils.IS_OS_WINDOWS) {
             copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_FILE, tempDirectory);
-            return tempDirectory +"\\" + "run_matlab_command.bat";
+            return tempDirectory + "\\" + "run_matlab_command.bat";
         } else {
             copyFileInWorkspace(MatlabBuilderConstants.SHELL_RUNNER_FILE, tempDirectory);
             return tempDirectory + "/" + "run_matlab_command.sh";
@@ -79,9 +81,40 @@ public interface MatlabBuild {
         destination.setExecutable(true, true);
     }
 
-    default void clearTempDirectory(File workspace) throws IOException {
-        FileUtils.cleanDirectory(workspace);
-        FileUtils.deleteDirectory(workspace);
+
+    // This method prepares the temp folder by coping all helper files in it.
+    default void prepareTmpFldr(File tmpFldr, String runnerScript) throws IOException {
+        // Write MATLAB scratch file in temp folder.
+        File scriptFile = new File(tmpFldr, (getValidMatlabFileName(FilenameUtils.getBaseName(tmpFldr.toString())) + ".m"));
+        FileUtils.writeStringToFile(scriptFile, runnerScript, "UTF-8");
+
+        // copy genscript package
+        copyFileInWorkspace("matlab-script-generator.zip", tmpFldr);
+        File zipFileLocation = new File(tmpFldr, "matlab-script-generator.zip");
+
+        // Unzip the file in temp folder.
+        ZipFile zipFile = new ZipFile(zipFileLocation);
+        zipFile.extractAll(tmpFldr.toString());
+    }
+
+
+    default void clearTempDirectory(File workspace, BuildLogger buildLogger) {
+        try {
+            FileUtils.cleanDirectory(workspace);
+            FileUtils.deleteDirectory(workspace);
+        } catch (Exception e) {
+            buildLogger.addErrorLogEntry(e.getMessage());
+        }
+    }
+
+    default String getRunnerScript(String script, String params) {
+        script = script.replace("${PARAMS}", params);
+        return script;
+    }
+
+    default String getValidMatlabFileName(String actualName) {
+        return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX +
+            actualName.replaceAll("-", "_");
     }
 
 

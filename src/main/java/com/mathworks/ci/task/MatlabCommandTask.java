@@ -64,7 +64,6 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
         File tempDirectory = getTempWorkingDirectory();
         matlabCommand = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY);
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
-        //TODO: Need to validate matlabRoot  
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();
@@ -78,9 +77,12 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
-            clearTempDirectory(tempDirectory);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
+        }finally {
+            if(tempDirectory.exists()){
+                clearTempDirectory(tempDirectory,buildLogger);
+             }
         }
         return taskResultBuilder.build();
     }

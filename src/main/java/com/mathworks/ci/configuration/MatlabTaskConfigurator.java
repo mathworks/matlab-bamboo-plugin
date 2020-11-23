@@ -76,7 +76,7 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     public void validate(@NotNull final ActionParametersMap params, @NotNull final ErrorCollection errorCollection) {
         super.validate(params, errorCollection);
         if (StringUtils.isBlank(params.getString(MatlabBuilderConstants.MATLAB_CFG_KEY))) {
-            errorCollection.addError(MatlabBuilderConstants.MATLAB_CFG_KEY, "Please specify a MATLAB executable");
+            errorCollection.addError(MatlabBuilderConstants.MATLAB_CFG_KEY, "Specify a MATLAB executable.");
         }
     }
 

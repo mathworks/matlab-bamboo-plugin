@@ -3,7 +3,7 @@
         <description>${project.description}</description>
         <version>${project.version}</version>
         <vendor name="${project.organization.name}" url="${project.organization.url}" />
-        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-icon">images/pluginLogo.png</param>
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
@@ -18,7 +18,7 @@
         <resource type="download" name="matlab-bamboo-plugin.js" location="/js/matlab-bamboo-plugin.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>matlab-bamboo-plugin</context>
+        <context>MATLAB for Bamboo</context>
 
     </web-resource>
 
@@ -31,7 +31,7 @@
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
-        <!-- placeholder for task image -->
+        <!--<resource type="download" name="icon" location="images/matlab_24.png"/>-->
         <!-- placeholder for help link /doc -->
     </taskType>
 
@@ -43,7 +43,7 @@
         <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
-        <!-- < placeholder for task image> -->
+        <resource type="download" name="icon" location="images/taskIcon.png"/>
         <!-- < placeholder for help link/doc > -->
     </taskType>
 
