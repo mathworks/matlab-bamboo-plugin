@@ -1,7 +1,7 @@
 package com.mathworks.ci.helper;
 
 /**
- * Copyright 2020 The MathWorks, Inc.
+ * Copyright 2020-2021 The MathWorks, Inc.
  */
 
 public class MatlabBuilderConstants {
@@ -43,10 +43,10 @@ public class MatlabBuilderConstants {
 
     //Code coverge artifacts
     public static final String HTML_FOLDER = "html";
-    public static final String HTML_MODEL_FOLDER = "htmlModel";
+    public static final String HTML_CODECOV_CHX ="htmlCoverageChecked";
     public static final String HTML_DEFAULT_DIR ="matlab-artifacts/code-coverage";
 
-    public static final String HTML_CODECOV_CHX ="htmlCoverageChecked";
+    public static final String HTML_MODEL_FOLDER = "htmlModel";
     public static final String HTML_MODELCOV_CHX ="htmlModelCoverageChecked";
     public static final String HTML_MODEL_DEFAULT_DIR ="matlab-artifacts/model-coverage";
 
