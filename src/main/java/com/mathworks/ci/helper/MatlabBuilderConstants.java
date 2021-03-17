@@ -42,13 +42,14 @@ public class MatlabBuilderConstants {
     public static final String STM_DEFAULT_FILE ="matlab-artifacts/test-reports/results.mldatx";
 
     //Code coverge artifacts
-    public static final String HTML_FOLDER = "html";
+    public static final String HTML_COVFOLDER = "html";
     public static final String HTML_CODECOV_CHX ="htmlCoverageChecked";
-    public static final String HTML_DEFAULT_DIR ="matlab-artifacts/code-coverage";
+    public static final String HTML_CODECOV_DEFAULT_DIR ="matlab-artifacts/code-coverage";
 
-    public static final String HTML_MODEL_FOLDER = "htmlModel";
+    public static final String HTML_MODELCOV_FOLDER = "htmlModel";
     public static final String HTML_MODELCOV_CHX ="htmlModelCoverageChecked";
-    public static final String HTML_MODEL_DEFAULT_DIR ="matlab-artifacts/model-coverage";
+    public static final String HTML_MODELCOV_DEFAULT_DIR ="matlab-artifacts/model-coverage";
+
 
     // Matlab Runner files 
     public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
