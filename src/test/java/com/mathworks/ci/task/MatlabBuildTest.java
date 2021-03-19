@@ -1,4 +1,4 @@
-package ut.com.mathworks.ci.task;
+package com.mathworks.ci.task;
 
 /**
  * 
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabCommandTaskTest {
+public class MatlabBuildTest {
     @InjectMocks
     public MatlabCommandTask matlabCommandTask;
 
@@ -95,14 +95,5 @@ public class MatlabCommandTaskTest {
         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerScript);
         assertEquals(matlabBuild.getPlatformSpecificRunner(tempFolder), runnerScript);
     }
-
-
-    //This test point needs working 
-    /**@Test
-    public void testCopyFileInWorkspace()throws IOException{
-        matlabBuild.copyFileInWorkspace(runnerFile,tempFolder);
-        assertTrue(runnerFile.exists());
-    }
-    */
 
 }

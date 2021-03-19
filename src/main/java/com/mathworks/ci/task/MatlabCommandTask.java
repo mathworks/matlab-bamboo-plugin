@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.StringUtils;
+import com.google.common.annotations.VisibleForTesting;
 import com.atlassian.bamboo.utils.SystemProperty;
 import com.mathworks.ci.helper.MatlabBuild;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
@@ -53,6 +54,7 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
     public MatlabCommandTask(ProcessService processService, CapabilityContext capabilityContext) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
+        this.matlabCommand = "";
     }
 
 
@@ -87,7 +89,9 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
         return taskResultBuilder.build();
     }
 
-    private List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
+    @VisibleForTesting
+    @NotNull
+    List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
         List < String > command = new ArrayList < > ();
         final String uniqueCommandFile =
             "command_" + getUniqueNameForRunnerFile().replaceAll("-", "_");
