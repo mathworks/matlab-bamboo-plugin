@@ -72,7 +72,7 @@ public class MatlabBuildTest {
     public void testGetMatlabRoot() {
         CapabilityImpl capability = new CapabilityImpl("system.builder.matlab.R2019b", "local-ssd/Downloads/R2019b");
         CapabilitySetImpl capabilitySet = new CapabilitySetImpl();
-        Map < String, String > map = new HashMap < > ();
+        Map <String, String> map = new HashMap <> ();
         capabilitySet.addCapability(capability);
         map.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl(map);

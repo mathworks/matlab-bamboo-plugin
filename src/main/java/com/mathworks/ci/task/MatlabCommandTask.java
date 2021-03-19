@@ -91,8 +91,8 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
 
     @VisibleForTesting
     @NotNull
-    List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
-        List < String > command = new ArrayList < > ();
+    List <String> getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
+        List <String> command = new ArrayList <> ();
         final String uniqueCommandFile =
             "command_" + getUniqueNameForRunnerFile().replaceAll("-", "_");
         String commandToExecute = "cd('" + tempDirectory.toString().replaceAll("'","''") + "');" + uniqueCommandFile;

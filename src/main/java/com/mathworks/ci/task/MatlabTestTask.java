@@ -81,8 +81,8 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
 
     @VisibleForTesting
     @NotNull
-    List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
-        List < String > command = new ArrayList < > ();
+    List <String> getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
+        List <String> command = new ArrayList <> ();
 
         command.add(getPlatformSpecificRunner(tempDirectory));
         command.add(constructCommandForTest(tempDirectory));
@@ -102,7 +102,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
     // Concatenate the input arguments
     private String getInputArguments(TaskContext taskContext) {
 
-        final List < String > inputArgsList = new ArrayList < String > ();
+        final List <String> inputArgsList = new ArrayList <String> ();
         inputArgsList.add("'Test'");
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))) {
