@@ -108,7 +108,7 @@ public class MatlabTaskTest {
                                    + "'test/','selectByTag','all'";
 
          String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
-         assertEquals(expectedMatlabTestOptions, actualMatlabTestOptions);
+         assertEquals(actualMatlabTestOptions, expectedMatlabTestOptions);
     
     }
 
