@@ -110,7 +110,6 @@ public class MatlabCommandTask implements TaskType, MatlabBuild {
             new File(uniqeTmpFolderPath, uniqueScriptName + ".m");
         final String matlabCommandFileContent =
             "cd '" + workspace.toString().replaceAll("'", "''") + "';\n" + matlabCommand;
-        System.out.println(matlabCommandFileContent);
         BufferedWriter writer = new BufferedWriter(new FileWriter(matlabCommandFile));
         writer.write(matlabCommandFileContent);
         writer.close();

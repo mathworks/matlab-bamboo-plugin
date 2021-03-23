@@ -16,6 +16,7 @@ import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.bamboo.v2.build.agent.capability.Capability;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilitySet;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
+import com.atlassian.bamboo.configuration.ConfigurationMap;
 import com.atlassian.bamboo.process.ProcessService;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.helper.MatlabBuild;
@@ -82,6 +83,33 @@ public class MatlabTaskTest {
          assertThat(command, hasItem(containsString(runnerFile)));
          assertThat(command, hasItem(containsString("addpath")));
          assertThat(command, hasItem(containsString("test_runner_")));
+
+         ConfigurationMap configurationMap = new ConfigurationMapImpl();
+         configurationMap.put("junitChecked","true");
+         configurationMap.put("pdfChecked","true");
+         configurationMap.put("htmlCoverageChecked","true");
+         configurationMap.put("stmChecked","true");
+         configurationMap.put("srcFolderChecked","true");
+         configurationMap.put("byFolderChecked","true");
+         configurationMap.put("byTagChecked","true");
+         configurationMap.put("junit","junit.xml");
+         configurationMap.put("pdf","report.pdf");
+         configurationMap.put("html","code-coverage");
+         configurationMap.put("stm","results.mldatx");
+         configurationMap.put("srcfolder","src/:src1");
+         configurationMap.put("testFolders","test/");
+         configurationMap.put("testTag","all");
+
+         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+         String expectedMatlabTestOptions = "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
+                                   + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
+                                   + "'results.mldatx','SourceFolder','src/:src1','selectByFolder',"
+                                   + "'test/','selectByTag','all'";
+
+         String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
+         assertEquals(expectedMatlabTestOptions, actualMatlabTestOptions);
+    
     }
 
 

@@ -99,8 +99,9 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
     }
 
 
+    @VisibleForTesting
     // Concatenate the input arguments
-    private String getInputArguments(TaskContext taskContext) {
+    String getInputArguments(TaskContext taskContext) {
 
         final List <String> inputArgsList = new ArrayList <String> ();
         inputArgsList.add("'Test'");
