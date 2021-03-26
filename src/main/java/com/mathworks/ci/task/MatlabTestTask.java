@@ -135,11 +135,11 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
          * */
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("byFolderChecked"))) {
-            inputArgsList.add("'selectByFolder'" + "," + "'" + taskContext.getConfigurationMap().get("testFolders").trim().replaceAll("'", "''") + "'");
+            inputArgsList.add("'SelectByFolder'" + "," + "'" + taskContext.getConfigurationMap().get("testFolders").trim().replaceAll("'", "''") + "'");
         }
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("byTagChecked"))) {
-            inputArgsList.add("'selectByTag'" + "," + "'" + taskContext.getConfigurationMap().get("testTag").trim().replaceAll("'", "''") + "'");
+            inputArgsList.add("'SelectByTag'" + "," + "'" + taskContext.getConfigurationMap().get("testTag").trim().replaceAll("'", "''") + "'");
         }
 
         return String.join(",", inputArgsList);

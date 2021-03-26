@@ -104,8 +104,8 @@ public class MatlabTaskTest {
 
          String expectedMatlabTestOptions = "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
                                    + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
-                                   + "'results.mldatx','SourceFolder','src/:src1','selectByFolder',"
-                                   + "'test/','selectByTag','all'";
+                                   + "'results.mldatx','SourceFolder','src/:src1','SelectByFolder',"
+                                   + "'test/','SelectByTag','all'";
 
          String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
          assertEquals(actualMatlabTestOptions, expectedMatlabTestOptions);
