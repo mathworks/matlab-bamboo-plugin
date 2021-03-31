@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import com.mathworks.ci.helper.MatlabBuild;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.io.FilenameUtils;
+import com.google.common.annotations.VisibleForTesting;
 import java.util.*;
 import java.io.*;
 
@@ -44,6 +45,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
     public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
+        this.matlabTestOptions = "";
     }
 
     @NotNull
@@ -77,8 +79,10 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         return taskResultBuilder.build();
     }
 
-    private List < String > getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
-        List < String > command = new ArrayList < > ();
+    @VisibleForTesting
+    @NotNull
+    List <String> getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
+        List <String> command = new ArrayList <> ();
 
         command.add(getPlatformSpecificRunner(tempDirectory));
         command.add(constructCommandForTest(tempDirectory));
@@ -95,18 +99,27 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
     }
 
 
+    @VisibleForTesting
     // Concatenate the input arguments
-    private String getInputArguments(TaskContext taskContext) {
+    String getInputArguments(TaskContext taskContext) {
 
-        final List < String > inputArgsList = new ArrayList < String > ();
+        final List <String> inputArgsList = new ArrayList <String> ();
         inputArgsList.add("'Test'");
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))) {
-            inputArgsList.add("'" + "JUnitTestResults" + "'" + "," + "'" + taskContext.getConfigurationMap().get("junit").trim().replaceAll("'", "''") + "'");
+            inputArgsList.add("'JUnitTestResults'" + "," + "'" + taskContext.getConfigurationMap().get("junit").trim().replaceAll("'", "''") + "'");
+        }
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("pdfChecked"))) {
+            inputArgsList.add("'PDFTestReport'" + "," + "'" + taskContext.getConfigurationMap().get("pdf").trim().replaceAll("'", "''") + "'");
         }
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlCoverageChecked"))) {
-            inputArgsList.add("'" + "HTMLCodeCoverage" + "'" + "," + "'" + taskContext.getConfigurationMap().get("html").trim().replaceAll("'", "''") + "'");
+            inputArgsList.add("'HTMLCodeCoverage'" + "," + "'" + taskContext.getConfigurationMap().get("html").trim().replaceAll("'", "''") + "'");
+        }
+ 
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("stmChecked"))) {
+            inputArgsList.add("'SimulinkTestResults'" + "," + "'" + taskContext.getConfigurationMap().get("stm").trim().replaceAll("'", "''") + "'");
         }
 
         /*
@@ -114,7 +127,19 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
          * */
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("srcFolderChecked"))) {
-            inputArgsList.add("'" + "SourceFolder" + "'" + "," + "'" + taskContext.getConfigurationMap().get("srcfolder").trim().replaceAll("'", "''") + "'");
+            inputArgsList.add("'SourceFolder'" + "," + "'" + taskContext.getConfigurationMap().get("srcfolder").trim().replaceAll("'", "''") + "'");
+        }
+
+        /*
+         * Add Test Selection options to argument.
+         * */
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("byFolderChecked"))) {
+            inputArgsList.add("'SelectByFolder'" + "," + "'" + taskContext.getConfigurationMap().get("testFolders").trim().replaceAll("'", "''") + "'");
+        }
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("byTagChecked"))) {
+            inputArgsList.add("'SelectByTag'" + "," + "'" + taskContext.getConfigurationMap().get("testTag").trim().replaceAll("'", "''") + "'");
         }
 
         return String.join(",", inputArgsList);
