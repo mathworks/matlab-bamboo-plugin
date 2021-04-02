@@ -26,7 +26,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * Run MATLAB  Task Invocation
+ * Run MATLAB Test Task Invocation
  *
  *
  */
@@ -55,7 +55,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         BuildLogger buildLogger = taskContext.getBuildLogger();
         File tempDirectory = getTempWorkingDirectory();
         matlabTestOptions = getInputArguments(taskContext);
-        String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
+        String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();

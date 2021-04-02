@@ -2,10 +2,10 @@ package com.mathworks.ci.task;
 
 /**
  * 
- * Copyright 2020 The MathWorks, Inc.
+ * Copyright 2020 - 2021 The MathWorks, Inc.
  *
  * 
- * Test class for MatlabCommandTask
+ * Test class for MatlabTask helper
  * 
  */
 
@@ -14,6 +14,7 @@ import com.mathworks.ci.task.MatlabCommandTask;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.bamboo.v2.build.agent.capability.ReadOnlyCapabilitySet;
+import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityImpl;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilitySetImpl;
 import com.atlassian.bamboo.configuration.ConfigurationMapImpl;
@@ -45,6 +46,9 @@ public class MatlabBuildTest {
 
     @Mock
     public MatlabBuild matlabBuild;
+    
+    @Mock
+    public BuildLogger buildlogger;
 
     @Mock
     public CapabilityContext capabilityContext;
@@ -78,7 +82,7 @@ public class MatlabBuildTest {
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl(map);
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
-        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext), "local-ssd/Downloads/R2019b/bin");
+        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
     }
 
 

@@ -43,6 +43,7 @@
         <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
+        <capabilityDefaultsHelper class="com.mathworks.ci.MatlabCapabilityDefaultsHelper"/>
         <resource type="download" name="icon" location="images/taskIcon.png"/>
         <!-- < placeholder for help link/doc > -->
     </taskType>
