@@ -2,13 +2,10 @@ package com.mathworks.ci;
 
 /*
  * Copyright 2021 The MathWorks, Inc. This Class provides MATLAB release information.
- * 
+ *
  */
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.NotDirectoryException;
 import java.util.HashMap;
@@ -18,13 +15,15 @@ import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.util.ObjectUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import java.io.File;
 import org.apache.commons.io.FileUtils;
+import org.xml.sax.SAXException;
 
 public class MatlabReleaseInfo {
     private File matlabRoot;
@@ -33,9 +32,9 @@ public class MatlabReleaseInfo {
     private static final String RELEASE_TAG = "release";
     private static final String VERSION_INFO_ROOT_TAG = "MathWorks_version_info";
     private static final String RELEASE_PATTERN = "\\((.*?)\\)";
-    
+
     private Map<String, String> versionInfoCache = new HashMap<String, String>();
-    
+
     public MatlabReleaseInfo(String matlabRoot) {
         this.matlabRoot = new File(matlabRoot);
     }
@@ -44,59 +43,69 @@ public class MatlabReleaseInfo {
         Map<String, String> releaseNumber = getReleaseInfoFromFile();
         return releaseNumber.get(RELEASE_TAG);
     }
-    
+
 
     private Map<String, String> getReleaseInfoFromFile() throws MatlabVersionNotFoundException {
-        if (ObjectUtils.isEmpty(versionInfoCache)) {
-            try {
-                File versionFile = new File(this.matlabRoot, VERSION_INFO_FILE);
-                if(versionFile.exists()) {
-                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                    Document doc = dBuilder.parse(versionFile);
-                    doc.getDocumentElement().normalize();
-                    NodeList nList = doc.getElementsByTagName(VERSION_INFO_ROOT_TAG);
+        if (!ObjectUtils.isEmpty(versionInfoCache)) {
+            return versionInfoCache;
+        }
+        try {
+            File versionFile = new File(this.matlabRoot, VERSION_INFO_FILE);
+            File contentFile = new File(this.matlabRoot, CONTENTS_FILE);
 
-                    for (int temp = 0; temp < nList.getLength(); temp++) {
-                        Node nNode = nList.item(temp);
-                        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                            Element eElement = (Element) nNode;
-
-                            versionInfoCache.put(RELEASE_TAG, eElement.getElementsByTagName(RELEASE_TAG)
-                                    .item(0).getTextContent());
-                        }
-                    }
-                }
-                else if(!this.matlabRoot.exists()){
-                    throw new NotDirectoryException("Invalid matlabroot path");
-                }else {
-					// Get the version information from Contents.m file when VersionInfo.xml is not
-					// present.
-					File contentFile = new File(this.matlabRoot, CONTENTS_FILE);
-					String actualVersion = null;
-					try (InputStream in = new FileInputStream(contentFile);
-							BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
-
-						// Skip first line and capture the second line.
-						br.readLine();
-						String versionLine = br.readLine();
-
-						Pattern p = Pattern.compile(RELEASE_PATTERN);
-						Matcher m = p.matcher(versionLine);
-						if (m.find()) {
-                            // To return the first subsequence captured by the group
-							actualVersion = m.group(1);
-						}
-					}
-					// Update the versionInfoCache with actual version extracted from Contents.m
-					versionInfoCache.put(RELEASE_TAG, actualVersion);
-				}
-            } catch (Exception e) {
-                throw new MatlabVersionNotFoundException(
-                         "MATLAB Version information not found", e);
-            } 
+            if (versionFile.exists()) {
+                //Get the version information from VersionInfo.XML file
+                versionInfoCache = getReleaseInfoFromVersionFile(versionFile, versionInfoCache);
+            } else if (contentFile.exists()) {
+                // Get the version information from Contents.m file when VersionInfo.xml is not
+                // present.
+                versionInfoCache = getReleaseInfoFromContentsFile(contentFile, versionInfoCache);
+            } else {
+                throw new MatlabVersionNotFoundException("Invalid matlabroot path");
+            }
+        } catch (Exception e) {
+            throw new MatlabVersionNotFoundException("MATLAB version info not found", e);
         }
         return versionInfoCache;
     }
- }
+
+    private Map<String, String> getReleaseInfoFromVersionFile(File versionFile, Map<String, String> versionInfoCache) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(versionFile);
+        doc.getDocumentElement().normalize();
+        NodeList nList = doc.getElementsByTagName(VERSION_INFO_ROOT_TAG);
+
+        for (int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element eElement = (Element) nNode;
+
+                versionInfoCache.put(RELEASE_TAG, eElement.getElementsByTagName(RELEASE_TAG)
+                        .item(0).getTextContent());
+            }
+        }
+        return versionInfoCache;
+    }
+
+    private Map<String, String> getReleaseInfoFromContentsFile(File contentFile, Map<String, String> versionInfoCache) throws IOException {
+        String actualVersion = null;
+        InputStream in = new FileInputStream(contentFile);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+
+        // Skip first line and capture the second line.
+        br.readLine();
+        String versionLine = br.readLine();
+
+        Pattern p = Pattern.compile(RELEASE_PATTERN);
+        Matcher m = p.matcher(versionLine);
+        if (m.find()) {
+            // To return the first subsequence captured by the group
+            actualVersion = m.group(1);
+        }
+        // Update the versionInfoCache with actual version extracted from Contents.m
+        versionInfoCache.put(RELEASE_TAG, actualVersion);
+        return versionInfoCache;
+    }
+}

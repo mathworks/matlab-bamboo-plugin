@@ -1,7 +1,7 @@
 package com.mathworks.ci.helper;
 
 /**
- * Copyright 2020 The MathWorks, Inc.
+ * Copyright 2020 - 2021 The MathWorks, Inc.
  */
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import org.jetbrains.annotations.NotNull;
