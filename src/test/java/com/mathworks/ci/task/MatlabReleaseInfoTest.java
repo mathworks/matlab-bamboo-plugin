@@ -1,12 +1,10 @@
 package com.mathworks.ci.task;
 
 /**
- *
  * Copyright 2021 The MathWorks, Inc.
- *
- *
+ * <p>
+ * <p>
  * Test class for MatlabReleaseInfo
- *
  */
 
 
@@ -18,14 +16,14 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-public class MatlabReleaseInfoTest{
+public class MatlabReleaseInfoTest {
 
     @Test
     public void testGetMatlabReleaseInfoWithContentsFile() throws MatlabVersionNotFoundException {
         ClassLoader classLoader = getClass().getClassLoader();
         File matlabRoot = new File(classLoader.getResource("MATLAB/FakeMATLABWithNoVersion").getFile());
         MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabRoot.toString());
-        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(),"R2019b");
+        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
     }
 
     @Test
@@ -33,7 +31,7 @@ public class MatlabReleaseInfoTest{
         ClassLoader classLoader = getClass().getClassLoader();
         File matlabRoot = new File(classLoader.getResource("MATLAB/FakeMATLABWithVersion").getFile());
         MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabRoot.toString());
-        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(),"R2019b");
+        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
     }
 
     @Test(expected = MatlabVersionNotFoundException.class)
