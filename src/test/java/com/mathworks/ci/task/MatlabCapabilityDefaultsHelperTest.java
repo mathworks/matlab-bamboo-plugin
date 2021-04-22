@@ -19,6 +19,7 @@ import org.apache.commons.lang3.SystemUtils;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.MatlabReleaseInfo;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -37,6 +38,9 @@ public class MatlabCapabilityDefaultsHelperTest {
     private String EXECUTABLE_NAME;
     private CapabilitySetImpl capabilitySet;
 
+    //@Rule
+    //public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
+
 
     @Before
     public void init() {
@@ -52,19 +56,14 @@ public class MatlabCapabilityDefaultsHelperTest {
     }
 
 
-    // Cannot mock a final method or class
-    // ExecutablePathUtils doesn't detect a dummy MATLAB on path
-    // Testing MATLAB on path behavior manually
-    /**@Test public void testWhenMATLABExistOnPath(){
+    @Test
+    public void testWhenMATLABExistOnPath(){
     MatlabCapabilityDefaultsHelper matlabCapabilityDefaultsHelper = new MatlabCapabilityDefaultsHelper();
     capabilitySet = new CapabilitySetImpl();
-    //ClassLoader classLoader = getClass().getClassLoader();
-    //File matlabPath = new File(classLoader.getResource("MATLAB/FakeMATLABWithVersion/bin").getFile());
-    //File matlabRoot = new File("MATLAB/FakeMATLABWithVersion");
-    //SystemProperty.PATH.setValue(path + charSeparator + matlabPath.getAbsolutePath());
-    //when(ExecutablePathUtils.detectExecutableOnPath(EXECUTABLE_NAME)).thenReturn(matlabPath);
+    String matlabRoot = "/local-ssd/ppandian/MATLAB_ISU/R2019b";
+    SystemProperty.PATH.setValue("/local-ssd/ppandian/MATLAB_ISU/R2019b/bin/");
     CapabilitySet actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
-    assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019"), null );
-    }**/
+    assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019b").getValue(), matlabRoot);
+    }
 }
 

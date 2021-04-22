@@ -25,7 +25,6 @@ import com.mathworks.ci.helper.MatlabBuilderConstants;
 public class MatlabCapabilityDefaultsHelper implements CapabilityDefaultsHelper {
 
     private static final String EXECUTABLE_NAME = SystemUtils.IS_OS_WINDOWS ? "matlab.exe" : "matlab";
-    File matlabroot;
 
 
     @Override
@@ -36,7 +35,7 @@ public class MatlabCapabilityDefaultsHelper implements CapabilityDefaultsHelper 
             return capabilitySet;
         }
 
-        matlabroot = ExecutablePathUtils.getHomeFromExecutableInHomeBin(executablePath);
+        File matlabroot = ExecutablePathUtils.getHomeFromExecutableInHomeBin(executablePath);
         MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabroot.toString());
 
         try {
