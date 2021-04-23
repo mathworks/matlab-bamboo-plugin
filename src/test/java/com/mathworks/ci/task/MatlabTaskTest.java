@@ -1,12 +1,10 @@
 package com.mathworks.ci.task;
 
 /**
- * 
  * Copyright 2020-2021 The MathWorks, Inc.
- *
- * 
+ * <p>
+ * <p>
  * Test class for MatlabTestTask
- * 
  */
 
 import org.junit.Test;
@@ -20,19 +18,24 @@ import com.atlassian.bamboo.configuration.ConfigurationMap;
 import com.atlassian.bamboo.process.ProcessService;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.helper.MatlabBuild;
+
 import java.util.Map;
 import java.util.HashMap;
+
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.InjectMocks;
 import org.apache.commons.lang3.SystemUtils;
+
 import java.io.*;
 import java.util.*;
+
 import org.junit.rules.TemporaryFolder;
 import org.junit.Rule;
 import org.junit.Before;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.anyString;
@@ -42,7 +45,7 @@ import static org.hamcrest.Matchers.hasItem;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabTaskTest { 
+public class MatlabTaskTest {
 
     @Mock
     public MatlabBuild matlabBuild;
@@ -74,60 +77,59 @@ public class MatlabTaskTest {
 
 
     @Test
-    public void testMatlabtest()  throws IOException {
-        final MatlabTestTask matlabTestTask = new MatlabTestTask(processService,getCapabilityContext());
+    public void testMatlabtest() throws IOException {
+        final MatlabTestTask matlabTestTask = new MatlabTestTask(processService, getCapabilityContext());
 
-         when(matlabBuild.getTempWorkingDirectory()).thenReturn(tempFile);
-         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerFile);
-         final List<String> command = matlabTestTask.getMatlabCommandScript(tempFolder,tempFolder);
-         assertThat(command, hasItem(containsString(runnerFile)));
-         assertThat(command, hasItem(containsString("addpath")));
-         assertThat(command, hasItem(containsString("test_runner_")));
+        when(matlabBuild.getTempWorkingDirectory()).thenReturn(tempFile);
+        when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerFile);
+        final List<String> command = matlabTestTask.getMatlabCommandScript(tempFolder, tempFolder);
+        assertThat(command, hasItem(containsString(runnerFile)));
+        assertThat(command, hasItem(containsString("addpath")));
+        assertThat(command, hasItem(containsString("test_runner_")));
 
-         ConfigurationMap configurationMap = new ConfigurationMapImpl();
-         configurationMap.put("junitChecked","true");
-         configurationMap.put("pdfChecked","true");
-         configurationMap.put("htmlCoverageChecked","true");
-         configurationMap.put("stmChecked","true");
-         configurationMap.put("srcFolderChecked","true");
-         configurationMap.put("byFolderChecked","true");
-         configurationMap.put("byTagChecked","true");
-         configurationMap.put("junit","junit.xml");
-         configurationMap.put("pdf","report.pdf");
-         configurationMap.put("html","code-coverage");
-         configurationMap.put("stm","results.mldatx");
-         configurationMap.put("srcfolder","src/:src1");
-         configurationMap.put("testFolders","test/");
-         configurationMap.put("testTag","all");
+        ConfigurationMap configurationMap = new ConfigurationMapImpl();
+        configurationMap.put("junitChecked", "true");
+        configurationMap.put("pdfChecked", "true");
+        configurationMap.put("htmlCoverageChecked", "true");
+        configurationMap.put("stmChecked", "true");
+        configurationMap.put("srcFolderChecked", "true");
+        configurationMap.put("byFolderChecked", "true");
+        configurationMap.put("byTagChecked", "true");
+        configurationMap.put("junit", "junit.xml");
+        configurationMap.put("pdf", "report.pdf");
+        configurationMap.put("html", "code-coverage");
+        configurationMap.put("stm", "results.mldatx");
+        configurationMap.put("srcfolder", "src/:src1");
+        configurationMap.put("testFolders", "test/");
+        configurationMap.put("testTag", "all");
 
-         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
-         String expectedMatlabTestOptions = "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
-                                   + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
-                                   + "'results.mldatx','SourceFolder','src/:src1','SelectByFolder',"
-                                   + "'test/','SelectByTag','all'";
+        String expectedMatlabTestOptions = "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
+                + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
+                + "'results.mldatx','SourceFolder','src/:src1','SelectByFolder',"
+                + "'test/','SelectByTag','all'";
 
-         String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
-         assertEquals(actualMatlabTestOptions, expectedMatlabTestOptions);
-    
+        String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
+        assertEquals(actualMatlabTestOptions, expectedMatlabTestOptions);
+
     }
 
 
     @Test
-    public void testMatlabCommandTask()  throws IOException {
-        final MatlabCommandTask matlabCommandTask = new MatlabCommandTask(processService,getCapabilityContext());
+    public void testMatlabCommandTask() throws IOException {
+        final MatlabCommandTask matlabCommandTask = new MatlabCommandTask(processService, getCapabilityContext());
 
-         when(matlabBuild.getTempWorkingDirectory()).thenReturn(tempFile);
-         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerFile);
-         final List<String> command = matlabCommandTask.getMatlabCommandScript(tempFolder,tempFolder);
-         assertThat(command, hasItem(containsString(runnerFile)));
-         assertThat(command, hasItem(containsString("cd")));
-         assertThat(command, hasItem(containsString("command_")));
+        when(matlabBuild.getTempWorkingDirectory()).thenReturn(tempFile);
+        when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerFile);
+        final List<String> command = matlabCommandTask.getMatlabCommandScript(tempFolder, tempFolder);
+        assertThat(command, hasItem(containsString(runnerFile)));
+        assertThat(command, hasItem(containsString("cd")));
+        assertThat(command, hasItem(containsString("command_")));
     }
 
 
-    private CapabilityContext getCapabilityContext() throws IOException
-    {
+    private CapabilityContext getCapabilityContext() throws IOException {
         final CapabilitySet capabilitySet = mock(CapabilitySet.class);
         final Capability capability = mock(Capability.class);
         testFolder.create();
