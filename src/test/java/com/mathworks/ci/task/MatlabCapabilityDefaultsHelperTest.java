@@ -38,10 +38,6 @@ public class MatlabCapabilityDefaultsHelperTest {
     private String EXECUTABLE_NAME;
     private CapabilitySetImpl capabilitySet;
 
-    //@Rule
-    //public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
-
-
     @Before
     public void init() {
         String EXECUTABLE_NAME = SystemUtils.IS_OS_WINDOWS ? "matlab.exe" : "matlab";
@@ -57,13 +53,13 @@ public class MatlabCapabilityDefaultsHelperTest {
 
 
     @Test
-    public void testWhenMATLABExistOnPath(){
-    MatlabCapabilityDefaultsHelper matlabCapabilityDefaultsHelper = new MatlabCapabilityDefaultsHelper();
-    capabilitySet = new CapabilitySetImpl();
-    String matlabRoot = "/local-ssd/ppandian/MATLAB_ISU/R2019b";
-    SystemProperty.PATH.setValue("/local-ssd/ppandian/MATLAB_ISU/R2019b/bin/");
-    CapabilitySet actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
-    assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019b").getValue(), matlabRoot);
+    public void testWhenMATLABExistOnPath() {
+        MatlabCapabilityDefaultsHelper matlabCapabilityDefaultsHelper = new MatlabCapabilityDefaultsHelper();
+        capabilitySet = new CapabilitySetImpl();
+        String matlabRoot = "/local-ssd/ppandian/MATLAB_ISU/R2019b";
+        SystemProperty.PATH.setValue("/local-ssd/ppandian/MATLAB_ISU/R2019b/bin/");
+        CapabilitySet actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
+        assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019b").getValue(), matlabRoot);
     }
 }
 
