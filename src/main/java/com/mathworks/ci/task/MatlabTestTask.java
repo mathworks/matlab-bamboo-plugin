@@ -3,6 +3,7 @@ package com.mathworks.ci.task;
 /**
  * Copyright 2020 The MathWorks, Inc.
  */
+
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ExternalProcessBuilder;
 import com.atlassian.bamboo.process.ProcessService;
@@ -22,13 +23,12 @@ import com.mathworks.ci.helper.MatlabBuild;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.io.FilenameUtils;
 import com.google.common.annotations.VisibleForTesting;
+
 import java.util.*;
 import java.io.*;
 
 /**
- * Run MATLAB  Task Invocation
- *
- *
+ * Run MATLAB Test Task Invocation
  */
 
 @Scanned
@@ -55,7 +55,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         BuildLogger buildLogger = taskContext.getBuildLogger();
         File tempDirectory = getTempWorkingDirectory();
         matlabTestOptions = getInputArguments(taskContext);
-        String matlabRoot = getMatlabRoot(taskContext, capabilityContext);
+        String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
         if (!StringUtils.isNotEmpty(matlabRoot)) {
             buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
             return taskResultBuilder.failedWithError().build();
@@ -63,9 +63,9 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         buildLogger.addBuildLogEntry("Running MATLAB tests: ");
         try {
             ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
-                .workingDirectory(taskContext.getRootDirectory())
-                .command(getMatlabCommandScript(taskContext.getRootDirectory(), tempDirectory))
-                .env(SystemProperty.PATH.getKey(), matlabRoot);
+                    .workingDirectory(taskContext.getRootDirectory())
+                    .command(getMatlabCommandScript(taskContext.getRootDirectory(), tempDirectory))
+                    .env(SystemProperty.PATH.getKey(), matlabRoot);
             ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
             process.execute();
             taskResultBuilder.checkReturnCode(process);
@@ -81,29 +81,29 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
 
     @VisibleForTesting
     @NotNull
-    List <String> getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
-        List <String> command = new ArrayList <> ();
+    List<String> getMatlabCommandScript(File rootDirectory, File tempDirectory) throws IOException {
+        List<String> command = new ArrayList<>();
 
         command.add(getPlatformSpecificRunner(tempDirectory));
         command.add(constructCommandForTest(tempDirectory));
         prepareTmpFldr(tempDirectory, getRunnerScript(
-            MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions));
+                MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions));
         return command;
     }
 
     private String constructCommandForTest(File scriptPath) {
         final String matlabScriptName = getValidMatlabFileName(FilenameUtils.getBaseName(scriptPath.toString()));
         final String runCommand = "addpath('" + scriptPath.toString().replaceAll("'", "''") +
-            "'); " + matlabScriptName;
+                "'); " + matlabScriptName;
         return runCommand;
     }
 
 
     @VisibleForTesting
-    // Concatenate the input arguments
+        // Concatenate the input arguments
     String getInputArguments(TaskContext taskContext) {
 
-        final List <String> inputArgsList = new ArrayList <String> ();
+        final List<String> inputArgsList = new ArrayList<String>();
         inputArgsList.add("'Test'");
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("junitChecked"))) {
@@ -117,7 +117,7 @@ public class MatlabTestTask implements TaskType, MatlabBuild {
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlCoverageChecked"))) {
             inputArgsList.add("'HTMLCodeCoverage'" + "," + "'" + taskContext.getConfigurationMap().get("html").trim().replaceAll("'", "''") + "'");
         }
- 
+
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("stmChecked"))) {
             inputArgsList.add("'SimulinkTestResults'" + "," + "'" + taskContext.getConfigurationMap().get("stm").trim().replaceAll("'", "''") + "'");
         }

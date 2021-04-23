@@ -16,6 +16,7 @@ import com.atlassian.bamboo.v2.build.agent.capability.Requirement;
 import com.atlassian.bamboo.v2.build.agent.capability.RequirementImpl;
 import com.atlassian.bamboo.ww2.actions.build.admin.create.UIConfigSupport;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
+import com.atlassian.plugin.spring.scanner.annotation.imports.BambooImport;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.atlassian.struts.TextProvider;
@@ -27,13 +28,15 @@ import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
+import javax.inject.Inject;
 
 
 @Scanned
 public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements BuildTaskRequirementSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(MatlabTaskConfigurator.class);
 
-    @ComponentImport
+    @BambooImport("uiConfigBean")
+    @Inject
     private UIConfigSupport uiConfigSupport;
 
     /*

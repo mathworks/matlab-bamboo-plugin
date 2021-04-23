@@ -1,8 +1,9 @@
 package com.mathworks.ci.helper;
 
 /**
- * Copyright 2020 The MathWorks, Inc.
+ * Copyright 2020 - 2021 The MathWorks, Inc.
  */
+
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,8 +16,12 @@ import com.google.common.collect.Maps;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.SystemUtils;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
+import com.mathworks.ci.MatlabReleaseInfo;
+import com.mathworks.ci.MatlabVersionNotFoundException;
+
 import java.util.*;
 import java.io.*;
+
 import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.FileUtils;
@@ -26,8 +31,9 @@ public interface MatlabBuild {
 
 
     @Nullable
-    default String getMatlabRoot(@NotNull TaskContext taskContext, CapabilityContext capabilityContext) {
+    default String getMatlabRoot(@NotNull TaskContext taskContext, CapabilityContext capabilityContext, BuildLogger buildLogger) {
         String matlabRoot = null;
+        String matlabRelease = null;
         ReadOnlyCapabilitySet capabilitySet = capabilityContext.getCapabilitySet();
         if (capabilitySet != null) {
             String matlabLabel = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_CFG_KEY);
@@ -36,7 +42,16 @@ public interface MatlabBuild {
                 matlabRoot = Strings.emptyToNull(capability.getValue());
             }
         }
-        return matlabRoot + File.separator + "bin";
+        MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabRoot);
+        try {
+            matlabRelease = matlabReleaseInfo.getMatlabReleaseNumber();
+        } catch (MatlabVersionNotFoundException exception) {
+            buildLogger.addErrorLogEntry(exception.getMessage());
+        }
+
+        buildLogger.addBuildLogEntry("Running task on MATLAB release: " + matlabRelease);
+
+        return matlabRoot + "/bin";
     }
 
 
@@ -66,13 +81,13 @@ public interface MatlabBuild {
      * Method to copy given file from source to target node specific workspace.
      */
     default void copyFileInWorkspace(String sourceFile, File targetWorkspace)
-    throws IOException {
+            throws IOException {
 
         final ClassLoader classLoader = getClass().getClassLoader();
         final File destination = new File(targetWorkspace, sourceFile);
         InputStream in = classLoader.getResourceAsStream(sourceFile);
         OutputStream outputStream = new FileOutputStream(destination);
-        IOUtils.copy( in , outputStream);
+        IOUtils.copy(in, outputStream);
         outputStream.flush();
         outputStream.close();
         // set executable permission
@@ -114,7 +129,7 @@ public interface MatlabBuild {
 
     default String getValidMatlabFileName(String actualName) {
         return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX +
-            actualName.replaceAll("-", "_");
+                actualName.replaceAll("-", "_");
     }
 
 
