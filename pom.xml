@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mathworks.ci</groupId>
     <artifactId>matlab-bamboo-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <!-- Organization name needs to be revisited -->
     <organization>
@@ -14,8 +14,8 @@
         <url>https://www.mathworks.com/</url>
     </organization>
 
-    <name>matlab-bamboo-plugin</name>
-    <description>Continuous Integration with MATLAB on Atlassian Bamboo.</description>
+    <name>MATLAB</name>
+    <description>Run MATLAB and Simulink as part of your build pipeline.</description>
     <packaging>atlassian-plugin</packaging>
 
     <properties>
