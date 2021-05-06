@@ -31,8 +31,8 @@
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
-        <!--<resource type="download" name="icon" location="images/matlab_24.png"/>-->
-        <!-- placeholder for help link /doc -->
+        <resource type="download" name="icon" location="images/image1.png"/>
+        <help link="MATLABcommand.task.help.link" title="MATLABcommand.task.help.title" />
     </taskType>
 
     <!-- MATLAB Test Task -->
@@ -44,8 +44,8 @@
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
         <capabilityDefaultsHelper class="com.mathworks.ci.MatlabCapabilityDefaultsHelper"/>
-        <resource type="download" name="icon" location="images/taskIcon.png"/>
-        <!-- < placeholder for help link/doc > -->
+        <resource type="download" name="icon" location="images/image1.png"/>
+        <help link="MATLABtest.task.help.link" title="MATLABtest.task.help.title" />
     </taskType>
 
 </atlassian-plugin>
