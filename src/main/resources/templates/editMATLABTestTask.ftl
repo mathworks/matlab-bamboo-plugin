@@ -51,10 +51,4 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
             [@ww.textfield labelKey='matlab.code.coverage.directory' name="html" cssClass="long-field"
             description="Specify a path relative to the working directory." /]
         [/@ui.bambooSection]
-
-    [@ww.checkbox labelKey='matlab.model.coverage.exists' name='htmlModelCoverageChecked' toggle='true'/]
-        [@ui.bambooSection dependsOn='htmlModelCoverageChecked' showOn=true]
-            [@ww.textfield labelKey='matlab.code.coverage.directory' name="htmlModel" cssClass="long-field"
-            description="Specify a path relative to the working directory." /]
-        [/@ui.bambooSection]
 [/@ui.bambooSection]
