@@ -34,7 +34,7 @@ Create a new build plan and configure it by following these steps:
 
 3. To confirm your plan details, click **Configure plan**. A new page opens that lets you add tasks to the default job of your plan. By default, Bamboo includes the **Source Code Checkout** task, which is responsible for checking out code from your repository.
 
-   To run MATLAB tests as part of your build, you need to add the **Run MATLAB Tests** task. To do so, click **Add Task** and then select the desired task from the **Task types** interface. You can access the task by typing MATLAB in the text box located at the top-right of the interface.
+   To run MATLAB tests as part of your build, you need to add the **Run MATLAB Tests** task. To do so, click **Add task** and then select the desired task from the **Task types** interface. You can access the task by typing MATLAB in the text box located at the top-right of the interface.
 
 ![add_task](https://user-images.githubusercontent.com/48831250/116619932-224ce380-a90f-11eb-9720-e3b67309b272.png)
 
@@ -42,7 +42,7 @@ Create a new build plan and configure it by following these steps:
 
 ![run_matlab_tests](https://user-images.githubusercontent.com/48831250/116717476-e6fdf380-a9a6-11eb-9813-56be6ed47604.png)
 
-5. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task always runs irrespestive of the build status, specify it as a final task. 
+5. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task always runs regardless of the build status, specify it as a final task. 
 
    Now that you have added the required tasks for your build, click **Save and continue**.
 
