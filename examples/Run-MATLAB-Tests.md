@@ -44,7 +44,7 @@ Create a new build plan and configure it by following these steps:
 
 5. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task always runs regardless of the build status, specify it as a final task. 
 
-   Now that you have added the required tasks for your build, click **Save and continue**.
+   Once you have added the required tasks for your build, click **Save and continue**.
 
 6. Create artifact definitions for the artifacts you want to access from the build dashboard. To create artifact definitions, click **Default Job**, and select the **Artifacts** tab on the page that opens. Then, for each artifact, click **Create artifact** and specify the required values. 
   
