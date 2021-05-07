@@ -13,5 +13,3 @@ To learn how to use the plugin in testing workflows, see [Examples](/examples/).
 ## Contact Us
 If you have any questions or suggestions, please contact MathWorks&reg; at [continuous-integration@mathworks.com](mailto:continuous-integration@mathworks.com).
 
-## License
-MIT © 2019 The MathWorks, Inc.
