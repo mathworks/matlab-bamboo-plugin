@@ -1,4 +1,5 @@
 name: build-plugin
+
 on: [push]
 jobs:
   check-sdk-version:
