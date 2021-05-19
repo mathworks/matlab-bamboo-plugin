@@ -1,0 +1,9 @@
+name: build-plugin
+on: [push]
+jobs:
+  check-sdk-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rodrigo-nogues/github-action-install-atlassian-sdk@v1
+
+      
