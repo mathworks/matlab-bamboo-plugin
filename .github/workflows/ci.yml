@@ -6,4 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: rodrigo-nogues/github-action-install-atlassian-sdk@v1
+      - run: cd ..
       - run: atlas-mvn test
