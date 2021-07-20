@@ -34,30 +34,31 @@ Create a new build plan and configure it by following these steps:
 
 3. To confirm your plan details, click **Configure plan**. A new page opens that lets you add tasks to the default job of your plan. By default, Bamboo includes the **Source Code Checkout** task, which is responsible for checking out code from your repository.
 
-   To run MATLAB tests as part of your build, you need to add the **Run MATLAB Tests** task. To do so, click **Add task** and then select the desired task from the **Task types** interface. You can access the task by typing MATLAB in the text box located at the top-right of the interface.
+4. To run MATLAB tests as part of your build, you need to add the **Run MATLAB Tests** task. To do so, click **Add task** and then select **Run MATLAB Tests** from the **Task types** interface. You can access the task by typing `MATLAB` in the text box located at the upper right corner of the interface.
 
 ![add_task](https://user-images.githubusercontent.com/48831250/116619932-224ce380-a90f-11eb-9720-e3b67309b272.png)
 
-4. In the **Run MATLAB Tests** task configuration interface, from the **Executable** list, select the MATLAB version that should run the tests. Then, specify the artifacts to be generated in the working directory. In this example, the plugin uses MATLAB R2021a to run the tests and generate a JUnit-style test results report, a PDF test report, and an HTML code coverage report. For more information about the tasks provided by the plugin, see [Plugin Configuration Guide](../CONFIGDOC.md).
+5. In the **Run MATLAB Tests** task configuration interface, from the **Executable** list, select the MATLAB version to use for the task. Then, specify the artifacts to generate in the working directory. In this example, the plugin uses MATLAB R2021a to run the tests and generate a JUnit-style test results report, a PDF test report, and an HTML code coverage report. For more information about the tasks provided by the plugin, see [Plugin Configuration Guide](../CONFIGDOC.md).
 
-![run_matlab_tests](https://user-images.githubusercontent.com/48831250/116717476-e6fdf380-a9a6-11eb-9813-56be6ed47604.png)
 
-5. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task always runs regardless of the build status, specify it as a final task. 
+![run_matlab_tests](https://user-images.githubusercontent.com/48831250/126395392-05ab7dba-545a-4183-8587-3b6cee26ab7e.png)
+
+6. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task always runs regardless of the build status, specify it as a final task. 
 
    Once you have added the required tasks for your build, click **Save and continue**.
 
-6. Create artifact definitions for the artifacts you want to access from the build dashboard. To create artifact definitions, click **Default Job**, and select the **Artifacts** tab on the page that opens. Then, for each artifact, click **Create artifact** and specify the required values. 
+7. Create artifact definitions for the artifacts you want to access from the build dashboard. To create artifact definitions, click **Default Job**, and select the **Artifacts** tab on the page that opens. Then, for each artifact, click **Create artifact** and specify the required values. 
   
 ![artifact_definitions](https://user-images.githubusercontent.com/48831250/117359811-ec1ae100-ae85-11eb-86be-d1e60710170c.png)
 
 ## Run Tests and Inspect Artifacts
 Now that your plan configuration is complete, you can build your plan. To do this:
 
-1. Click the link to your plan at the top-left of the page. 
-2. At the top-right of the plan page, enable the plan by selecting **Actions > Enable plan**. 
+1. Click the link to your plan at the upper left corner of the page. 
+2. At the upper right corner of the plan page, enable the plan by selecting **Actions > Enable plan**. 
 3. Select **Run > Run plan**. 
 
-Bamboo triggers a build, assigns it a number, and runs the build. It displays a green or red bar to indicate the success or failure of the build. In this example, the build succeeds because all of the tests in the Times Table App project pass.
+Bamboo triggers a build, runs it, and displays a green or red bar to indicate its success or failure. In this example, the build succeeds because all of the tests in the Times Table App project pass.
 
 To access the test and coverage artifacts, select the **Test** and **Artifacts** tabs. For example, select the **Artifacts** tab to access the generated HTML code coverage and PDF test reports. 
 
