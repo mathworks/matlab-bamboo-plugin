@@ -5,7 +5,7 @@ jobs:
   check-sdk-version:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v
+     - uses: actions/checkout@v2
      - run: |
         sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
         wget https://packages.atlassian.com/api/gpg/key/public
