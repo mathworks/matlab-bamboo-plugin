@@ -13,7 +13,6 @@ import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.bamboo.ww2.actions.build.admin.create.UIConfigSupport;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.struts.TextProvider;
-import com.atlassian.util.concurrent.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
 
     @NotNull
     @Override
-    public Map<String,String> generateTaskConfigMap(@NotNull final ActionParametersMap params, @Nullable final TaskDefinition previousTaskDefinition) {
+    public Map<String,String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
 
         config.put(MatlabBuilderConstants.SRC_FLDR_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)));
