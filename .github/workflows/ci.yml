@@ -8,7 +8,7 @@ jobs:
      - uses: actions/checkout@v2
      - run: |
         sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
-        wget https://packages.atlassian.com/api/gpg/key/public
+        curl -fL https://packages.atlassian.com/api/gpg/key/public -o public
         sudo apt-key add public
         sudo apt-get update
         sudo apt-get install atlassian-plugin-sdk=8.0.16
