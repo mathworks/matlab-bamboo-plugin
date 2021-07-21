@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: rodrigo-nogues/github-action-install-atlassian-sdk@v1
       - uses: actions/checkout@v2
-      - run: atlas-mvn test
+      - run: atlas-version
