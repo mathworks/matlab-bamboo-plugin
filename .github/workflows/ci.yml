@@ -12,5 +12,5 @@ jobs:
         sudo apt-key add public
         sudo apt-get update
         sudo apt-get install atlassian-plugin-sdk=8.0.16
-        atlas-mvn test
+        atlas-unit-test
     
