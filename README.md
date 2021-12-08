@@ -1,5 +1,5 @@
 # Continuous Integration with MATLAB on Bamboo
-This plugin enables you to run MATLAB&reg; scripts, functions, and statements as part of your build. You also can run your MATLAB and Simulink&reg; tests, and generate various test and coverage artifacts such as JUnit-style test results and HTML code coverage reports.
+This plugin enables you to run MATLAB&reg; scripts, functions, and statements as part of your build. You also can run MATLAB and Simulink&reg; tests, and generate test and coverage artifacts such as JUnit-style test results and HTML coverage reports.
 
 ## Releases
 To view the release notes and download a specific release, see [Releases](https://github.com/mathworks/matlab-bamboo-plugin/releases). 
