@@ -1,6 +1,8 @@
 name: build-plugin
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 jobs:
   check-sdk-version:
     runs-on: ubuntu-latest
