@@ -22,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.atlassian.struts.TextProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
@@ -33,8 +31,7 @@ import javax.inject.Inject;
 
 @Scanned
 public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements BuildTaskRequirementSupport {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MatlabTaskConfigurator.class);
-
+ 
     @BambooImport("uiConfigBean")
     @Inject
     private UIConfigSupport uiConfigSupport;
