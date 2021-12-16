@@ -15,8 +15,6 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.struts.TextProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import javax.inject.Inject;
 import java.util.ArrayList;
