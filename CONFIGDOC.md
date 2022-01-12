@@ -94,7 +94,6 @@ For example, run your tests, and generate a JUnit-style test results report and 
 ![generate_artifacts](https://user-images.githubusercontent.com/48831250/126394704-eb5bd664-0e1d-4daf-a76e-dc0551de1d43.png)
 
 Artifacts to generate with the plugin are subject to these restrictions: 
-* Producing a PDF test report is not currently supported on macOS platforms.
 * Exporting Simulink Test&trade; Manager results requires a Simulink Test license and is supported in MATLAB R2019a or later.
 * Producing an HTML model coverage report requires a Simulink Coverage&trade; license and is supported in MATLAB R2018b or later.
 
