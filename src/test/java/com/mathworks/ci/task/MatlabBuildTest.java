@@ -23,9 +23,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mock;
 import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
@@ -97,7 +97,6 @@ public class MatlabBuildTest {
 
     @Test
     public void testGetPlatformSpecificRunner() throws IOException {
-        doNothing().doThrow(new IOException()).when(matlabBuild).copyFileInWorkspace(runnerFile, tempFolder);
         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerScript);
         assertEquals(matlabBuild.getPlatformSpecificRunner(tempFolder), runnerScript);
     }

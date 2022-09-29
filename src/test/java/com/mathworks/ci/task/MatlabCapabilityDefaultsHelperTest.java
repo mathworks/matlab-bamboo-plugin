@@ -23,25 +23,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.mockito.MockedStatic;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.lang.reflect.Field;
 
-@RunWith(MockitoJUnitRunner.class)
 public class MatlabCapabilityDefaultsHelperTest {
 
-    private String EXECUTABLE_NAME;
     private CapabilitySetImpl capabilitySet;
-
-    @Before
-    public void init() {
-        String EXECUTABLE_NAME = SystemUtils.IS_OS_WINDOWS ? "matlab.exe" : "matlab";
-    }
 
     @Test
     public void testWhenMATLABNotOnPath() {
@@ -54,12 +52,22 @@ public class MatlabCapabilityDefaultsHelperTest {
 
     @Test
     public void testWhenMATLABExistOnPath() {
-        MatlabCapabilityDefaultsHelper matlabCapabilityDefaultsHelper = new MatlabCapabilityDefaultsHelper();
-        capabilitySet = new CapabilitySetImpl();
-        String matlabRoot = "/local-ssd/ppandian/MATLAB_ISU/R2019b";
-        SystemProperty.PATH.setValue("/local-ssd/ppandian/MATLAB_ISU/R2019b/bin/");
-        CapabilitySet actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
-        assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019b").getValue(), matlabRoot);
+        CapabilitySet actualCapabilitySet;
+        String PWD = System.getProperty("user.dir");
+        Path fakeMatlabExePath = Paths.get(PWD, "src", "test", "resources", "MATLAB", "FakeMATLABWithVersion", "bin", "matlab");
+        Path fakeMatlabHomePath = Paths.get(PWD, "src", "test", "resources", "MATLAB", "FakeMATLABWithVersion");
+        File fakeMatlabExe = new File(fakeMatlabExePath.toString());
+        File fakeMatlabHome = new File(fakeMatlabHomePath.toString());
+
+        try (MockedStatic<ExecutablePathUtils> utilities = Mockito.mockStatic(ExecutablePathUtils.class)) {
+            utilities.when(() -> ExecutablePathUtils.detectExecutableOnPath(Mockito.any()))
+                .thenReturn(fakeMatlabExe);
+            utilities.when(() -> ExecutablePathUtils.getHomeFromExecutableInHomeBin(Mockito.any()))
+                .thenReturn(fakeMatlabHome);
+            MatlabCapabilityDefaultsHelper matlabCapabilityDefaultsHelper = new MatlabCapabilityDefaultsHelper();
+            capabilitySet = new CapabilitySetImpl();
+            actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
+        }
+        assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX + "R2019b").getValue(), fakeMatlabHomePath.toString());
     }
 }
-

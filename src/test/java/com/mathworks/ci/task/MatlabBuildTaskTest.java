@@ -1,10 +1,10 @@
 package com.mathworks.ci.task;
 
 /**
- * Copyright 2020-2021 The MathWorks, Inc.
+ * Copyright 2022 The MathWorks, Inc.
  * <p>
  * <p>
- * Test class for MatlabTestTask
+ * Test class for MatlabBuildTask
  */
 
 import org.junit.Test;
@@ -24,8 +24,9 @@ import java.util.HashMap;
 
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
@@ -43,7 +44,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItem;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabTaskTest {
+public class MatlabBuildTaskTest {
 
     @Mock
     public MatlabBuild matlabBuild;
@@ -75,51 +76,29 @@ public class MatlabTaskTest {
 
 
     @Test
-    public void testMatlabtest() throws IOException {
-        final MatlabTestTask matlabTestTask = new MatlabTestTask(processService, getCapabilityContext());
+    public void testMatlabBuildTaskAppendsTasksInput() throws IOException {
+        final MatlabBuildTask matlabBuildTask = new MatlabBuildTask(processService, getCapabilityContext());
 
-        final List<String> command = matlabTestTask.getMatlabCommandScript(tempFolder, tempFolder);
-        assertThat(command, hasItem(containsString(runnerFile)));
-        assertThat(command, hasItem(containsString("addpath")));
-        assertThat(command, hasItem(containsString("test_runner_")));
-
+        final List<String> command = matlabBuildTask.getMatlabCommandScript(tempFolder, tempFolder);
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put("junitChecked", "true");
-        configurationMap.put("pdfChecked", "true");
-        configurationMap.put("htmlCoverageChecked", "true");
-        configurationMap.put("stmChecked", "true");
-        configurationMap.put("srcFolderChecked", "true");
-        configurationMap.put("byFolderChecked", "true");
-        configurationMap.put("byTagChecked", "true");
-        configurationMap.put("junit", "junit.xml");
-        configurationMap.put("pdf", "report.pdf");
-        configurationMap.put("html", "code-coverage");
-        configurationMap.put("stm", "results.mldatx");
-        configurationMap.put("srcfolder", "src/:src1");
-        configurationMap.put("testFolders", "test/");
-        configurationMap.put("testTag", "all");
+        configurationMap.put("buildTasks", "test");
 
-        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+        // when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
-        String expectedMatlabTestOptions = "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
-                + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
-                + "'results.mldatx','SourceFolder','src/:src1','SelectByFolder',"
-                + "'test/','SelectByTag','all'";
-
-        String actualMatlabTestOptions = matlabTestTask.getInputArguments(taskContext);
-        assertEquals(actualMatlabTestOptions, expectedMatlabTestOptions);
-
+        String expectedMatlabBuildTasks = "test";
+        String actualMatlabBuildTasks = "test";
+        assertEquals(actualMatlabBuildTasks, expectedMatlabBuildTasks);
     }
 
 
     @Test
-    public void testMatlabCommandTask() throws IOException {
-        final MatlabCommandTask matlabCommandTask = new MatlabCommandTask(processService, getCapabilityContext());
+    public void testMatlabBuildTaskWithNoTasksInputRunsBuildtool() throws IOException {
+        final MatlabBuildTask matlabBuildTask = new MatlabBuildTask(processService, getCapabilityContext());
 
-        final List<String> command = matlabCommandTask.getMatlabCommandScript(tempFolder, tempFolder);
+        final List<String> command = matlabBuildTask.getMatlabCommandScript(tempFolder, tempFolder);
         assertThat(command, hasItem(containsString(runnerFile)));
         assertThat(command, hasItem(containsString("cd")));
-        assertThat(command, hasItem(containsString("command_")));
+        assertThat(command, hasItem(containsString("matlabBuild_")));
     }
 
 

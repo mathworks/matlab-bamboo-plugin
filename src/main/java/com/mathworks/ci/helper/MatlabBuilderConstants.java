@@ -14,6 +14,9 @@ public class MatlabBuilderConstants {
     // UIConfigBean populated in Configurators by Bamboo
     public static final String UI_CONFIG_SUPPORT = "uiConfigSupport";
 
+    // MATLAB build field
+    public static final String MATLAB_BUILD_TASKS = "buildTasks";
+
     //MATLAB command field
     public static final String MATLAB_COMMAND_CFG_KEY = "matlabCommand";
 
@@ -52,7 +55,7 @@ public class MatlabBuilderConstants {
     public static final String HTML_MODELCOV_DEFAULT_DIR ="matlab-artifacts/model-coverage";
 
 
-    // Matlab Runner files 
+    // Matlab Runner files å
     public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
     public static final String SHELL_RUNNER_FILE = "run_matlab_command.sh";
 
