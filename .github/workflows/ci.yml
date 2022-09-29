@@ -20,3 +20,10 @@ jobs:
         run: atlas-mvn install -q
       - name: Unit test
         run: atlas-unit-test
+      - name: Package plugin
+        run: atlas-package
+      - name: Upload plugin as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: matlab-bamboo-plugin
+          path: target/matlab-bamboo-plugin-.*-SNAPSHOT.jar
