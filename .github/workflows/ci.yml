@@ -13,6 +13,6 @@ jobs:
           curl -fL https://packages.atlassian.com/api/gpg/key/public -o public
           sudo apt-key add public
           sudo apt-get update
-          sudo apt-get install atlassian-plugin-sdk=8.2.7
+          sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
       - run: atlas-unit-test
