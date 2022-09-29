@@ -26,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: matlab-bamboo-plugin
-          path: target/matlab-bamboo-plugin-.*-SNAPSHOT.jar
+          path: target/matlab-bamboo-plugin-*-SNAPSHOT.jar
