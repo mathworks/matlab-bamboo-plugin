@@ -15,5 +15,4 @@ jobs:
         sudo apt-get update
         sudo apt-get install atlassian-plugin-sdk=8.2.7
         atlas-version
-  run-unit-tests:
     - run: atlas-unit-test
