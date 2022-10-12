@@ -13,6 +13,7 @@ import com.atlassian.bamboo.process.ExternalProcessBuilder;
 import com.atlassian.bamboo.process.ProcessService;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.task.TaskException;
+import com.atlassian.bamboo.task.TaskResultBuilder;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.helper.MatlabBuild;
@@ -25,6 +26,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -49,6 +51,9 @@ public class MatlabTestTaskTest {
     @Mock
     public BuildLogger buildLogger;
 
+    @Mock
+    public TaskResultBuilder resultBuilder;
+
     public ExternalProcess process;
 
     @InjectMocks
@@ -71,7 +76,11 @@ public class MatlabTestTaskTest {
         configurationMap.put("byTagChecked", "false");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
-        task.execute(taskContext);
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
@@ -79,7 +88,6 @@ public class MatlabTestTaskTest {
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
-
         assertEquals(expectedCommand, matlabCommand.getValue());
     }
 
@@ -102,7 +110,11 @@ public class MatlabTestTaskTest {
         configurationMap.put("testTag", "all");        
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
-        task.execute(taskContext);
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
@@ -114,7 +126,30 @@ public class MatlabTestTaskTest {
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
-
         assertEquals(expectedCommand, matlabCommand.getValue());
+    }
+
+    @Test
+    public void testExecuteExceptionsAreAddedToBuildlog() throws TaskException, IOException {
+        ConfigurationMap configurationMap = new ConfigurationMapImpl();
+        configurationMap.put("junitChecked", "false");
+        configurationMap.put("pdfChecked", "false");
+        configurationMap.put("htmlCoverageChecked", "false");
+        configurationMap.put("stmChecked", "false");
+        configurationMap.put("srcFolderChecked", "false");
+        configurationMap.put("byFolderChecked", "false");
+        configurationMap.put("byTagChecked", "false");
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+        when(matlabCommandRunner.run(Mockito.any(), Mockito.any())).thenThrow(new IOException("BAM!"));
+
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
+        ArgumentCaptor<String> buildException = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(buildLogger).addErrorLogEntry(buildException.capture());
+
+        assertEquals("BAM!", buildException.getValue());
     }
 }

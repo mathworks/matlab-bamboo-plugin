@@ -34,9 +34,7 @@ public class MatlabBuildTask implements TaskType {
     private MatlabCommandRunner matlabCommandRunner;
 
     public MatlabBuildTask(ProcessService processService, CapabilityContext capabilityContext) {
-        this.processService = processService;
-        this.capabilityContext = capabilityContext;
-        this.matlabCommandRunner = new MatlabCommandRunner(processService, capabilityContext);
+        this(processService, capabilityContext, new MatlabCommandRunner(processService, capabilityContext));
     }
 
     public MatlabBuildTask(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
