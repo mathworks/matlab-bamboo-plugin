@@ -1,23 +1,17 @@
 package com.mathworks.ci.task;
 
 /**
- * Copyright 2021 The MathWorks, Inc.
- * <p>
- * <p>
- * Test class for MatlabReleaseInfo
+ * Copyright 2021-2022 The MathWorks, Inc.
  */
 
-
+import org.junit.Test;
 import com.mathworks.ci.MatlabReleaseInfo;
 import com.mathworks.ci.MatlabVersionNotFoundException;
-import org.junit.Test;
-
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
 public class MatlabReleaseInfoTest {
-
     @Test
     public void testGetMatlabReleaseInfoWithContentsFile() throws MatlabVersionNotFoundException {
         ClassLoader classLoader = getClass().getClassLoader();

@@ -1,38 +1,38 @@
 package com.mathworks.ci;
 
-/*
- * Copyright 2021 The MathWorks, Inc. This Class provides MATLAB release information.
- *
+/**
+ * Copyright 2021-2022 The MathWorks, Inc.
  */
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.NotDirectoryException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.springframework.util.ObjectUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.io.FileUtils;
 import org.xml.sax.SAXException;
 
 public class MatlabReleaseInfo {
-    private File matlabRoot;
     private static final String VERSION_INFO_FILE = "VersionInfo.xml";
     private static final String CONTENTS_FILE = "toolbox/matlab/general/Contents.m";
     private static final String RELEASE_TAG = "release";
     private static final String VERSION_INFO_ROOT_TAG = "MathWorks_version_info";
     private static final String RELEASE_PATTERN = "\\((.*?)\\)";
 
+    private File matlabRoot;
     private Map<String, String> versionInfoCache = new HashMap<String, String>();
 
     public MatlabReleaseInfo(String matlabRoot) {
@@ -43,7 +43,6 @@ public class MatlabReleaseInfo {
         Map<String, String> releaseNumber = getReleaseInfoFromFile();
         return releaseNumber.get(RELEASE_TAG);
     }
-
 
     private Map<String, String> getReleaseInfoFromFile() throws MatlabVersionNotFoundException {
         if (!ObjectUtils.isEmpty(versionInfoCache)) {

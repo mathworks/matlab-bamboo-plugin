@@ -1,10 +1,7 @@
 package com.mathworks.ci.task;
 
 /**
- * Copyright 2021 The MathWorks, Inc.
- * <p>
- * <p>
- * Test class for MatlabCapabilityDefaultsHelper
+ * Copyright 2021-2022 The MathWorks, Inc.
  */
 
 import com.mathworks.ci.MatlabCapabilityDefaultsHelper;
@@ -18,6 +15,10 @@ import com.atlassian.bamboo.utils.SystemProperty;
 import org.apache.commons.lang3.SystemUtils;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.MatlabReleaseInfo;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,13 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.lang.reflect.Field;
-
 public class MatlabCapabilityDefaultsHelperTest {
-
     private CapabilitySetImpl capabilitySet;
 
     @Test
@@ -48,7 +43,6 @@ public class MatlabCapabilityDefaultsHelperTest {
         CapabilitySet actualCapabilitySet = matlabCapabilityDefaultsHelper.addDefaultCapabilities(capabilitySet);
         assertEquals(actualCapabilitySet.getCapability(MatlabBuilderConstants.MATLAB_CAPABILITY_PREFIX), null);
     }
-
 
     @Test
     public void testWhenMATLABExistOnPath() {

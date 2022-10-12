@@ -1,14 +1,11 @@
 package com.mathworks.ci.task;
 
 /**
- * Copyright 2020 - 2021 The MathWorks, Inc.
- * <p>
- * <p>
- * Test class for MatlabTask helper
+ * Copyright 2020 - 2022 The MathWorks, Inc.
  */
 
 import org.junit.Test;
-import com.mathworks.ci.task.MatlabCommandTask;
+import com.mathworks.ci.helper.MatlabCommandRunner;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.bamboo.v2.build.agent.capability.ReadOnlyCapabilitySet;
@@ -44,7 +41,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MatlabBuildTest {
     @InjectMocks
-    public MatlabCommandTask matlabCommandTask;
+    public MatlabCommandRunner matlabCommandRunner;
 
     @Mock
     public MatlabBuild matlabBuild;
@@ -84,9 +81,8 @@ public class MatlabBuildTest {
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl(map);
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
-        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
+        assertEquals(matlabCommandRunner.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
     }
-
 
     @Test
     public void testGetTempWorkingDirectory() {
@@ -100,5 +96,4 @@ public class MatlabBuildTest {
         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerScript);
         assertEquals(matlabBuild.getPlatformSpecificRunner(tempFolder), runnerScript);
     }
-
 }

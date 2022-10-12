@@ -33,7 +33,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabBuildTaskTest {
+public class MatlabCommandTaskTest {
     @Mock
     public MatlabCommandRunner matlabCommandRunner;
 
@@ -50,7 +50,7 @@ public class MatlabBuildTaskTest {
     public BuildLogger buildLogger;
 
     @InjectMocks
-    MatlabBuildTask task;
+    MatlabCommandTask task;
 
     @Before
     public void init() {
@@ -58,30 +58,15 @@ public class MatlabBuildTaskTest {
     }
 
     @Test
-    public void testExectuteRunsDefaultTasksIfNoTasksProvided() throws TaskException, IOException {
+    public void testExectuteRunsWithProvidedCommand() throws TaskException, IOException {
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "disp('yo world')");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
         task.execute(taskContext);
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        assertEquals("buildtool", matlabCommand.getValue());
-    }
-
-    @Test
-    public void testExecuteRunsBuildtoolWithProvidedTasks() throws TaskException, IOException {
-        Map<String, String> map = new HashMap<>();
-        map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "mex test");
-        ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
-        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
-
-        MatlabBuildTask task = new MatlabBuildTask(processService, capabilityContext, matlabCommandRunner);
-        task.execute(taskContext);
-        ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
-        Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
-
-        assertEquals("buildtool mex test", matlabCommand.getValue());
+        assertEquals("disp('yo world')", matlabCommand.getValue());
     }
 }
