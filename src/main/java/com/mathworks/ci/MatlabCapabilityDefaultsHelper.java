@@ -1,8 +1,8 @@
-package com.mathworks.ci;
-
 /**
  * Copyright 2021-2022 The MathWorks, Inc.
  */
+
+package com.mathworks.ci;
 
 import com.atlassian.bamboo.v2.build.agent.capability.Capability;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityDefaultsHelper;

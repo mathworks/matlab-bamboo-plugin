@@ -1,8 +1,10 @@
-package com.mathworks.ci.task;
-
 /**
  * Copyright 2022 The MathWorks, Inc.
+ * 
+ * Run MATLAB Build Task Invocation
  */
+
+package com.mathworks.ci.task;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
@@ -18,10 +20,6 @@ import com.atlassian.utils.process.ExternalProcess;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.helper.MatlabCommandRunner;
 import org.jetbrains.annotations.NotNull;
-
-/**
- * Run MATLAB Build Task Invocation
- */
 
 @Scanned
 public class MatlabBuildTask implements TaskType {

@@ -1,8 +1,10 @@
-package com.mathworks.ci;
-
 /**
  * Copyright 2021-2022 The MathWorks, Inc.
+ * 
+ * This Class provides MATLAB release information.
  */
+
+package com.mathworks.ci;
 
 import java.io.BufferedReader;
 import java.io.File;

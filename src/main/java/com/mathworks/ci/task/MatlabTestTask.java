@@ -1,8 +1,10 @@
-package com.mathworks.ci.task;
-
 /**
  * Copyright 2020-2022 The MathWorks, Inc.
+ * 
+ * Run MATLAB Test Task Invocation
  */
+
+package com.mathworks.ci.task;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
@@ -20,10 +22,6 @@ import com.mathworks.ci.helper.MatlabCommandRunner;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
-
-/**
- * Run MATLAB Test Task Invocation
- */
 
 @Scanned
 public class MatlabTestTask implements TaskType {
