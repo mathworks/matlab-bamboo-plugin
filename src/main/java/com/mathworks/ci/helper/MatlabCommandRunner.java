@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import net.lingala.zip4j.ZipFile;
 
 public class MatlabCommandRunner implements MatlabBuild {
-    private File tempDirectory;
+    private File tempDirectory = getTempWorkingDirectory();
     private final CapabilityContext capabilityContext;
     private final ProcessService processService;
 
@@ -33,24 +33,18 @@ public class MatlabCommandRunner implements MatlabBuild {
     }
 
     public ExternalProcess run(String matlabCommand, TaskContext taskContext) throws IOException {
-        tempDirectory = getTempWorkingDirectory();
         BuildLogger buildLogger = taskContext.getBuildLogger();
         File workingDirectory = taskContext.getRootDirectory();
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
-        try {
-            buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
-            List<String> command = generateCommand(matlabCommand, workingDirectory);
-            ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
-                .workingDirectory(workingDirectory)
-                .command(command)
-                .env(SystemProperty.PATH.getKey(), matlabRoot);
-            ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
-            process.execute();
-            return process;    
-        } finally {
-            clearTempDirectory(tempDirectory, buildLogger);
-            tempDirectory = null;
-        }
+        buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
+        List<String> command = generateCommand(matlabCommand, workingDirectory);
+        ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
+            .workingDirectory(workingDirectory)
+            .command(command)
+            .env(SystemProperty.PATH.getKey(), matlabRoot);
+        ExternalProcess process = processService.createExternalProcess(taskContext, processBuilder);
+        process.execute();
+        return process;    
     }
 
     public void unzipToTempDir(String zipName) throws IOException {
@@ -61,6 +55,10 @@ public class MatlabCommandRunner implements MatlabBuild {
         // Unzip the file to temp folder
         ZipFile zipFile = new ZipFile(zipFileLocation);
         zipFile.extractAll(tempDirectory.toString());
+    }
+
+    public void cleanup(BuildLogger buildLogger) {
+        clearTempDirectory(tempDirectory, buildLogger);
     }
 
     @NotNull

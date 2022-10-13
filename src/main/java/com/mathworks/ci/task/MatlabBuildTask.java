@@ -59,6 +59,8 @@ public class MatlabBuildTask implements TaskType {
             taskResultBuilder.checkReturnCode(process);
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
+        } finally {
+            matlabCommandRunner.cleanup(buildLogger);
         }
         return taskResultBuilder.build();
     }
