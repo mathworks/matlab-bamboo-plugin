@@ -54,7 +54,7 @@ public class MatlabBuilderConstants {
     public static final String HTML_MODELCOV_DEFAULT_DIR = "matlab-artifacts/model-coverage";
 
 
-    // Matlab Runner files å
+    // Matlab Runner files
     public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
     public static final String SHELL_RUNNER_FILE = "run_matlab_command.sh";
 

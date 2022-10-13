@@ -27,11 +27,6 @@ public class MatlabCommandTaskConfigurator extends MatlabTaskConfigurator {
     }
 
     @Override
-    public void populateContextForCreate(@NotNull final Map<String, Object> context) {
-        super.populateContextForCreate(context);
-    }
-
-    @Override
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         context.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY));
