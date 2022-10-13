@@ -23,23 +23,20 @@ import org.jetbrains.annotations.NotNull;
 import net.lingala.zip4j.ZipFile;
 
 public class MatlabCommandRunner implements MatlabBuild {
-    private final File tempDirectory;
+    private File tempDirectory;
     private final CapabilityContext capabilityContext;
     private final ProcessService processService;
 
     public MatlabCommandRunner(ProcessService processService, CapabilityContext capabilityContext) {
-        this.tempDirectory = getTempWorkingDirectory();
         this.capabilityContext = capabilityContext;
         this.processService = processService;
     }
 
     public ExternalProcess run(String matlabCommand, TaskContext taskContext) throws IOException {
+        tempDirectory = getTempWorkingDirectory();
         BuildLogger buildLogger = taskContext.getBuildLogger();
         File workingDirectory = taskContext.getRootDirectory();
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
-        if (!StringUtils.isNotEmpty(matlabRoot)) {
-            buildLogger.addErrorLogEntry("Invalid MATLAB Executable");
-        }
         try {
             buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
             List<String> command = generateCommand(matlabCommand, workingDirectory);
@@ -52,15 +49,16 @@ public class MatlabCommandRunner implements MatlabBuild {
             return process;    
         } finally {
             clearTempDirectory(tempDirectory, buildLogger);
+            tempDirectory = null;
         }
     }
 
-    public void getScriptgen() throws IOException {
-        // copy genscript package
-        copyFileInWorkspace("matlab-script-generator.zip", tempDirectory);
-        File zipFileLocation = new File(tempDirectory, "matlab-script-generator.zip");
+    public void unzipToTempDir(String zipName) throws IOException {
+        // copy zip to tempDirectory
+        copyFileInWorkspace(zipName, tempDirectory);
+        File zipFileLocation = new File(tempDirectory, zipName);
 
-        // Unzip the file in temp folder.
+        // Unzip the file to temp folder
         ZipFile zipFile = new ZipFile(zipFileLocation);
         zipFile.extractAll(tempDirectory.toString());
     }

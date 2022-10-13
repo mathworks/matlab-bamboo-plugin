@@ -27,14 +27,14 @@ import org.jetbrains.annotations.Nullable;
 public interface MatlabBuild {
     @Nullable
     default String getMatlabRoot(@NotNull TaskContext taskContext, CapabilityContext capabilityContext, BuildLogger buildLogger) {
-        String matlabRoot = null;
+        String matlabRoot = "";
         String matlabRelease = null;
         ReadOnlyCapabilitySet capabilitySet = capabilityContext.getCapabilitySet();
         if (capabilitySet != null) {
             String matlabLabel = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_CFG_KEY);
             Capability capability = capabilitySet.getCapability(MatlabBuilderConstants.MATLAB_PREFIX + matlabLabel);
             if (capability != null) {
-                matlabRoot = Strings.emptyToNull(capability.getValue());
+                matlabRoot = capability.getValue();
             }
         }
         try {
@@ -50,17 +50,12 @@ public interface MatlabBuild {
 
     default File getTempWorkingDirectory() {
         File tmpDir = SystemUtils.getJavaIoTmpDir();
-        File tempDirectory = new File(tmpDir, getUniqueNameForRunnerFile());
+        File tempDirectory = new File(tmpDir, UUID.randomUUID().toString());
         tempDirectory.mkdirs();
         return tempDirectory;
     }
 
-    default String getUniqueNameForRunnerFile() {
-        return UUID.randomUUID().toString();
-    }
-
     default String getPlatformSpecificRunner(File tempDirectory) throws IOException {
-
         if (SystemUtils.IS_OS_WINDOWS) {
             copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_FILE, tempDirectory);
             return tempDirectory + "\\" + "run_matlab_command.bat";
@@ -94,9 +89,5 @@ public interface MatlabBuild {
         } catch (Exception e) {
             buildLogger.addErrorLogEntry(e.getMessage());
         }
-    }
-
-    default String getValidMatlabFileName(String actualName) {
-        return MatlabBuilderConstants.MATLAB_TEST_RUNNER_FILE_PREFIX + actualName.replaceAll("-", "_");
     }
 }

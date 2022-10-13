@@ -62,10 +62,6 @@ public class MatlabTestTaskTest {
     @Before
     public void init() {
         when(taskContext.getBuildLogger()).thenReturn(buildLogger);
-    }
-
-    @Test
-    public void testExectuteRunsWithDefaultArguments() throws TaskException, IOException {
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
         configurationMap.put("junitChecked", "false");
         configurationMap.put("pdfChecked", "false");
@@ -75,7 +71,10 @@ public class MatlabTestTaskTest {
         configurationMap.put("byFolderChecked", "false");
         configurationMap.put("byTagChecked", "false");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+    }
 
+    @Test
+    public void testExectuteRunsWithDefaultArguments() throws TaskException, IOException {
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
@@ -131,15 +130,6 @@ public class MatlabTestTaskTest {
 
     @Test
     public void testExecuteExceptionsAreAddedToBuildlog() throws TaskException, IOException {
-        ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put("junitChecked", "false");
-        configurationMap.put("pdfChecked", "false");
-        configurationMap.put("htmlCoverageChecked", "false");
-        configurationMap.put("stmChecked", "false");
-        configurationMap.put("srcFolderChecked", "false");
-        configurationMap.put("byFolderChecked", "false");
-        configurationMap.put("byTagChecked", "false");
-        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
         when(matlabCommandRunner.run(Mockito.any(), Mockito.any())).thenThrow(new IOException("BAM!"));
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
@@ -151,5 +141,18 @@ public class MatlabTestTaskTest {
         Mockito.verify(buildLogger).addErrorLogEntry(buildException.capture());
 
         assertEquals("BAM!", buildException.getValue());
+    }
+
+    @Test
+    public void testExectuteUnzipsScriptgenToTempDir() throws TaskException, IOException {
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
+        ArgumentCaptor<String> zipName = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(matlabCommandRunner).unzipToTempDir(zipName.capture());
+
+        assertEquals("matlab-script-generator.zip", zipName.getValue());
     }
 }

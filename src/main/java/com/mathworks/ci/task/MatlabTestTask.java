@@ -35,14 +35,14 @@ public class MatlabTestTask implements TaskType {
 
     private MatlabCommandRunner matlabCommandRunner;
 
-    public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
-        this(processService, capabilityContext, new MatlabCommandRunner(processService, capabilityContext));
-    }
-
     public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
         this.matlabCommandRunner = matlabCommandRunner;
+    }
+
+    public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
+        this(processService, capabilityContext, new MatlabCommandRunner(processService, capabilityContext));
     }
 
     @NotNull
@@ -56,7 +56,7 @@ public class MatlabTestTask implements TaskType {
 
         buildLogger.addBuildLogEntry("Running MATLAB tests: ");
         try {
-            matlabCommandRunner.getScriptgen();
+            matlabCommandRunner.unzipToTempDir("matlab-script-generator.zip");
             ExternalProcess process = matlabCommandRunner.run(testCommand, taskContext);
             taskResultBuilder.checkReturnCode(process);
         } catch (Exception e) {
