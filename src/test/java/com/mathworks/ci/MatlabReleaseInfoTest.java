@@ -1,8 +1,8 @@
-package com.mathworks.ci.task;
-
 /**
  * Copyright 2021-2022 The MathWorks, Inc.
  */
+
+package com.mathworks.ci.task;
 
 import org.junit.Test;
 import com.mathworks.ci.MatlabReleaseInfo;

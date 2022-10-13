@@ -1,8 +1,8 @@
-package com.mathworks.ci.task;
-
 /**
  * Copyright 2021-2022 The MathWorks, Inc.
  */
+
+package com.mathworks.ci.task;
 
 import com.mathworks.ci.MatlabCapabilityDefaultsHelper;
 import com.atlassian.bamboo.v2.build.agent.capability.ExecutablePathUtils;

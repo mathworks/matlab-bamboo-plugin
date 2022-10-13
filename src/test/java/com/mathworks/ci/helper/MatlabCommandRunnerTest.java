@@ -1,8 +1,8 @@
-package com.mathworks.ci.helper;
-
 /**
  * Copyright 2022 The MathWorks, Inc.
  */
+
+package com.mathworks.ci.helper;
 
 import org.junit.Test;
 import com.atlassian.bamboo.build.logger.BuildLogger;
