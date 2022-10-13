@@ -50,7 +50,7 @@ public class MatlabBuildTask implements TaskType {
         // Construct buildtool command from inputs
         String buildTasks = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_BUILD_TASKS).trim();
         String buildtoolCommand = "buildtool";
-        if (!buildTasks.trim().isEmpty()) {
+        if (!buildTasks.isEmpty()) {
             buildtoolCommand += " " + buildTasks;
         }
 
