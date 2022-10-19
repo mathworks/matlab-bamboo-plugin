@@ -1,14 +1,11 @@
-package com.mathworks.ci.task;
-
 /**
- * Copyright 2020 - 2021 The MathWorks, Inc.
- * <p>
- * <p>
- * Test class for MatlabTask helper
+ * Copyright 2020 - 2022 The MathWorks, Inc.
  */
 
+package com.mathworks.ci.task;
+
 import org.junit.Test;
-import com.mathworks.ci.task.MatlabCommandTask;
+import com.mathworks.ci.helper.MatlabCommandRunner;
 import com.atlassian.bamboo.task.TaskContext;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.bamboo.v2.build.agent.capability.ReadOnlyCapabilitySet;
@@ -23,9 +20,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mock;
 import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
@@ -44,7 +41,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class MatlabBuildTest {
     @InjectMocks
-    public MatlabCommandTask matlabCommandTask;
+    public MatlabCommandRunner matlabCommandRunner;
 
     @Mock
     public MatlabBuild matlabBuild;
@@ -84,9 +81,8 @@ public class MatlabBuildTest {
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl(map);
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
-        assertEquals(matlabCommandTask.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
+        assertEquals(matlabCommandRunner.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
     }
-
 
     @Test
     public void testGetTempWorkingDirectory() {
@@ -97,9 +93,7 @@ public class MatlabBuildTest {
 
     @Test
     public void testGetPlatformSpecificRunner() throws IOException {
-        doNothing().doThrow(new IOException()).when(matlabBuild).copyFileInWorkspace(runnerFile, tempFolder);
         when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerScript);
         assertEquals(matlabBuild.getPlatformSpecificRunner(tempFolder), runnerScript);
     }
-
 }

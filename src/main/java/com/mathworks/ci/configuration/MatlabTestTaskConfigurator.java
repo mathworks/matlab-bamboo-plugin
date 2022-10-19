@@ -1,35 +1,21 @@
-package com.mathworks.ci.configuration;
-
 /**
- * Copyright 2020-2021 The MathWorks, Inc.
+ * Copyright 2020-2022 The MathWorks, Inc.
  */
 
+package com.mathworks.ci.configuration;
+
 import com.atlassian.bamboo.collections.ActionParametersMap;
-import com.atlassian.bamboo.task.AbstractTaskConfigurator;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
-import com.atlassian.bamboo.v2.build.agent.capability.Capability;
-import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
-import com.atlassian.bamboo.ww2.actions.build.admin.create.UIConfigSupport;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.struts.TextProvider;
+import com.mathworks.ci.helper.MatlabBuilderConstants;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import com.mathworks.ci.helper.MatlabBuilderConstants;
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
 
 public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
-
     @NotNull
     @Override
-    public Map<String,String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
+    public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
 
         config.put(MatlabBuilderConstants.SRC_FLDR_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.SRC_FLDR_CHX)));
@@ -59,10 +45,9 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         return config;
     }
 
-
     //Populate default values for artifacts
     @Override
-    public void populateContextForCreate(@NotNull final Map<String,Object> context) {
+    public void populateContextForCreate(@NotNull final Map<String, Object> context) {
         super.populateContextForCreate(context);
         context.put(MatlabBuilderConstants.JUNIT_FILE, MatlabBuilderConstants.JUNIT_DEFAULT_FILE);
         context.put(MatlabBuilderConstants.HTML_COVFOLDER, MatlabBuilderConstants.HTML_CODECOV_DEFAULT_DIR);
@@ -72,7 +57,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     }
 
     @Override
-    public void populateContextForEdit(@NotNull final Map<String,Object> context, @NotNull final TaskDefinition taskDefinition) {
+    public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         context.put(MatlabBuilderConstants.SOURCE_FOLDER, taskDefinition.getConfiguration().get(MatlabBuilderConstants.SOURCE_FOLDER));
         context.put(MatlabBuilderConstants.SRC_FLDR_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.SRC_FLDR_CHX));
@@ -127,8 +112,5 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         if (params.getBoolean(MatlabBuilderConstants.HTML_MODELCOV_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_MODELCOV_FOLDER)))) {
             errorCollection.addError(MatlabBuilderConstants.HTML_MODELCOV_FOLDER, "Specify a valid location for the HTML model coverage report.");
         }
-
     }
-
-
 }

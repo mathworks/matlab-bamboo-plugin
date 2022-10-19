@@ -4,15 +4,26 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  check-sdk-version:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v2
-     - run: |
-        sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
-        curl -fL https://packages.atlassian.com/api/gpg/key/public -o public
-        sudo apt-key add public
-        sudo apt-get update
-        sudo apt-get install atlassian-plugin-sdk=8.0.16
-        atlas-version
-    
+      - uses: actions/checkout@v2
+      - name: setup Atlassian SDK
+        run: |
+          sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
+          curl -fL https://packages.atlassian.com/api/gpg/key/public -o public
+          sudo apt-key add public
+          sudo apt-get update
+          sudo apt-get install atlassian-plugin-sdk=8.2.8
+          atlas-version
+      - name: Install dependencies
+        run: atlas-mvn install -q
+      - name: Unit test
+        run: atlas-unit-test
+      - name: Package plugin
+        run: atlas-package
+      - name: Upload plugin as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: matlab-bamboo-plugin
+          path: target/matlab-bamboo-plugin-*-SNAPSHOT.jar

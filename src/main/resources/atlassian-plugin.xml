@@ -24,6 +24,18 @@
 
     <!-- TASKS -->
 
+    <!-- MATLAB Build Task -->
+
+    <taskType key="runMATLABBuild" name="Run MATLAB Build" class="com.mathworks.ci.task.MatlabBuildTask">
+        <description>Run a build using the MATLAB build tool</description>
+        <category name="builder"/>
+        <configuration class="com.mathworks.ci.configuration.MatlabBuildTaskConfigurator"/>
+        <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
+        <resource type="freemarker" name="edit" location="templates/editMATLABBuildTask.ftl"/>
+        <resource type="download" name="icon" location="images/image1.png"/>
+        <help link="MATLABbuild.task.help.link" title="MATLABbuild.task.help.title" />
+    </taskType>
+    
     <!-- MATLAB Command Task -->
     <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MatlabCommandTask">
         <description>Execute a MATLAB script or statement</description>

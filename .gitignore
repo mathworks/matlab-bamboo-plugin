@@ -1,3 +1,6 @@
+src/main/resources/run_matlab_command.*
+src/main/resources/matlab-script-generator.zip
+
 LICENSE.txt
 Atlassian-SDK-README.txt
 js
@@ -13,3 +16,4 @@ build
 *.asv
 work
 .idea
+**/.DS_Store
