@@ -97,16 +97,18 @@ public class MatlabTestTaskTest {
         configurationMap.put("pdfChecked", "true");
         configurationMap.put("htmlCoverageChecked", "true");
         configurationMap.put("stmChecked", "true");
+        configurationMap.put("htmlModelCoverageChecked", "true");
         configurationMap.put("srcFolderChecked", "true");
         configurationMap.put("byFolderChecked", "true");
         configurationMap.put("byTagChecked", "true");
         configurationMap.put("junit", "junit.xml");
         configurationMap.put("pdf", "report.pdf");
         configurationMap.put("html", "code-coverage");
+        configurationMap.put("htmlModel", "model-coverage");
         configurationMap.put("stm", "results.mldatx");
         configurationMap.put("srcfolder", "src/:src1");
         configurationMap.put("testFolders", "test/");
-        configurationMap.put("testTag", "all");        
+        configurationMap.put("testTag", "all");      
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
@@ -118,10 +120,14 @@ public class MatlabTestTaskTest {
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
         String expectedCommand = "testScript = genscript("
-            + "'Test','JUnitTestResults','junit.xml','PDFTestReport','report.pdf',"
-            + "'HTMLCodeCoverage','code-coverage','SimulinkTestResults',"
-            + "'results.mldatx','SourceFolder','src/:src1','SelectByFolder',"
-            + "'test/','SelectByTag','all');\n\n"
+            + "'Test','JUnitTestResults','junit.xml',"
+            + "'PDFTestReport','report.pdf',"
+            + "'HTMLCodeCoverage','code-coverage',"
+            + "'SimulinkTestResults','results.mldatx',"
+            + "'HTMLModelCoverage','model-coverage',"
+            + "'SourceFolder','src/:src1',"
+            + "'SelectByFolder','test/',"
+            + "'SelectByTag','all');\n\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
