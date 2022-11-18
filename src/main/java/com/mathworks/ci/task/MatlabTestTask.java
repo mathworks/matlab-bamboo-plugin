@@ -91,6 +91,10 @@ public class MatlabTestTask implements TaskType {
             inputArgsList.add("'SimulinkTestResults'" + "," + "'" + taskContext.getConfigurationMap().get("stm").trim().replaceAll("'", "''") + "'");
         }
 
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlModelCoverageChecked"))) {
+            inputArgsList.add("'HTMLModelCoverage'" + "," + "'" + taskContext.getConfigurationMap().get("htmlModel").trim().replaceAll("'", "''") + "'");
+        }
+        
         /*
          * Add source folder options to argument.
          * */
