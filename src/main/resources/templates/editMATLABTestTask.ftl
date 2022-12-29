@@ -61,4 +61,20 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
 
 [@ui.bambooSection titleKey='matlab.test.customizations']
     [@ww.checkbox labelKey='matlab.test.strict' name='strictChecked' toggle='true'/]
+
+    [@ww.checkbox labelKey='matlab.test.use.parallel' name='useParallelChecked' toggle='true'/]
+
+    [@ww.checkbox labelKey='matlab.test.outputDetail.exists' name='outputDetailChecked' toggle='true'/]
+        [@ui.bambooSection dependsOn='outputDetailChecked' showOn=true]
+[#--            need to update 'matlab' here--]
+            [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.output.detail" name="outputDetail"
+            list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
+        [/@ui.bambooSection]
+
+    [@ww.checkbox labelKey='matlab.test.loggingLevel.exists' name='loggingLevelChecked' toggle='true'/]
+    [@ui.bambooSection dependsOn='loggingLevelChecked' showOn=true]
+    [#--            need to update 'matlab' here--]
+        [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.logging.level" name="loggingLevel"
+        list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
+    [/@ui.bambooSection]
 [/@ui.bambooSection]

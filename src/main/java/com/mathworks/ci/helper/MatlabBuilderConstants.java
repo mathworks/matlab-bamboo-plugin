@@ -54,8 +54,15 @@ public class MatlabBuilderConstants {
     public static final String HTML_MODELCOV_DEFAULT_DIR = "matlab-artifacts/model-coverage";
 
     //Test run customizations
-//    public static final String STRICT = "strict";
     public static final String STRICT_CHX = "strictChecked";
+
+    public static final String USE_PARALLEL_CHX = "useParallelChecked";
+
+    public static final String OUTPUT_DETAIL_KEY = "outputDetail";
+    public static final String OUTPUT_DETAIL_CHX = "outputDetailChecked";
+
+    public static final String LOGGING_LEVEL_KEY = "loggingLevel";
+    public static final String LOGGING_LEVEL_CHX = "loggingLevelChecked";
 
 
     // Matlab Runner files

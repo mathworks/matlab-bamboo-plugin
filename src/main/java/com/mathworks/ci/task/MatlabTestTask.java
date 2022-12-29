@@ -115,8 +115,24 @@ public class MatlabTestTask implements TaskType {
             inputArgsList.add("'SelectByTag'" + "," + "'" + taskContext.getConfigurationMap().get("testTag").trim().replaceAll("'", "''") + "'");
         }
 
+        /*
+         * Add test run customization options to argument.
+         * */
+
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("strictChecked"))) {
             inputArgsList.add("'Strict'" + "," + taskContext.getConfigurationMap().get("strictChecked"));
+        }
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("useParallelChecked"))) {
+            inputArgsList.add("'UseParallel'" + "," + taskContext.getConfigurationMap().get("useParallelChecked"));
+        }
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("outputDetailChecked"))) {
+            inputArgsList.add("'OutputDetail'" + "," + "'" + taskContext.getConfigurationMap().get("outputDetail").trim().replaceAll("'", "''") + "'");
+        }
+
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("loggingLevelChecked"))) {
+            inputArgsList.add("'LoggingLevel'" + "," + "'" + taskContext.getConfigurationMap().get("loggingLevel").trim().replaceAll("'", "''") + "'");
         }
 
         return String.join(",", inputArgsList);
