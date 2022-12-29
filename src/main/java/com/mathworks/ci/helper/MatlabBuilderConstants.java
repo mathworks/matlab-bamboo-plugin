@@ -53,6 +53,10 @@ public class MatlabBuilderConstants {
     public static final String HTML_MODELCOV_CHX = "htmlModelCoverageChecked";
     public static final String HTML_MODELCOV_DEFAULT_DIR = "matlab-artifacts/model-coverage";
 
+    //Test run customizations
+//    public static final String STRICT = "strict";
+    public static final String STRICT_CHX = "strictChecked";
+
 
     // Matlab Runner files
     public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";

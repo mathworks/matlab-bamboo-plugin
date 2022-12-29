@@ -42,6 +42,10 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         config.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)));
         config.put(MatlabBuilderConstants.JUNIT_FILE, params.getString(MatlabBuilderConstants.JUNIT_FILE));
 
+        config.put(MatlabBuilderConstants.STRICT_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.STRICT_CHX)));
+//        config.put(MatlabBuilderConstants.STRICT_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.STRICT_CHX)));
+//        config.put(MatlabBuilderConstants.STRICT, params.getString(MatlabBuilderConstants.STRICT));
+
         return config;
     }
 
@@ -83,6 +87,9 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         context.put(MatlabBuilderConstants.HTML_MODELCOV_FOLDER, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_MODELCOV_FOLDER));
         context.put(MatlabBuilderConstants.HTML_MODELCOV_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_MODELCOV_CHX));
 
+//        context.put(MatlabBuilderConstants.STRICT, taskDefinition.getConfiguration().get(MatlabBuilderConstants.STRICT));
+        context.put(MatlabBuilderConstants.STRICT_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.STRICT_CHX));
+
     }
 
     @Override
@@ -112,5 +119,8 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         if (params.getBoolean(MatlabBuilderConstants.HTML_MODELCOV_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_MODELCOV_FOLDER)))) {
             errorCollection.addError(MatlabBuilderConstants.HTML_MODELCOV_FOLDER, "Specify a valid location for the HTML model coverage report.");
         }
+//        if (params.getBoolean(MatlabBuilderConstants.STRICT_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.STRICT)))) {
+//            errorCollection.addError(MatlabBuilderConstants.STRICT, "Specify a valid input for strict checking.");
+//        }
     }
 }

@@ -115,6 +115,10 @@ public class MatlabTestTask implements TaskType {
             inputArgsList.add("'SelectByTag'" + "," + "'" + taskContext.getConfigurationMap().get("testTag").trim().replaceAll("'", "''") + "'");
         }
 
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("strictChecked"))) {
+            inputArgsList.add("'Strict'" + "," + taskContext.getConfigurationMap().get("strictChecked"));
+        }
+
         return String.join(",", inputArgsList);
     }
 }

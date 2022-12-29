@@ -58,3 +58,7 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
             description="Specify a path relative to the working directory." /]
         [/@ui.bambooSection]
 [/@ui.bambooSection]
+
+[@ui.bambooSection titleKey='matlab.test.customizations']
+    [@ww.checkbox labelKey='matlab.test.strict' name='strictChecked' toggle='true'/]
+[/@ui.bambooSection]

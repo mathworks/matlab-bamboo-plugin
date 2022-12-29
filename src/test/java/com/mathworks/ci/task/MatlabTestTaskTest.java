@@ -70,6 +70,7 @@ public class MatlabTestTaskTest {
         configurationMap.put("srcFolderChecked", "false");
         configurationMap.put("byFolderChecked", "false");
         configurationMap.put("byTagChecked", "false");
+        configurationMap.put("strictChecked", "false");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
     }
 
@@ -101,6 +102,7 @@ public class MatlabTestTaskTest {
         configurationMap.put("srcFolderChecked", "true");
         configurationMap.put("byFolderChecked", "true");
         configurationMap.put("byTagChecked", "true");
+        configurationMap.put("strictChecked", "true");
         configurationMap.put("junit", "junit.xml");
         configurationMap.put("pdf", "report.pdf");
         configurationMap.put("html", "code-coverage");
@@ -127,7 +129,9 @@ public class MatlabTestTaskTest {
             + "'HTMLModelCoverage','model-coverage',"
             + "'SourceFolder','src/:src1',"
             + "'SelectByFolder','test/',"
-            + "'SelectByTag','all');\n\n"
+            + "'SelectByTag','all',"
+            + "'Strict',true);\n\n"
+
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
