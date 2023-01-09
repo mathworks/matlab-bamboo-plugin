@@ -59,10 +59,8 @@ public class MatlabBuilderConstants {
     public static final String USE_PARALLEL_CHX = "useParallelChecked";
 
     public static final String OUTPUT_DETAIL_KEY = "outputDetail";
-    public static final String OUTPUT_DETAIL_CHX = "outputDetailChecked";
 
     public static final String LOGGING_LEVEL_KEY = "loggingLevel";
-    public static final String LOGGING_LEVEL_CHX = "loggingLevelChecked";
 
 
     // Matlab Runner files

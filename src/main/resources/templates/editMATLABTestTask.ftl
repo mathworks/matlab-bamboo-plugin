@@ -25,6 +25,20 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
         [/@ui.bambooSection]
 [/@ui.bambooSection]
 
+[@ui.bambooSection titleKey='matlab.test.customizations']
+    [@ww.checkbox labelKey='matlab.test.strict' name='strictChecked' toggle='true'/]
+
+    [@ww.checkbox labelKey='matlab.test.use.parallel' name='useParallelChecked' toggle='true'/]
+
+    [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.output.detail" name="outputDetail"
+    list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+
+    [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.logging.level" name="loggingLevel"
+    list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+
+    [@ww.select cssClass="builderSelectWidget" labelKey="Sample" list=["a", "b"]/]
+[/@ui.bambooSection]
+
 [@ui.bambooSection titleKey='matlab.test.artifacts']
     [@ww.checkbox labelKey='matlab.test.results.junit' name='junitChecked' toggle='true'/]
         [@ui.bambooSection dependsOn='junitChecked' showOn=true]
@@ -57,24 +71,4 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
             [@ww.textfield labelKey='matlab.code.coverage.directory' name="htmlModel" cssClass="long-field"
             description="Specify a path relative to the working directory." /]
         [/@ui.bambooSection]
-[/@ui.bambooSection]
-
-[@ui.bambooSection titleKey='matlab.test.customizations']
-    [@ww.checkbox labelKey='matlab.test.strict' name='strictChecked' toggle='true'/]
-
-    [@ww.checkbox labelKey='matlab.test.use.parallel' name='useParallelChecked' toggle='true'/]
-
-    [@ww.checkbox labelKey='matlab.test.outputDetail.exists' name='outputDetailChecked' toggle='true'/]
-        [@ui.bambooSection dependsOn='outputDetailChecked' showOn=true]
-[#--            need to update 'matlab' here--]
-            [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.output.detail" name="outputDetail"
-            list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
-        [/@ui.bambooSection]
-
-    [@ww.checkbox labelKey='matlab.test.loggingLevel.exists' name='loggingLevelChecked' toggle='true'/]
-    [@ui.bambooSection dependsOn='loggingLevelChecked' showOn=true]
-    [#--            need to update 'matlab' here--]
-        [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.logging.level" name="loggingLevel"
-        list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
-    [/@ui.bambooSection]
 [/@ui.bambooSection]

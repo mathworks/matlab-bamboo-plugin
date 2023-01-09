@@ -72,8 +72,8 @@ public class MatlabTestTaskTest {
         configurationMap.put("byTagChecked", "false");
         configurationMap.put("strictChecked", "false");
         configurationMap.put("useParallelChecked", "false");
-        configurationMap.put("outputDetailChecked", "false");
-        configurationMap.put("loggingLevelChecked", "false");
+        configurationMap.put("outputDetail", "Default");
+        configurationMap.put("loggingLevel", "Default");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
     }
 
@@ -107,8 +107,6 @@ public class MatlabTestTaskTest {
         configurationMap.put("byTagChecked", "true");
         configurationMap.put("strictChecked", "true");
         configurationMap.put("useParallelChecked", "true");
-        configurationMap.put("outputDetailChecked", "true");
-        configurationMap.put("loggingLevelChecked", "true");
         configurationMap.put("junit", "junit.xml");
         configurationMap.put("pdf", "report.pdf");
         configurationMap.put("html", "code-coverage");

@@ -127,11 +127,11 @@ public class MatlabTestTask implements TaskType {
             inputArgsList.add("'UseParallel'" + "," + taskContext.getConfigurationMap().get("useParallelChecked"));
         }
 
-        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("outputDetailChecked"))) {
+        if (!(taskContext.getConfigurationMap().get("outputDetail").equals("Default"))) {
             inputArgsList.add("'OutputDetail'" + "," + "'" + taskContext.getConfigurationMap().get("outputDetail").trim().replaceAll("'", "''") + "'");
         }
 
-        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("loggingLevelChecked"))) {
+        if (!(taskContext.getConfigurationMap().get("loggingLevel").equals("Default"))) {
             inputArgsList.add("'LoggingLevel'" + "," + "'" + taskContext.getConfigurationMap().get("loggingLevel").trim().replaceAll("'", "''") + "'");
         }
 
