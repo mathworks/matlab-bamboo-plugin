@@ -35,8 +35,6 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
 
     [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.logging.level" name="loggingLevel"
     list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
-
-    [@ww.select cssClass="builderSelectWidget" labelKey="Sample" list=["a", "b"]/]
 [/@ui.bambooSection]
 
 [@ui.bambooSection titleKey='matlab.test.artifacts']
