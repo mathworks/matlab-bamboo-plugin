@@ -30,11 +30,9 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
 
     [@ww.checkbox labelKey='matlab.test.use.parallel' name='useParallelChecked' toggle='true'/]
 
-    [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.output.detail" name="outputDetail"
-    list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+    [@ww.select labelKey="matlab.test.output.detail" name="outputDetail" list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
 
-    [@ww.select cssClass="builderSelectWidget" labelKey="matlab.test.logging.level" name="loggingLevel"
-    list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+    [@ww.select labelKey="matlab.test.logging.level" name="loggingLevel" list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
 [/@ui.bambooSection]
 
 [@ui.bambooSection titleKey='matlab.test.artifacts']
