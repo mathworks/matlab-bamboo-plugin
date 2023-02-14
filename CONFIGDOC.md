@@ -8,6 +8,7 @@ This plugin enables you to build and test your MATLAB&reg; project as part of yo
       -  [Run MATLAB Tests](#run-matlab-tests)
          - [Specify Source Folder](#specify-source-folder)
          - [Filter Tests](#filter-tests)
+         - [Customize Test Run](#customize-test-run)
          - [Generate Test and Coverage Artifacts](#generate-test-and-coverage-artifacts)
       -  [Run MATLAB Command](#run-matlab-command)
 
@@ -51,7 +52,7 @@ The **Run MATLAB Build** task enables you to run a build using the [MATLAB build
 
 To configure the **Run MATLAB Build** task, first specify the MATLAB executable to use for the task. Then, specify the MATLAB build tasks you want to execute in the **Build tasks** box. If you specify more than one task, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2022b to run a task named `mytask` as well as all the tasks on which it depends.
 
-![run_matlab_build](https://user-images.githubusercontent.com/48831250/200679015-ba740f66-ef61-4dcf-bff4-80e429270e36.png)
+![run_matlab_build](https://user-images.githubusercontent.com/48831250/217963137-f193ed54-39fb-4080-bc6b-c447fe4ad9aa.png)
 
 MATLAB exits with exit code 0 if the build runs successfully. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail.
 
@@ -62,16 +63,16 @@ The **Run MATLAB Tests** task enables you to run MATLAB and Simulink tests and g
 
 To configure the **Run MATLAB Tests** task, specify the MATLAB executable to use for the task. For example, use MATLAB R2022b to run the tests in your MATLAB project.
 
-![run_matlab_tests](https://user-images.githubusercontent.com/48831250/200678224-0239df20-fb56-4039-ad28-8eaff31b33cf.png)
+![run_matlab_tests](https://user-images.githubusercontent.com/48831250/217961401-465847c4-dccc-4053-b045-a3327cf77cce.png)
 
-The **Run MATLAB Tests** task lets you customize your test run using options in the task configuration interface. For example, you can add folders to the MATLAB search path, control which tests to run, and generate various artifacts.
+You can customize the **Run MATLAB Tests** task using options in the task configuration interface. For example, you can add folders to the MATLAB search path, control which tests to run, and generate various test and coverage artifacts. If you do not select any of the existing options, all the tests in your project run, and any test failure causes the build to fail.
 
 #### Specify Source Folder
 To specify the location of a folder containing source code, select **Specify source folder**. Specify the location relative to the project root folder. The plugin adds the specified folder and its subfolders to the top of the MATLAB search path. If you specify a source folder and then generate a coverage report, the plugin uses only the source code in the specified folder and its subfolders to generate the report. 
 
 If you specify more than one folder in the **Folder path** box, use a colon or semicolon to separate them.
 
-![specify_source_folder](https://user-images.githubusercontent.com/48831250/116313830-49bf7700-a77c-11eb-870e-fd6b53371ede.png)
+![specify_source_folder](https://user-images.githubusercontent.com/48831250/217961712-a4488cf6-c240-4030-8bed-4408623ad181.png)
 
 #### Filter Tests
 By default, the **Run MATLAB Tests** task creates a test suite from all the tests in your MATLAB project. To create a filtered test suite, select **By folder**, **By tag**, or both:
@@ -82,7 +83,17 @@ By default, the **Run MATLAB Tests** task creates a test suite from all the test
 
 * To select test suite elements using a test tag, select **By tag**. When you specify a test tag, the plugin creates a test suite using only the test elements with the specified tag.
 
-![filter_tests](https://user-images.githubusercontent.com/48831250/116313716-1b419c00-a77c-11eb-9088-08a2a67887b4.png)
+![filter_tests](https://user-images.githubusercontent.com/48831250/217961944-4c3183d0-5c37-4ac9-a13c-8f2cf465ec51.png)
+
+#### Customize Test Run
+To customize your test run, select options in the **Customize Test Run** section:
+
+* To apply strict checks when running the tests, select **Strict**. When you select this option, the plugin generates a qualification failure whenever a test issues a warning. Selecting **Strict** is the same as specifying the `Strict` name-value argument of the [`runtests`](https://www.mathworks.com/help/matlab/ref/runtests.html) function as `true`.
+* To run tests in parallel, select **Use parallel**. This feature might not be compatible with certain options, in which case, the plugin runs the tests in serial regardless of your choice. Selecting **Use parallel** is the same as specifying the `UseParallel` name-value argument of `runtests` as `true`. You must have Parallel Computing Toolbox&trade; installed to use this option.
+* To control the amount of output detail displayed for your test run, select a value from the **Output detail** list. Selecting a value for this option is the same as specifying the `OutputDetail` name-value argument of `runtests` as that value. By default, the plugin displays failing and logged events at the `Detailed` level and test run progress at the `Concise` level.
+* To include diagnostics logged by the [`log (TestCase)`](https://www.mathworks.com/help/matlab/ref/matlab.unittest.testcase.log.html) and [`log (Fixture)`](https://www.mathworks.com/help/matlab/ref/matlab.unittest.fixtures.fixture.log.html) methods at a specified verbosity level, select a value from the **Logging level** list. Selecting a value for this option is the same as specifying the `LoggingLevel` name-value argument of `runtests` as that value. By default, the plugin includes diagnostics logged at the `Terse` level. 
+
+![customize_test_run](https://user-images.githubusercontent.com/48831250/217962218-7a47fa54-6fdc-484a-8ce9-e803815afcd2.png)
 
 #### Generate Test and Coverage Artifacts
 To generate test and coverage artifacts, select check boxes in the **Generate test artifacts** and **Generate coverage artifacts** sections. By default, the plugin assigns to each specified artifact a path relative to the working directory. However, you can override the default values:
@@ -90,20 +101,20 @@ To generate test and coverage artifacts, select check boxes in the **Generate te
 * If you select a test artifact check box, you can specify the path to store the artifact in the **File path** box.
 * If you select a coverage artifact check box, you can specify the path to store the artifact in the **Folder path** box.
 
-For example, run your tests, and generate a JUnit-style test results report and an HTML code coverage report at the specified locations in your working directory.
+For example, run your tests, and generate test results in JUnit XML format and a code coverage report in HTML format at the specified locations in your working directory.
 
-![generate_artifacts](https://user-images.githubusercontent.com/48831250/126394704-eb5bd664-0e1d-4daf-a76e-dc0551de1d43.png)
+![generate_artifacts](https://user-images.githubusercontent.com/48831250/217962528-601356af-a944-4cd9-abae-af076d7ed233.png)
 
 Artifacts to generate with the plugin are subject to these restrictions: 
 * Exporting Simulink Test&trade; Manager results requires a Simulink Test license and is supported in MATLAB R2019a and later.
 * Producing an HTML model coverage report requires a Simulink Coverage&trade; license and is supported in MATLAB R2018b and later.
 
 ### Run MATLAB Command
-The **Run MATLAB Command** task enables you to run MATLAB scripts, functions, and statements. You can use this task to flexibly customize your test run or add a step in MATLAB to your plan.
+The **Run MATLAB Command** task enables you to run MATLAB scripts, functions, and statements. You can use this task to customize your test run or add a step in MATLAB to your plan.
 
 To configure the **Run MATLAB Command** task, first specify the MATLAB executable to use for the task. Then, specify the MATLAB script, function, or statement you want to execute in the **Command** box. If you specify more than one script, function, or statement, use a comma or semicolon to separate them. If you want to run a script or function, do not specify the file extension. For example, use MATLAB R2022b to run a script named `myscript.m` in the root of your repository.
 
-![run_matlab_command](https://user-images.githubusercontent.com/48831250/200590500-cab16778-cc0a-42ea-8abb-398ddff70417.png)
+![run_matlab_command](https://user-images.githubusercontent.com/48831250/217962833-8eec1c9e-fdfc-49a4-8c54-4343a48e570a.png)
 
 MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail. To fail the build in certain conditions, use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions.
 
