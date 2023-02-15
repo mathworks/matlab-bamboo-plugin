@@ -42,6 +42,14 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         config.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)));
         config.put(MatlabBuilderConstants.JUNIT_FILE, params.getString(MatlabBuilderConstants.JUNIT_FILE));
 
+        config.put(MatlabBuilderConstants.STRICT_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.STRICT_CHX)));
+
+        config.put(MatlabBuilderConstants.USE_PARALLEL_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.USE_PARALLEL_CHX)));
+
+        config.put(MatlabBuilderConstants.OUTPUT_DETAIL_KEY, params.getString(MatlabBuilderConstants.OUTPUT_DETAIL_KEY));
+
+        config.put(MatlabBuilderConstants.LOGGING_LEVEL_KEY, params.getString(MatlabBuilderConstants.LOGGING_LEVEL_KEY));
+
         return config;
     }
 
@@ -82,6 +90,14 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
 
         context.put(MatlabBuilderConstants.HTML_MODELCOV_FOLDER, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_MODELCOV_FOLDER));
         context.put(MatlabBuilderConstants.HTML_MODELCOV_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_MODELCOV_CHX));
+
+        context.put(MatlabBuilderConstants.STRICT_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.STRICT_CHX));
+
+        context.put(MatlabBuilderConstants.USE_PARALLEL_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.USE_PARALLEL_CHX));
+
+        context.put(MatlabBuilderConstants.OUTPUT_DETAIL_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.OUTPUT_DETAIL_KEY));
+
+        context.put(MatlabBuilderConstants.LOGGING_LEVEL_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.LOGGING_LEVEL_KEY));
 
     }
 

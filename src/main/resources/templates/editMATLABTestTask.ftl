@@ -25,6 +25,16 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
         [/@ui.bambooSection]
 [/@ui.bambooSection]
 
+[@ui.bambooSection titleKey='matlab.test.customizations']
+    [@ww.checkbox labelKey='matlab.test.strict' name='strictChecked' toggle='true'/]
+
+    [@ww.checkbox labelKey='matlab.test.use.parallel' name='useParallelChecked' toggle='true'/]
+
+    [@ww.select labelKey="matlab.test.output.detail" name="outputDetail" list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+
+    [@ww.select labelKey="matlab.test.logging.level" name="loggingLevel" list=["Default", "None", "Terse", "Concise", "Detailed", "Verbose"]/]
+[/@ui.bambooSection]
+
 [@ui.bambooSection titleKey='matlab.test.artifacts']
     [@ww.checkbox labelKey='matlab.test.results.junit' name='junitChecked' toggle='true'/]
         [@ui.bambooSection dependsOn='junitChecked' showOn=true]
