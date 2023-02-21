@@ -65,7 +65,7 @@ To configure the **Run MATLAB Tests** task, specify the MATLAB executable to use
 
 ![run_matlab_tests](https://user-images.githubusercontent.com/48831250/217961401-465847c4-dccc-4053-b045-a3327cf77cce.png)
 
-You can customize the **Run MATLAB Tests** task using options in the task configuration interface. For example, you can add folders to the MATLAB search path, control which tests to run, and generate various test and coverage artifacts. If you do not select any of the existing options, all the tests in your project run, and any test failure causes the build to fail.
+You can customize the **Run MATLAB Tests** task by selecting options in the task configuration interface. For example, you can add source folders to the MATLAB search path, control which tests to run, and generate various test and coverage artifacts. If you do not select any of the existing options, all the tests in your project run, and any test failure causes the build to fail.
 
 #### Specify Source Folder
 To specify the location of a folder containing source code, select **Specify source folder**. Specify the location relative to the project root folder. The plugin adds the specified folder and its subfolders to the top of the MATLAB search path. If you specify a source folder and then generate a coverage report, the plugin uses only the source code in the specified folder and its subfolders to generate the report. 
@@ -86,10 +86,10 @@ By default, the **Run MATLAB Tests** task creates a test suite from all the test
 ![filter_tests](https://user-images.githubusercontent.com/48831250/217961944-4c3183d0-5c37-4ac9-a13c-8f2cf465ec51.png)
 
 #### Customize Test Run
-To customize your test run, select options in the **Customize Test Run** section:
+To customize your test run, select options in the **Customize test run** section:
 
-* To apply strict checks when running the tests, select **Strict**. When you select this option, the plugin generates a qualification failure whenever a test issues a warning. Selecting **Strict** is the same as specifying the `Strict` name-value argument of the [`runtests`](https://www.mathworks.com/help/matlab/ref/runtests.html) function as `true`.
-* To run tests in parallel, select **Use parallel**. This feature might not be compatible with certain options, in which case, the plugin runs the tests in serial regardless of your choice. Selecting **Use parallel** is the same as specifying the `UseParallel` name-value argument of `runtests` as `true`. You must have Parallel Computing Toolbox&trade; installed to use this option.
+* To apply strict checks when running the tests, select **Strict**. If you select this option, the plugin generates a qualification failure whenever a test issues a warning. Selecting **Strict** is the same as specifying the `Strict` name-value argument of the [`runtests`](https://www.mathworks.com/help/matlab/ref/runtests.html) function as `true`.
+* To run tests in parallel, select **Use parallel**. Selecting **Use parallel** is the same as specifying the `UseParallel` name-value argument of `runtests` as `true`. You must have Parallel Computing Toolbox&trade; installed to use this option. If other selected options are not compatible with running tests in parallel, the plugin runs the tests in serial regardless of your selection.
 * To control the amount of output detail displayed for your test run, select a value from the **Output detail** list. Selecting a value for this option is the same as specifying the `OutputDetail` name-value argument of `runtests` as that value. By default, the plugin displays failing and logged events at the `Detailed` level and test run progress at the `Concise` level.
 * To include diagnostics logged by the [`log (TestCase)`](https://www.mathworks.com/help/matlab/ref/matlab.unittest.testcase.log.html) and [`log (Fixture)`](https://www.mathworks.com/help/matlab/ref/matlab.unittest.fixtures.fixture.log.html) methods at a specified verbosity level, select a value from the **Logging level** list. Selecting a value for this option is the same as specifying the `LoggingLevel` name-value argument of `runtests` as that value. By default, the plugin includes diagnostics logged at the `Terse` level. 
 
