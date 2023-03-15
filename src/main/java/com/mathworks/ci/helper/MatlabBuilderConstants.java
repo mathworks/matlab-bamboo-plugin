@@ -36,6 +36,10 @@ public class MatlabBuilderConstants {
     public static final String JUNIT_RESULTS_CHX = "junitChecked";
     public static final String JUNIT_DEFAULT_FILE = "matlab-artifacts/test-reports/junit.xml";
 
+    public static final String HTML_FILE = "htmlTestReport";
+    public static final String HTML_RESULTS_CHX = "htmlTestReportChecked";
+    public static final String HTML_DEFAULT_FILE = "matlab-artifacts/test-reports/report.html";
+
     public static final String PDF_FILE = "pdf";
     public static final String PDF_RESULTS_CHX = "pdfChecked";
     public static final String PDF_DEFAULT_FILE = "matlab-artifacts/test-reports/report.pdf";
