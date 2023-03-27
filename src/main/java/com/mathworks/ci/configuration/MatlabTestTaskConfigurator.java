@@ -42,8 +42,8 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         config.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX)));
         config.put(MatlabBuilderConstants.JUNIT_FILE, params.getString(MatlabBuilderConstants.JUNIT_FILE));
 
-        config.put(MatlabBuilderConstants.HTML_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.HTML_RESULTS_CHX)));
-        config.put(MatlabBuilderConstants.HTML_FILE, params.getString(MatlabBuilderConstants.HTML_FILE));
+        config.put(MatlabBuilderConstants.HTML_TEST_RESULTS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.HTML_TEST_RESULTS_CHX)));
+        config.put(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER, params.getString(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER));
 
         config.put(MatlabBuilderConstants.STRICT_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.STRICT_CHX)));
 
@@ -61,7 +61,7 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
     public void populateContextForCreate(@NotNull final Map<String, Object> context) {
         super.populateContextForCreate(context);
         context.put(MatlabBuilderConstants.JUNIT_FILE, MatlabBuilderConstants.JUNIT_DEFAULT_FILE);
-        context.put(MatlabBuilderConstants.HTML_FILE, MatlabBuilderConstants.HTML_DEFAULT_FILE);
+        context.put(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER, MatlabBuilderConstants.HTML_TEST_RESULTS_DEFAULT_FOLDER);
         context.put(MatlabBuilderConstants.HTML_COVFOLDER, MatlabBuilderConstants.HTML_CODECOV_DEFAULT_DIR);
         context.put(MatlabBuilderConstants.STM_FILE, MatlabBuilderConstants.STM_DEFAULT_FILE);
         context.put(MatlabBuilderConstants.PDF_FILE, MatlabBuilderConstants.PDF_DEFAULT_FILE);
@@ -83,8 +83,8 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         context.put(MatlabBuilderConstants.JUNIT_FILE, taskDefinition.getConfiguration().get(MatlabBuilderConstants.JUNIT_FILE));
         context.put(MatlabBuilderConstants.JUNIT_RESULTS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.JUNIT_RESULTS_CHX));
 
-        context.put(MatlabBuilderConstants.HTML_FILE, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_FILE));
-        context.put(MatlabBuilderConstants.HTML_RESULTS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_RESULTS_CHX));
+        context.put(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER));
+        context.put(MatlabBuilderConstants.HTML_TEST_RESULTS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.HTML_TEST_RESULTS_CHX));
 
         context.put(MatlabBuilderConstants.PDF_FILE, taskDefinition.getConfiguration().get(MatlabBuilderConstants.PDF_FILE));
         context.put(MatlabBuilderConstants.PDF_RESULTS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.PDF_RESULTS_CHX));
@@ -123,8 +123,8 @@ public class MatlabTestTaskConfigurator extends MatlabTaskConfigurator {
         if (params.getBoolean(MatlabBuilderConstants.JUNIT_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.JUNIT_FILE)))) {
             errorCollection.addError(MatlabBuilderConstants.JUNIT_FILE, "Specify a valid location for the JUnit-style test results.");
         }
-        if (params.getBoolean(MatlabBuilderConstants.HTML_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_FILE)))) {
-            errorCollection.addError(MatlabBuilderConstants.HTML_FILE, "Specify a valid location for the HTML test results.");
+        if (params.getBoolean(MatlabBuilderConstants.HTML_TEST_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER)))) {
+            errorCollection.addError(MatlabBuilderConstants.HTML_TEST_RESULTS_FOLDER, "Specify a valid location for the HTML test results.");
         }
         if (params.getBoolean(MatlabBuilderConstants.STM_RESULTS_CHX) && (StringUtils.isBlank(params.getString(MatlabBuilderConstants.STM_FILE)))) {
             errorCollection.addError(MatlabBuilderConstants.STM_FILE, "Specify a valid location for the Simulink Test Manager results.");

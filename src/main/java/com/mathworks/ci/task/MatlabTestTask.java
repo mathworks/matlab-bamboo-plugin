@@ -79,8 +79,8 @@ public class MatlabTestTask implements TaskType {
             inputArgsList.add("'JUnitTestResults'" + "," + "'" + taskContext.getConfigurationMap().get("junit").trim().replaceAll("'", "''") + "'");
         }
 
-        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlTestReportChecked"))) {
-            inputArgsList.add("'HTMLTestReport'" + "," + "'" + taskContext.getConfigurationMap().get("htmlTestReport").trim().replaceAll("'", "''") + "'");
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("htmlTestResultsChecked"))) {
+            inputArgsList.add("'HTMLTestReport'" + "," + "'" + taskContext.getConfigurationMap().get("htmlTestResults").trim().replaceAll("'", "''") + "'");
         }
 
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("pdfChecked"))) {

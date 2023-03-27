@@ -64,7 +64,7 @@ public class MatlabTestTaskTest {
         when(taskContext.getBuildLogger()).thenReturn(buildLogger);
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
         configurationMap.put("junitChecked", "false");
-        configurationMap.put("htmlTestReportChecked", "false");
+        configurationMap.put("htmlTestResultsChecked", "false");
         configurationMap.put("pdfChecked", "false");
         configurationMap.put("htmlCoverageChecked", "false");
         configurationMap.put("stmChecked", "false");
@@ -99,7 +99,7 @@ public class MatlabTestTaskTest {
     public void testExectuteRunsWithProvidedArguments() throws TaskException, IOException {
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
         configurationMap.put("junitChecked", "true");
-        configurationMap.put("htmlTestReportChecked", "true");
+        configurationMap.put("htmlTestResultsChecked", "true");
         configurationMap.put("pdfChecked", "true");
         configurationMap.put("htmlCoverageChecked", "true");
         configurationMap.put("stmChecked", "true");
@@ -110,7 +110,7 @@ public class MatlabTestTaskTest {
         configurationMap.put("strictChecked", "true");
         configurationMap.put("useParallelChecked", "true");
         configurationMap.put("junit", "junit.xml");
-        configurationMap.put("htmlTestReport", "report.html");
+        configurationMap.put("htmlTestResults", "html");
         configurationMap.put("pdf", "report.pdf");
         configurationMap.put("html", "code-coverage");
         configurationMap.put("htmlModel", "model-coverage");
@@ -132,7 +132,7 @@ public class MatlabTestTaskTest {
 
         String expectedCommand = "testScript = genscript("
             + "'Test','JUnitTestResults','junit.xml',"
-            + "'HTMLTestReport','report.html',"
+            + "'HTMLTestReport','html',"
             + "'PDFTestReport','report.pdf',"
             + "'HTMLCodeCoverage','code-coverage',"
             + "'SimulinkTestResults','results.mldatx',"
