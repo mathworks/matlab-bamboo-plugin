@@ -110,7 +110,7 @@ public class MatlabTestTaskTest {
         configurationMap.put("strictChecked", "true");
         configurationMap.put("useParallelChecked", "true");
         configurationMap.put("junit", "junit.xml");
-        configurationMap.put("htmlTestResults", "html");
+        configurationMap.put("htmlTestResults", "test-reports");
         configurationMap.put("pdf", "report.pdf");
         configurationMap.put("html", "code-coverage");
         configurationMap.put("htmlModel", "model-coverage");
@@ -132,7 +132,7 @@ public class MatlabTestTaskTest {
 
         String expectedCommand = "testScript = genscript("
             + "'Test','JUnitTestResults','junit.xml',"
-            + "'HTMLTestReport','html',"
+            + "'HTMLTestReport','test-reports',"
             + "'PDFTestReport','report.pdf',"
             + "'HTMLCodeCoverage','code-coverage',"
             + "'SimulinkTestResults','results.mldatx',"
