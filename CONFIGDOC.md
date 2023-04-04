@@ -99,8 +99,8 @@ To customize your test run, select options in the **Customize test run** section
 #### Generate Test and Coverage Artifacts
 To generate test and coverage artifacts, select check boxes in the **Generate test artifacts** and **Generate coverage artifacts** sections. By default, the plugin assigns to each specified artifact a path relative to the working directory. However, you can override the default values:
 
-* If you select a test artifact check box, you can specify the path to store the artifact in the **File path** box.
-* If you select a coverage artifact check box, you can specify the path to store the artifact in the **Folder path** box.
+* If you select a check box to generate an HTML report, you can specify the path to store the artifact in the **Folder path** box.
+* If you select a check box to generate an artifact other than an HTML report, you can specify the path to store the artifact in the **File path** box.
 
 For example, run your tests, and generate test results in JUnit XML format and a code coverage report in HTML format at the specified locations in your working directory.
 
