@@ -39,7 +39,7 @@ Create a new build plan and configure it by following these steps:
 
 5. In the **Run MATLAB Tests** task configuration interface, from the **Executable** list, select the MATLAB release to use for the task. Then, specify the artifacts to generate in the working directory. In this example, the plugin uses MATLAB R2023a to run the tests and generate JUnit-style test results, a PDF test report, and an HTML code coverage report. For more information about the tasks provided by the plugin, see [Plugin Configuration Guide](../CONFIGDOC.md).
 
-![run_matlab_tests](https://user-images.githubusercontent.com/48831250/229820758-e6ffcefe-9e51-4ddd-b74e-f5603228b413.png)
+![run_matlab_tests](https://user-images.githubusercontent.com/48831250/230393980-2c59701f-7b39-4feb-84d3-70bf3b404dc3.png)
 
 6. To publish the JUnit-style test results, add the [JUnit Parser](https://confluence.atlassian.com/bamboo/junit-parser-289277056.html) task to your job. To make sure that the task runs regardless of the build status, specify it as a final task. 
 
