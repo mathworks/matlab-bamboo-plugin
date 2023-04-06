@@ -104,7 +104,7 @@ To generate test and coverage artifacts, select check boxes in the **Generate te
 
 For example, run your tests, and generate test results in JUnit XML format and a code coverage report in HTML format at the specified locations in your working directory.
 
-![generate_artifacts](https://user-images.githubusercontent.com/48831250/229816774-f4eb2b26-4ca9-4d6d-bbb3-7e0fdff0e483.png)
+![generate_artifacts](https://user-images.githubusercontent.com/48831250/230390939-dd8955e1-7aa1-41e5-a62e-750805d13fb2.png)
 
 Artifacts to generate with the plugin are subject to these restrictions: 
 * Exporting Simulink Test&trade; Manager results requires a Simulink Test license and is supported in MATLAB R2019a and later.
