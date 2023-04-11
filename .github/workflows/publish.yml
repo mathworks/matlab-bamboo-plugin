@@ -1,0 +1,44 @@
+name: Publish
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Remove SNAPSHOT from pom.xml version
+        run: sed -i 's/-SNAPSHOT//g' pom.xml
+      - name: setup Atlassian SDK
+        run: |
+          sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
+          curl -fL https://packages.atlassian.com/api/gpg/key/public -o public
+          sudo apt-key add public
+          sudo apt-get update
+          sudo apt-get install atlassian-plugin-sdk=8.2.8
+          atlas-version
+      - name: Install dependencies
+        run: atlas-mvn install -q
+      - name: Unit test
+        run: atlas-unit-test
+      - name: Package plugin
+        run: atlas-package
+      - name: Upload plugin as release asset
+        run: |
+          cd target
+          export PLUGIN_ARTIFACT_NAME=$(ls | grep "matlab-bamboo-plugin-[0-9]*.[0-9]*.[0-9]*.jar")
+          echo "Deploying ${PLUGIN_ARTIFACT_NAME} for release ${{ github.event.release.tag_name }}"
+          curl -L \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${GH_TOKEN}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          -H "Content-Type: application/octet-stream" \
+          "https://uploads.github.com/repos/davidbuzinski/bamboo-cd/releases/${{ github.event.release.id }}/assets?name=${PLUGIN_ARTIFACT_NAME}" \
+          --data-binary "@${PLUGIN_ARTIFACT_NAME}"
+        env:
+          GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+
