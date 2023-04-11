@@ -35,7 +35,7 @@ jobs:
           -H "Authorization: Bearer ${GH_TOKEN}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           -H "Content-Type: application/octet-stream" \
-          "https://uploads.github.com/repos/davidbuzinski/bamboo-cd/releases/${{ github.event.release.id }}/assets?name=${PLUGIN_ARTIFACT_NAME}" \
+          "https://uploads.github.com/repos/mathworks/matlab-bamboo-plugin/releases/${{ github.event.release.id }}/assets?name=${PLUGIN_ARTIFACT_NAME}" \
           --data-binary "@${PLUGIN_ARTIFACT_NAME}"
         env:
           GH_TOKEN: "${{ secrets.GH_TOKEN }}"
