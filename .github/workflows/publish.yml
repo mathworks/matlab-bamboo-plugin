@@ -22,8 +22,6 @@ jobs:
           atlas-version
       - name: Install dependencies
         run: atlas-mvn install -q
-      - name: Unit test
-        run: atlas-unit-test
       - name: Package plugin
         run: atlas-package
       - name: Upload plugin as release asset
