@@ -99,12 +99,12 @@ To customize your test run, select options in the **Customize test run** section
 #### Generate Test and Coverage Artifacts
 To generate test and coverage artifacts, select check boxes in the **Generate test artifacts** and **Generate coverage artifacts** sections. By default, the plugin assigns to each specified artifact a path relative to the working directory. However, you can override the default values:
 
-* If you select a test artifact check box, you can specify the path to store the artifact in the **File path** box.
-* If you select a coverage artifact check box, you can specify the path to store the artifact in the **Folder path** box.
+* If you select a check box to generate an HTML report, you can specify the path to store the artifact in the **Folder path** box.
+* If you select a check box to generate an artifact other than an HTML report, you can specify the path to store the artifact in the **File path** box.
 
 For example, run your tests, and generate test results in JUnit XML format and a code coverage report in HTML format at the specified locations in your working directory.
 
-![generate_artifacts](https://user-images.githubusercontent.com/48831250/229816774-f4eb2b26-4ca9-4d6d-bbb3-7e0fdff0e483.png)
+![generate_artifacts](https://user-images.githubusercontent.com/48831250/230390939-dd8955e1-7aa1-41e5-a62e-750805d13fb2.png)
 
 Artifacts to generate with the plugin are subject to these restrictions: 
 * Exporting Simulink Test&trade; Manager results requires a Simulink Test license and is supported in MATLAB R2019a and later.
