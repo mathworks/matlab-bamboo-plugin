@@ -42,6 +42,12 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
             description="Specify a path relative to the working directory." /]
         [/@ui.bambooSection]
 
+    [@ww.checkbox labelKey='matlab.test.results.html' name='htmlTestResultsChecked' toggle='true'/]
+        [@ui.bambooSection dependsOn='htmlTestResultsChecked' showOn=true]
+            [@ww.textfield labelKey='matlab.tests.results.folder' name="htmlTestResults" cssClass="long-field"
+            description="Specify a path relative to the working directory." /]
+        [/@ui.bambooSection]
+
     [@ww.checkbox labelKey='matlab.test.results.pdf' name='pdfChecked' toggle='true'/]
         [@ui.bambooSection dependsOn='pdfChecked' showOn=true]
             [@ww.textfield labelKey='matlab.tests.results.file' name="pdf" cssClass="long-field"
