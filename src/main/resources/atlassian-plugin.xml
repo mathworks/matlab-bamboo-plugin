@@ -25,12 +25,12 @@
     <!-- TASKS -->
 
     <!-- MATLAB Build Task -->
-
     <taskType key="runMATLABBuild" name="Run MATLAB Build" class="com.mathworks.ci.task.MatlabBuildTask">
         <description>Run a build using the MATLAB build tool</description>
         <category name="builder"/>
         <configuration class="com.mathworks.ci.configuration.MatlabBuildTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
+        <exporter class="com.mathworks.ci.export.MatlabBuildTaskExporter"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABBuildTask.ftl"/>
         <resource type="download" name="icon" location="images/image1.png"/>
         <help link="MATLABbuild.task.help.link" title="MATLABbuild.task.help.title" />
@@ -42,18 +42,19 @@
         <category name="builder"/>
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" pathHelpKey="matlab.helpPath"/>
+        <exporter class="com.mathworks.ci.export.MatlabCommandTaskExporter"/>
         <resource type="freemarker" name="edit" location="/templates/editMATLABCommandTask.ftl"/>
         <resource type="download" name="icon" location="images/image1.png"/>
         <help link="MATLABcommand.task.help.link" title="MATLABcommand.task.help.title" />
     </taskType>
 
     <!-- MATLAB Test Task -->
-
     <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.task.MatlabTestTask">
         <description>Run all MATLAB tests and generate test artifacts</description>
         <category name="test"/>
         <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>
         <executable key="matlab" nameKey="MATLAB" primaryCapabilityProvider="false"/>
+        <exporter class="com.mathworks.ci.export.MatlabTestTaskExporter"/>
         <resource type="freemarker" name="edit" location="templates/editMATLABTestTask.ftl"/>
         <capabilityDefaultsHelper class="com.mathworks.ci.MatlabCapabilityDefaultsHelper"/>
         <resource type="download" name="icon" location="images/image1.png"/>
