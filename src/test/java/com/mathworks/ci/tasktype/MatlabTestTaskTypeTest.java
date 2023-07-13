@@ -2,7 +2,7 @@
  * Copyright 2022 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.tasktype;
 
 import org.junit.Test;
 import com.atlassian.bamboo.build.logger.BuildLogger;
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabTestTaskTest {
+public class MatlabTestTaskTypeTest {
     @Mock
     public MatlabCommandRunner matlabCommandRunner;
 
@@ -57,7 +57,7 @@ public class MatlabTestTaskTest {
     public ExternalProcess process;
 
     @InjectMocks
-    MatlabTestTask task;
+    MatlabTestTaskType taskType;
 
     @Before
     public void init() {
@@ -83,7 +83,7 @@ public class MatlabTestTaskTest {
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
@@ -125,7 +125,7 @@ public class MatlabTestTaskTest {
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
@@ -159,7 +159,7 @@ public class MatlabTestTaskTest {
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> buildException = ArgumentCaptor.forClass(String.class);
         Mockito.verify(buildLogger).addErrorLogEntry(buildException.capture());
@@ -172,7 +172,7 @@ public class MatlabTestTaskTest {
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> zipName = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).unzipToTempDir(zipName.capture());
