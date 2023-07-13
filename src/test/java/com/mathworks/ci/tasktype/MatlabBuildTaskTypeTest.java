@@ -2,7 +2,7 @@
  * Copyright 2022 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.tasktype;
 
 import org.junit.Test;
 import com.atlassian.bamboo.build.logger.BuildLogger;
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MatlabCommandTaskTest {
+public class MatlabBuildTaskTypeTest {
     @Mock
     public MatlabCommandRunner matlabCommandRunner;
 
@@ -55,7 +55,7 @@ public class MatlabCommandTaskTest {
     public TaskResultBuilder resultBuilder;
 
     @InjectMocks
-    MatlabCommandTask task;
+    MatlabBuildTaskType taskType;
 
     @Before
     public void init() {
@@ -63,33 +63,52 @@ public class MatlabCommandTaskTest {
     }
 
     @Test
-    public void testExectuteRunsWithProvidedCommand() throws TaskException, IOException {
+    public void testExectuteRunsDefaultTasksIfNoTasksProvided() throws TaskException, IOException {
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "disp('yo world')");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        assertEquals("disp('yo world')", matlabCommand.getValue());
+        assertEquals("buildtool", matlabCommand.getValue());
+    }
+
+    @Test
+    public void testExecuteRunsBuildtoolWithProvidedTasks() throws TaskException, IOException {
+        Map<String, String> map = new HashMap<>();
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "mex test");
+        ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            taskType.execute(taskContext);
+        }
+        ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
+
+        assertEquals("buildtool mex test", matlabCommand.getValue());
     }
 
     @Test
     public void testExecuteExceptionsAreAddedToBuildlog() throws TaskException, IOException {
-        ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put(MatlabBuilderConstants.MATLAB_COMMAND_CFG_KEY, "disp('yo world')");
+        Map<String, String> map = new HashMap<>();
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
+        ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
         when(matlabCommandRunner.run(Mockito.any(), Mockito.any())).thenThrow(new IOException("BAM!"));
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
             taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
                 .thenReturn(resultBuilder);
-            task.execute(taskContext);
+            taskType.execute(taskContext);
         }
         ArgumentCaptor<String> buildException = ArgumentCaptor.forClass(String.class);
         Mockito.verify(buildLogger).addErrorLogEntry(buildException.capture());

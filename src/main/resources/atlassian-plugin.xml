@@ -25,7 +25,7 @@
     <!-- TASKS -->
 
     <!-- MATLAB Build Task -->
-    <taskType key="runMATLABBuild" name="Run MATLAB Build" class="com.mathworks.ci.task.MatlabBuildTask">
+    <taskType key="runMATLABBuild" name="Run MATLAB Build" class="com.mathworks.ci.tasktype.MatlabBuildTaskType">
         <description>Run a build using the MATLAB build tool</description>
         <category name="builder"/>
         <configuration class="com.mathworks.ci.configuration.MatlabBuildTaskConfigurator"/>
@@ -37,7 +37,7 @@
     </taskType>
     
     <!-- MATLAB Command Task -->
-    <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.task.MatlabCommandTask">
+    <taskType key="runMATLABCommand" name="Run MATLAB Command" class="com.mathworks.ci.tasktype.MatlabCommandTaskType">
         <description>Execute a MATLAB script or statement</description>
         <category name="builder"/>
         <configuration class="com.mathworks.ci.configuration.MatlabCommandTaskConfigurator"/>
@@ -49,7 +49,7 @@
     </taskType>
 
     <!-- MATLAB Test Task -->
-    <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.task.MatlabTestTask">
+    <taskType key="runMATLABTest" name="Run MATLAB Tests" class="com.mathworks.ci.tasktype.MatlabTestTaskType">
         <description>Run all MATLAB tests and generate test artifacts</description>
         <category name="test"/>
         <configuration class="com.mathworks.ci.configuration.MatlabTestTaskConfigurator"/>

@@ -48,7 +48,7 @@
      public MatlabBuildTaskBuilder toSpecsEntity(final TaskDefinition taskDefinition) {
          final Map<String, String> configuration = taskDefinition.getConfiguration();
  
-         // final MatlabBuildTask matlabBuildTask = new MatlabBuildTask();
+         // final MatlabBuildTaskType matlabBuildTaskType = new MatlabBuildTaskType();
  
          final MatlabBuildTaskBuilder task = new MatlabBuildTaskBuilder()
                  .matlabExecutable(configuration.get(MatlabBuilderConstants.MATLAB_CFG_KEY))

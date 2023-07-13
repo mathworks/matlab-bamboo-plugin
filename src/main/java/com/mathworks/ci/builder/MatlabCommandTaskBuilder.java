@@ -1,7 +1,7 @@
 package com.mathworks.ci.builder;
 
 import com.atlassian.bamboo.specs.api.builders.task.Task;
-// import com.mathworks.ci.task.MatlabCommandTask;
+// import com.mathworks.ci.tasktype.MatlabCommandTaskType;
 import com.mathworks.ci.properties.MatlabCommandTaskProperties;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;

@@ -4,7 +4,7 @@
  * Run MATLAB Test Task Invocation
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.tasktype;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
@@ -24,7 +24,7 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 @Scanned
-public class MatlabTestTask implements TaskType {
+public class MatlabTestTaskType implements TaskType {
     @ComponentImport
     private final ProcessService processService;
 
@@ -33,13 +33,13 @@ public class MatlabTestTask implements TaskType {
 
     private MatlabCommandRunner matlabCommandRunner;
 
-    public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
+    public MatlabTestTaskType(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
         this.matlabCommandRunner = matlabCommandRunner;
     }
 
-    public MatlabTestTask(ProcessService processService, CapabilityContext capabilityContext) {
+    public MatlabTestTaskType(ProcessService processService, CapabilityContext capabilityContext) {
         this(processService, capabilityContext, new MatlabCommandRunner(processService, capabilityContext));
     }
 

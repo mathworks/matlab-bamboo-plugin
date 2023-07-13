@@ -4,7 +4,7 @@
  * Run MATLAB Command Task Invocation
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.tasktype;
 
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
@@ -22,7 +22,7 @@ import com.mathworks.ci.helper.MatlabBuilderConstants;
 import org.jetbrains.annotations.NotNull;
 
 @Scanned
-public class MatlabCommandTask implements TaskType {
+public class MatlabCommandTaskType implements TaskType {
     @ComponentImport
     private final ProcessService processService;
 
@@ -31,13 +31,13 @@ public class MatlabCommandTask implements TaskType {
 
     private MatlabCommandRunner matlabCommandRunner;
 
-    public MatlabCommandTask(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
+    public MatlabCommandTaskType(ProcessService processService, CapabilityContext capabilityContext, MatlabCommandRunner matlabCommandRunner) {
         this.processService = processService;
         this.capabilityContext = capabilityContext;
         this.matlabCommandRunner = matlabCommandRunner;
     }
 
-    public MatlabCommandTask(ProcessService processService, CapabilityContext capabilityContext) {
+    public MatlabCommandTaskType(ProcessService processService, CapabilityContext capabilityContext) {
         this(processService, capabilityContext, new MatlabCommandRunner(processService, capabilityContext));
     }
 

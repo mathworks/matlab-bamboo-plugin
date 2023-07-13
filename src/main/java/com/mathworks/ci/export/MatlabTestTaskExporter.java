@@ -60,7 +60,7 @@
      public MatlabTestTaskBuilder toSpecsEntity(final TaskDefinition taskDefinition) {
          final Map<String, String> configuration = taskDefinition.getConfiguration();
  
-         // final MatlabTestTask matlabTestTask = new MatlabTestTask();
+         // final MatlabTestTaskType matlabTestTaskType = new MatlabTestTaskType();
  
          final MatlabTestTaskBuilder task = new MatlabTestTaskBuilder()
                  .matlabExecutable(configuration.get(MatlabBuilderConstants.MATLAB_CFG_KEY))
