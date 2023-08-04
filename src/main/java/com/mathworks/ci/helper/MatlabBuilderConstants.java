@@ -9,6 +9,10 @@ public class MatlabBuilderConstants {
     public static final String MATLAB_PREFIX = "system.builder.matlab.";
     public static final String MATLAB_CAPABILITY_PREFIX = "system.builder.matlab.MATLAB ";
     public static final String MATLAB_CFG_KEY = "matlabExecutable";
+    
+    // Startup options keys
+    public static final String MATLAB_OPTIONS_KEY = "matlabOptions";
+    public static final String OPTIONS_CHX = "optionsChecked";
 
     // UIConfigBean populated in Configurators by Bamboo
     public static final String UI_CONFIG_SUPPORT = "uiConfigSupport";

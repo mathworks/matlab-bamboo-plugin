@@ -67,6 +67,7 @@ public class MatlabCommandRunnerTest {
 
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl();
         configurationMap.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
+        configurationMap.put(MatlabBuilderConstants.OPTIONS_CHX, "false");
 
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);

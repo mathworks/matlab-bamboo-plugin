@@ -74,3 +74,11 @@ extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab'
             description="Specify a path relative to the working directory." /]
         [/@ui.bambooSection]
 [/@ui.bambooSection]
+
+[@ui.bambooSection]
+    [@ww.checkbox labelKey='matlab.options' name='optionsChecked'  toggle='true'/]
+        [@ui.bambooSection dependsOn='optionsChecked' showOn=true]
+            [@ww.textfield labelKey='matlab.options.field' cssClass="long-field" name="matlabOptions"
+                description="Specify MATLAB startup options."/]
+        [/@ui.bambooSection]
+[/@ui.bambooSection]
