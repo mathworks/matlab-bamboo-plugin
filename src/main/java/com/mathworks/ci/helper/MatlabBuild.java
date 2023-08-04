@@ -57,11 +57,14 @@ public interface MatlabBuild {
 
     default String getPlatformSpecificRunner(File tempDirectory) throws IOException {
         if (SystemUtils.IS_OS_WINDOWS) {
-            copyFileInWorkspace(MatlabBuilderConstants.BAT_RUNNER_FILE, tempDirectory);
-            return tempDirectory + "\\" + "run_matlab_command.bat";
+            copyFileInWorkspace("win64\\run-matlab-command.exe", tempDirectory);
+            return tempDirectory + "\\" + "run-matlab-command.exe";
+        } else if (SystemUtils.IS_OS_MAC) {
+            copyFileInWorkspace("maci64/run-matlab-command", tempDirectory);
+            return tempDirectory + "/" + "run-matlab-command";
         } else {
-            copyFileInWorkspace(MatlabBuilderConstants.SHELL_RUNNER_FILE, tempDirectory);
-            return tempDirectory + "/" + "run_matlab_command.sh";
+            copyFileInWorkspace("glnxa64/run-matlab-command", tempDirectory);
+            return tempDirectory + "/" + "run-matlab-command";
         }
     }
 
@@ -70,7 +73,7 @@ public interface MatlabBuild {
      */
     default void copyFileInWorkspace(String sourceFile, File targetWorkspace) throws IOException {
         final ClassLoader classLoader = getClass().getClassLoader();
-        final File destination = new File(targetWorkspace, sourceFile);
+        final File destination = new File(targetWorkspace, new File(sourceFile).getName());
         InputStream in = classLoader.getResourceAsStream(sourceFile);
         OutputStream outputStream = new FileOutputStream(destination);
         IOUtils.copy(in, outputStream);
