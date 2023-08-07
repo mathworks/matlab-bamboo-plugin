@@ -101,9 +101,42 @@ public class MatlabCommandRunnerTest {
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
 
         matlabCommandRunner.run("myScript", taskContext);
+
         ArgumentCaptor<String> buildException = ArgumentCaptor.forClass(String.class);
         Mockito.verify(buildLogger).addErrorLogEntry(buildException.capture());
 
         assertEquals("MATLAB version info not found", buildException.getValue());
+    }
+
+    @Test
+    public void testRunIgnoresOptionsWhenUnchecked() throws TaskException, IOException {
+        ConfigurationMapImpl configurationMap = new ConfigurationMapImpl();
+        configurationMap.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
+        configurationMap.put(MatlabBuilderConstants.OPTIONS_CHX, "false");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_OPTIONS_KEY, "-nojvm -display -logfile myfile.log");
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+        matlabCommandRunner.run("myScript", taskContext);
+
+        ArgumentCaptor<ExternalProcessBuilder> captor = ArgumentCaptor.forClass(ExternalProcessBuilder.class);
+        Mockito.verify(processService).createExternalProcess(Mockito.any(TaskContext.class), captor.capture());
+        List<String> arg = captor.getValue().getCommand();
+        assertFalse(arg.contains("-nojvm -display -logfile myfile.log"));
+    }
+
+    @Test
+    public void testRunUsesStartupOptions() throws TaskException, IOException {
+        ConfigurationMapImpl configurationMap = new ConfigurationMapImpl();
+        configurationMap.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
+        configurationMap.put(MatlabBuilderConstants.OPTIONS_CHX, "true");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_OPTIONS_KEY, "-nojvm -display -logfile myfile.log");
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+        matlabCommandRunner.run("myScript", taskContext);
+
+        ArgumentCaptor<ExternalProcessBuilder> captor = ArgumentCaptor.forClass(ExternalProcessBuilder.class);
+        Mockito.verify(processService).createExternalProcess(Mockito.any(TaskContext.class), captor.capture());
+        List<String> arg = captor.getValue().getCommand();
+        assertTrue(arg.contains("-nojvm -display -logfile myfile.log"));
     }
 }

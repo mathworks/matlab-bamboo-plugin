@@ -38,12 +38,10 @@ public class MatlabCommandRunner implements MatlabBuild {
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
         buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
         List<String> command = generateCommand(matlabCommand, workingDirectory);
-        System.out.println(taskContext.getConfigurationMap().get(MatlabBuilderConstants.OPTIONS_CHX));
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get(MatlabBuilderConstants.OPTIONS_CHX))) {
             String startupOpts = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_OPTIONS_KEY);
             command.add(startupOpts);
         }
-        System.out.println("After check");
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
             .workingDirectory(workingDirectory)
             .command(command)

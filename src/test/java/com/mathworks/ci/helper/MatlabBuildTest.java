@@ -58,19 +58,6 @@ public class MatlabBuildTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    private String runnerScript;
-    private String runnerFile;
-    private File tempFile;
-    private File tempFolder;
-
-    @Before
-    public void init() throws IOException {
-        runnerScript = SystemUtils.IS_OS_WINDOWS ? "run_matlab_command.bat" : "./run_matlab_command.sh";
-        runnerFile = SystemUtils.IS_OS_WINDOWS ? "run_matlab_command.bat" : "run_matlab_command.sh";
-        tempFile = testFolder.newFile("temp_File");
-        tempFolder = testFolder.newFolder("temp_Folder");
-    }
-
     @Test
     public void testGetMatlabRoot() {
         CapabilityImpl capability = new CapabilityImpl("system.builder.matlab.R2019b", "local-ssd/Downloads/R2019b");
@@ -82,18 +69,5 @@ public class MatlabBuildTest {
         when(capabilityContext.getCapabilitySet()).thenReturn(capabilitySet);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
         assertEquals(matlabCommandRunner.getMatlabRoot(taskContext, capabilityContext, buildlogger), "local-ssd/Downloads/R2019b/bin");
-    }
-
-    @Test
-    public void testGetTempWorkingDirectory() {
-        when(matlabBuild.getTempWorkingDirectory()).thenReturn(tempFile);
-        assertEquals(matlabBuild.getTempWorkingDirectory(), tempFile);
-    }
-
-
-    @Test
-    public void testGetPlatformSpecificRunner() throws IOException {
-        when(matlabBuild.getPlatformSpecificRunner(tempFolder)).thenReturn(runnerScript);
-        assertEquals(matlabBuild.getPlatformSpecificRunner(tempFolder), runnerScript);
     }
 }
