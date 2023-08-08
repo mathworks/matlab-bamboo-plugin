@@ -3,19 +3,19 @@
 extraUtility=addExecutableLink list=uiConfigSupport.getExecutableLabels('matlab') required='true'/]
 
 [@ui.bambooSection]
+    [@ww.checkbox labelKey='matlab.options' name='optionsChecked'  toggle='true'/]
+        [@ui.bambooSection dependsOn='optionsChecked' showOn=true]
+            [@ww.textfield labelKey='matlab.options.field' cssClass="long-field" name="matlabOptions"
+                description="Specify MATLAB startup options as a space-separated list."/]
+        [/@ui.bambooSection]
+[/@ui.bambooSection]
+
+[@ui.bambooSection]
     [@ww.checkbox labelKey='matlab.test.srcfolder.exists' name='srcFolderChecked'  toggle='true'/]
         [@ui.bambooSection dependsOn='srcFolderChecked' showOn=true]
             [@ww.textfield labelKey='matlab.tests.source.folder' cssClass="long-field" name="srcfolder"
                 description="Specify the locations of folders containing source code, relative to the working
                 directory,<br> as a colon-separated or semicolon-separated list.<br> "/]
-        [/@ui.bambooSection]
-[/@ui.bambooSection]
-
-[@ui.bambooSection]
-    [@ww.checkbox labelKey='matlab.options' name='optionsChecked'  toggle='true'/]
-        [@ui.bambooSection dependsOn='optionsChecked' showOn=true]
-            [@ww.textfield labelKey='matlab.options.field' cssClass="long-field" name="matlabOptions"
-                description="Specify MATLAB startup options as a space-separated list."/]
         [/@ui.bambooSection]
 [/@ui.bambooSection]
 

@@ -194,7 +194,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>get-matlab-runner-scripts</id>
+                        <id>get-matlab-runner-windows</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>wget</goal>
