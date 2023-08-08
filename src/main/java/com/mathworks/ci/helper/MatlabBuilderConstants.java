@@ -70,17 +70,9 @@ public class MatlabBuilderConstants {
 
     public static final String LOGGING_LEVEL_KEY = "loggingLevel";
 
-
-    // Matlab Runner files
-    public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
-    public static final String SHELL_RUNNER_FILE = "run_matlab_command.sh";
-
     // MATLAB runner script
     public static final String TEST_RUNNER_SCRIPT = "testScript = genscript(${PARAMS});\n" + "\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
-
-    //Test runner file prefix
-    public static final String MATLAB_TEST_RUNNER_FILE_PREFIX = "test_runner_";
 }

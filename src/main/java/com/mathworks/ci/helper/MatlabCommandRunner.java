@@ -53,8 +53,8 @@ public class MatlabCommandRunner implements MatlabBuild {
 
     public void unzipToTempDir(String zipName) throws IOException {
         // copy zip to tempDirectory
-        copyFileInWorkspace(zipName, tempDirectory);
         File zipFileLocation = new File(tempDirectory, zipName);
+        copyFileInWorkspace(zipName, zipFileLocation.toString());
 
         // Unzip the file to temp folder
         ZipFile zipFile = new ZipFile(zipFileLocation);

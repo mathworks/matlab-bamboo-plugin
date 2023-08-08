@@ -56,24 +56,28 @@ public interface MatlabBuild {
     }
 
     default String getPlatformSpecificRunner(File tempDirectory) throws IOException {
+        String sourceFile;
+        String destinationFile;
         if (SystemUtils.IS_OS_WINDOWS) {
-            copyFileInWorkspace("win64\\run-matlab-command.exe", tempDirectory);
-            return tempDirectory + "\\" + "run-matlab-command.exe";
+            sourceFile = "win64\\run-matlab-command.exe";
+            destinationFile = tempDirectory + "\\" + "run-matlab-command.exe";
         } else if (SystemUtils.IS_OS_MAC) {
-            copyFileInWorkspace("maci64/run-matlab-command", tempDirectory);
-            return tempDirectory + "/" + "run-matlab-command";
+            sourceFile = "maci64/run-matlab-command";
+            destinationFile = tempDirectory + "/" + "run-matlab-command";
         } else {
-            copyFileInWorkspace("glnxa64/run-matlab-command", tempDirectory);
-            return tempDirectory + "/" + "run-matlab-command";
+            sourceFile = "glnxa64/run-matlab-command";
+            destinationFile = tempDirectory + "/" + "run-matlab-command";
         }
+        copyFileInWorkspace(sourceFile, destinationFile);
+        return destinationFile;
     }
 
     /*
      * Method to copy given file from source to target node specific workspace.
      */
-    default void copyFileInWorkspace(String sourceFile, File targetWorkspace) throws IOException {
+    default void copyFileInWorkspace(String sourceFile, String destinationFile) throws IOException {
         final ClassLoader classLoader = getClass().getClassLoader();
-        final File destination = new File(targetWorkspace, new File(sourceFile).getName());
+        final File destination = new File(destinationFile);
         InputStream in = classLoader.getResourceAsStream(sourceFile);
         OutputStream outputStream = new FileOutputStream(destination);
         IOUtils.copy(in, outputStream);
