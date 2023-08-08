@@ -43,6 +43,8 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
         config.put(MatlabBuilderConstants.MATLAB_CFG_KEY, params.getString(MatlabBuilderConstants.MATLAB_CFG_KEY));
+        config.put(MatlabBuilderConstants.OPTIONS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.OPTIONS_CHX)));
+        config.put(MatlabBuilderConstants.MATLAB_OPTIONS_KEY, params.getString(MatlabBuilderConstants.MATLAB_OPTIONS_KEY));
         return config;
     }
 
@@ -57,6 +59,8 @@ public class MatlabTaskConfigurator extends AbstractTaskConfigurator implements 
         super.populateContextForEdit(context, taskDefinition);
         populateContextForAll(context);
         context.put(MatlabBuilderConstants.MATLAB_CFG_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_CFG_KEY));
+        context.put(MatlabBuilderConstants.MATLAB_OPTIONS_KEY, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_OPTIONS_KEY));
+        context.put(MatlabBuilderConstants.OPTIONS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.OPTIONS_CHX));
     }
 
     public void populateContextForAll(@NotNull final Map<String, Object> context) {

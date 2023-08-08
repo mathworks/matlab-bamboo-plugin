@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 The MathWorks, Inc.
+ * Copyright 2022-2023 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.helper;
@@ -38,6 +38,10 @@ public class MatlabCommandRunner implements MatlabBuild {
         String matlabRoot = getMatlabRoot(taskContext, capabilityContext, buildLogger);
         buildLogger.addBuildLogEntry("Running MATLAB command: " + matlabCommand);
         List<String> command = generateCommand(matlabCommand, workingDirectory);
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get(MatlabBuilderConstants.OPTIONS_CHX))) {
+            String startupOpts = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_OPTIONS_KEY);
+            command.add(startupOpts);
+        }
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
             .workingDirectory(workingDirectory)
             .command(command)
@@ -49,8 +53,8 @@ public class MatlabCommandRunner implements MatlabBuild {
 
     public void unzipToTempDir(String zipName) throws IOException {
         // copy zip to tempDirectory
-        copyFileInWorkspace(zipName, tempDirectory);
         File zipFileLocation = new File(tempDirectory, zipName);
+        copyFileInWorkspace(zipName, zipFileLocation.toString());
 
         // Unzip the file to temp folder
         ZipFile zipFile = new ZipFile(zipFileLocation);

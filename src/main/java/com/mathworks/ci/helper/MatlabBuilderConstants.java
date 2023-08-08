@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 The MathWorks, Inc.
+ * Copyright 2020-2023 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.helper;
@@ -9,6 +9,10 @@ public class MatlabBuilderConstants {
     public static final String MATLAB_PREFIX = "system.builder.matlab.";
     public static final String MATLAB_CAPABILITY_PREFIX = "system.builder.matlab.MATLAB ";
     public static final String MATLAB_CFG_KEY = "matlabExecutable";
+    
+    // Startup options keys
+    public static final String MATLAB_OPTIONS_KEY = "matlabOptions";
+    public static final String OPTIONS_CHX = "optionsChecked";
 
     // UIConfigBean populated in Configurators by Bamboo
     public static final String UI_CONFIG_SUPPORT = "uiConfigSupport";
@@ -66,17 +70,9 @@ public class MatlabBuilderConstants {
 
     public static final String LOGGING_LEVEL_KEY = "loggingLevel";
 
-
-    // Matlab Runner files
-    public static final String BAT_RUNNER_FILE = "run_matlab_command.bat";
-    public static final String SHELL_RUNNER_FILE = "run_matlab_command.sh";
-
     // MATLAB runner script
     public static final String TEST_RUNNER_SCRIPT = "testScript = genscript(${PARAMS});\n" + "\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
-
-    //Test runner file prefix
-    public static final String MATLAB_TEST_RUNNER_FILE_PREFIX = "test_runner_";
 }
