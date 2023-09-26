@@ -28,13 +28,13 @@ To define MATLAB as an agent-specific executable capability, local server execut
 
    | Platform     | Path to MATLAB Root Folder      |
    |--------------|---------------------------------|
-   | Windows&reg; | C:\Program Files\MATLAB\R2023a  |
-   | Linux&reg;   | /usr/local/MATLAB/R2023a        |
-   | macOS        | /Applications/MATLAB_R2023a.app |
+   | Windows&reg; | C:\Program Files\MATLAB\R2023b  |
+   | Linux&reg;   | /usr/local/MATLAB/R2023b        |
+   | macOS        | /Applications/MATLAB_R2023b.app |
 
-This figure shows an example of how to define MATLAB R2023a as an agent-specific executable capability for a Windows agent.
+This figure shows an example of how to define MATLAB R2023b as an agent-specific executable capability for a Windows agent.
 
-![executable_capability](https://user-images.githubusercontent.com/48831250/229811802-c0fc2331-f704-4e5e-b24d-c1361494903a.png)
+![executable_capability](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/86b42194-bb3e-44f7-aad2-b75f2ecd0c91)
 
 
 For more information on how to define executables in Bamboo, see [Defining a new executable capability](https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html).
@@ -48,12 +48,16 @@ The plugin provides you with three tasks:
 
 When you add a task to your plan, you must specify a MATLAB executable for it. To specify a MATLAB executable for a task, if your preferred MATLAB version is already defined as an executable capability, select it from the **Executable** list in the task configuration interface. Otherwise, click the **Add new executable** link to specify an executable label and the full path to the MATLAB root folder.
 
+You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the **Options** box in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
+
+> :information_source: **Note:** Using the **Options** box to specify the `-batch` or `-r` option is not supported.
+
 ### Run MATLAB Build
 The **Run MATLAB Build** task enables you to run a build using the [MATLAB build tool](https://www.mathworks.com/help/matlab/matlab_prog/overview-of-matlab-build-tool.html). You can use this task to run the MATLAB build tasks specified in a file named `buildfile.m` in the root of your repository. To use the **Run MATLAB Build** task, you need MATLAB R2022b or a later release.
 
-To configure the **Run MATLAB Build** task, first specify the MATLAB executable to use for the task. Then, specify the MATLAB build tasks you want to execute in the **Build tasks** box. If you specify more than one task, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023a to run a task named `mytask` as well as all the tasks on which it depends.
+To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify the MATLAB build tasks you want to execute in the **Build tasks** box. If you specify more than one task, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
 
-![run_matlab_build](https://user-images.githubusercontent.com/48831250/229813156-b06b4a15-a1fd-4dfe-9031-17740f6ef318.png)
+![run_matlab_build](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/de110406-170c-4e10-a3ec-269862cdb8eb)
 
 MATLAB exits with exit code 0 if the build runs successfully. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail.
 
@@ -62,9 +66,9 @@ When you use this task, a file named `buildfile.m` must be in the root of your r
 ### Run MATLAB Tests
 The **Run MATLAB Tests** task enables you to run MATLAB and Simulink tests and generate artifacts such as JUnit-style test results and HTML coverage reports. By default, the plugin includes any test files in your [MATLAB project](https://www.mathworks.com/help/matlab/projects.html) that have a `Test` label. If your plan does not use a MATLAB project, or if it uses a MATLAB release before R2019a, then the plugin includes all tests in the root of your repository and in any of its subfolders. The Bamboo build fails if any of the included tests fails.
 
-To configure the **Run MATLAB Tests** task, specify the MATLAB executable to use for the task. For example, use MATLAB R2023a to run the tests in your MATLAB project.
+To configure the **Run MATLAB Tests** task, specify the MATLAB executable and optional startup options to use for the task. For example, use MATLAB R2023b to run the tests in your MATLAB project.
 
-![run_matlab_tests](https://user-images.githubusercontent.com/48831250/229815054-58492339-59f1-402b-9b69-22c9552492cb.png)
+![run_matlab_tests](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/2cf0f227-9aa0-4851-bdff-8a6c59d0a846)
 
 You can customize the **Run MATLAB Tests** task by selecting options in the task configuration interface. For example, you can add source folders to the MATLAB search path, control which tests to run, and generate various test and coverage artifacts. If you do not select any of the existing options, all the tests in your project run, and any test failure causes the build to fail.
 
@@ -113,13 +117,13 @@ Artifacts to generate with the plugin are subject to these restrictions:
 ### Run MATLAB Command
 The **Run MATLAB Command** task enables you to run MATLAB scripts, functions, and statements. You can use this task to customize your test run or add a step in MATLAB to your plan.
 
-To configure the **Run MATLAB Command** task, first specify the MATLAB executable to use for the task. Then, specify the MATLAB script, function, or statement you want to execute in the **Command** box. If you specify more than one script, function, or statement, use a comma or semicolon to separate them. If you want to run a script or function, do not specify the file extension. For example, use MATLAB R2023a to run a script named `myscript.m` in the root of your repository.
+To configure the **Run MATLAB Command** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify the MATLAB script, function, or statement you want to execute in the **Command** box. If you specify more than one script, function, or statement, use a comma or semicolon to separate them. If you want to run a script or function, do not specify the file extension. For example, use MATLAB R2023b to run a script named `myscript.m` located in the root of your repository.
 
-![run_matlab_command](https://user-images.githubusercontent.com/48831250/229817962-2181df1d-8aee-465d-b840-b6f71ded3abd.png)
+![run_matlab_command](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/8d371668-2e45-467d-98ad-b9310df244c0)
 
-MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail. To fail the build in certain conditions, use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) functions.
+MATLAB exits with exit code 0 if the specified script, function, or statement executes successfully without error. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail. To fail the build in certain conditions, use the [`assert`](https://www.mathworks.com/help/matlab/ref/assert.html) or [`error`](https://www.mathworks.com/help/matlab/ref/error.html) function.
 
-When you use this task, all of the required files must be on the MATLAB search path. If your script or function is not in the root of your repository, you can use the [`addpath`](https://www.mathworks.com/help/matlab/ref/addpath.html), [`cd`](https://www.mathworks.com/help/matlab/ref/cd.html), or [`run`](https://www.mathworks.com/help/matlab/ref/run.html) functions to ensure that it is on the path when invoked. For example, to run `myscript.m` in a folder named `myfolder` located in the root of the repository, you can specify the contents of the **Command** box like this:
+When you use this task, all of the required files must be on the MATLAB search path. If your script or function is not in the root of your repository, you can use the [`addpath`](https://www.mathworks.com/help/matlab/ref/addpath.html), [`cd`](https://www.mathworks.com/help/matlab/ref/cd.html), or [`run`](https://www.mathworks.com/help/matlab/ref/run.html) function to ensure that it is on the path when invoked. For example, to run `myscript.m` in a folder named `myfolder` located in the root of the repository, you can specify the contents of the **Command** box like this:
 
 `addpath("myfolder"), myscript`
 
