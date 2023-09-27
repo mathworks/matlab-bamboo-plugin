@@ -48,7 +48,7 @@ The plugin provides you with three tasks:
 
 When you add a task to your plan, you must specify a MATLAB executable for it. To specify a MATLAB executable for a task, if your preferred MATLAB version is already defined as an executable capability, select it from the **Executable** list in the task configuration interface. Otherwise, click the **Add new executable** link to specify an executable label and the full path to the MATLAB root folder.
 
-You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the **Options** box in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
+You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the **Options** box in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM&trade; software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
 > :information_source: **Note:** Using the **Options** box to specify the `-batch` or `-r` option is not supported.
 
