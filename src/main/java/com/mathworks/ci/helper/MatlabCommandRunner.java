@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +41,7 @@ public class MatlabCommandRunner implements MatlabBuild {
         List<String> command = generateCommand(matlabCommand, workingDirectory);
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get(MatlabBuilderConstants.OPTIONS_CHX))) {
             String startupOpts = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_OPTIONS_KEY);
-            command.add(startupOpts);
+            command.addAll(Arrays.asList(startupOpts.split(" ")));
         }
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
             .workingDirectory(workingDirectory)

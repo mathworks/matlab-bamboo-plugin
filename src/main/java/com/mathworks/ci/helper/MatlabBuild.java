@@ -59,8 +59,8 @@ public interface MatlabBuild {
         String sourceFile;
         String destinationFile;
         if (SystemUtils.IS_OS_WINDOWS) {
-            sourceFile = "win64\\run-matlab-command.exe";
-            destinationFile = tempDirectory + "\\" + "run-matlab-command.exe";
+            sourceFile = "win64/run-matlab-command.exe";
+            destinationFile = tempDirectory + "/" + "run-matlab-command.exe";
         } else if (SystemUtils.IS_OS_MAC) {
             sourceFile = "maci64/run-matlab-command";
             destinationFile = tempDirectory + "/" + "run-matlab-command";

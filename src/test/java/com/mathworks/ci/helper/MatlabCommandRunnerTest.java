@@ -137,6 +137,6 @@ public class MatlabCommandRunnerTest {
         ArgumentCaptor<ExternalProcessBuilder> captor = ArgumentCaptor.forClass(ExternalProcessBuilder.class);
         Mockito.verify(processService).createExternalProcess(Mockito.any(TaskContext.class), captor.capture());
         List<String> arg = captor.getValue().getCommand();
-        assertTrue(arg.contains("-nojvm -display -logfile myfile.log"));
+        assertTrue(arg.containsAll(Arrays.asList("-nojvm", "-display", "-logfile", "myfile.log")));
     }
 }
