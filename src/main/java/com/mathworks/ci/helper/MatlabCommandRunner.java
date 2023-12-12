@@ -42,6 +42,7 @@ public class MatlabCommandRunner implements MatlabBuild {
         if (Boolean.parseBoolean(taskContext.getConfigurationMap().get(MatlabBuilderConstants.OPTIONS_CHX))) {
             String startupOpts = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_OPTIONS_KEY);
             command.addAll(Arrays.asList(startupOpts.split(" ")));
+            command.removeIf(s -> s.isEmpty());
         }
         ExternalProcessBuilder processBuilder = new ExternalProcessBuilder()
             .workingDirectory(workingDirectory)
