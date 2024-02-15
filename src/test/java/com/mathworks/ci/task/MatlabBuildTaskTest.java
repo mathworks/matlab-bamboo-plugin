@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.task;
@@ -60,12 +60,18 @@ public class MatlabBuildTaskTest {
     @Before
     public void init() {
         when(taskContext.getBuildLogger()).thenReturn(buildLogger);
+        ConfigurationMap configurationMap = new ConfigurationMapImpl();
+        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "false");
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
     }
 
     @Test
-    public void testExectuteRunsDefaultTasksIfNoTasksProvided() throws TaskException, IOException {
+    public void testExecuteRunsDefaultTasksIfNoParametersProvided() throws TaskException, IOException {
         ConfigurationMap configurationMap = new ConfigurationMapImpl();
         configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
+        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "");
+
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
@@ -80,9 +86,11 @@ public class MatlabBuildTaskTest {
     }
 
     @Test
-    public void testExecuteRunsBuildtoolWithProvidedTasks() throws TaskException, IOException {
+    public void testExecuteRunsBuildtoolWithProvidedParameters() throws TaskException, IOException {
         Map<String, String> map = new HashMap<>();
         map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "mex test");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "-skip check");
         ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
@@ -94,13 +102,15 @@ public class MatlabBuildTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        assertEquals("buildtool mex test", matlabCommand.getValue());
+        assertEquals("buildtool mex test -skip check", matlabCommand.getValue());
     }
 
     @Test
     public void testExecuteExceptionsAreAddedToBuildlog() throws TaskException, IOException {
         Map<String, String> map = new HashMap<>();
         map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "");
         ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
         when(matlabCommandRunner.run(Mockito.any(), Mockito.any())).thenThrow(new IOException("BAM!"));

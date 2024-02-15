@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.configuration;
@@ -22,6 +22,8 @@ public class MatlabBuildTaskConfigurator extends MatlabTaskConfigurator {
     public Map<String, String> generateTaskConfigMap(@NotNull final ActionParametersMap params, final TaskDefinition previousTaskDefinition) {
         final Map<String, String> config = super.generateTaskConfigMap(params, previousTaskDefinition);
         config.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, params.getString(MatlabBuilderConstants.MATLAB_BUILD_TASKS));
+        config.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, String.valueOf(params.getBoolean(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX)));
+        config.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, params.getString(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS));
         return config;
     }
 
@@ -29,5 +31,7 @@ public class MatlabBuildTaskConfigurator extends MatlabTaskConfigurator {
     public void populateContextForEdit(@NotNull final Map<String, Object> context, @NotNull final TaskDefinition taskDefinition) {
         super.populateContextForEdit(context, taskDefinition);
         context.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_BUILD_TASKS));
+        context.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX));
+        context.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, taskDefinition.getConfiguration().get(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS));
     }
 }
