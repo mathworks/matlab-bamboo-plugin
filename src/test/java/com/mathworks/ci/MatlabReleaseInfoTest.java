@@ -17,7 +17,7 @@ public class MatlabReleaseInfoTest {
         ClassLoader classLoader = getClass().getClassLoader();
         File matlabRoot = new File(classLoader.getResource("MATLAB/FakeMATLABWithNoVersion").getFile());
         MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabRoot.toString());
-        // assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
+        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
     }
 
     @Test
@@ -25,7 +25,7 @@ public class MatlabReleaseInfoTest {
         ClassLoader classLoader = getClass().getClassLoader();
         File matlabRoot = new File(classLoader.getResource("MATLAB/FakeMATLABWithVersion").getFile());
         MatlabReleaseInfo matlabReleaseInfo = new MatlabReleaseInfo(matlabRoot.toString());
-        // assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
+        assertEquals(matlabReleaseInfo.getMatlabReleaseNumber(), "R2019b");
     }
 
     @Test(expected = MatlabVersionNotFoundException.class)

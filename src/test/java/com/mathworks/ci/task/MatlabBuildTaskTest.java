@@ -68,7 +68,6 @@ public class MatlabBuildTaskTest {
         configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
         configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
         configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "");
-
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
         try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
