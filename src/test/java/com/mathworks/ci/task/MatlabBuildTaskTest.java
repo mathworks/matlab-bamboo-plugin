@@ -60,9 +60,6 @@ public class MatlabBuildTaskTest {
     @Before
     public void init() {
         when(taskContext.getBuildLogger()).thenReturn(buildLogger);
-        ConfigurationMap configurationMap = new ConfigurationMapImpl();
-        configurationMap.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "false");
-        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
     }
 
     @Test
@@ -86,11 +83,11 @@ public class MatlabBuildTaskTest {
     }
 
     @Test
-    public void testExecuteRunsBuildtoolWithProvidedParameters() throws TaskException, IOException {
+    public void testExecuteRunsBuildtoolWithProvidedTasks() throws TaskException, IOException {
         Map<String, String> map = new HashMap<>();
         map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "mex test");
-        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
-        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "-skip check");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "false");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "");
         ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
 
@@ -102,7 +99,47 @@ public class MatlabBuildTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        assertEquals("buildtool mex test -skip check", matlabCommand.getValue());
+        assertEquals("buildtool mex test", matlabCommand.getValue());
+    }
+
+    @Test
+    public void testExecuteRunsBuildtoolWithProvidedBuildOptions() throws TaskException, IOException {
+        Map<String, String> map = new HashMap<>();
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "-skip check -continueOnFailure");
+        ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
+        ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
+
+        assertEquals("buildtool -skip check -continueOnFailure", matlabCommand.getValue());
+    }
+
+    @Test
+    public void testExecuteRunsBuildtoolWithProvidedParameters() throws TaskException, IOException {
+        Map<String, String> map = new HashMap<>();
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_TASKS, "mex test");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS_CHX, "true");
+        map.put(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS, "-skip check -continueOnFailure");
+        ConfigurationMap configurationMap = new ConfigurationMapImpl(map);
+        when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+
+        try (MockedStatic<TaskResultBuilder> taskResultBuilder = Mockito.mockStatic(TaskResultBuilder.class)) {
+            taskResultBuilder.when(() -> TaskResultBuilder.newBuilder(Mockito.any()))
+                .thenReturn(resultBuilder);
+            task.execute(taskContext);
+        }
+        ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
+
+        assertEquals("buildtool mex test -skip check -continueOnFailure", matlabCommand.getValue());
     }
 
     @Test

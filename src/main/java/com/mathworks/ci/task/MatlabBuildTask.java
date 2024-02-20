@@ -54,7 +54,7 @@ public class MatlabBuildTask implements TaskType {
         if (!buildTasks.isEmpty()) {
             buildtoolCommand += " " + buildTasks;
         }
-        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("buildOptionsChecked")) && !buildTasks.isEmpty()) {
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("buildOptionsChecked")) && !buildOptions.isEmpty()) {
             buildtoolCommand += " " + buildOptions;
         }
 
