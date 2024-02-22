@@ -58,7 +58,7 @@ The **Run MATLAB Build** task enables you to run a build using the [MATLAB build
 
 To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify your MATLAB build tasks and build options. If you specify more than one task in the **Tasks** box, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
 
-<img width="940" alt="run_matlab_build" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/97a03376-4c15-4ddb-af17-2a0c3ff133b1">
+<img width="full" alt="run_matlab_build" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/97a03376-4c15-4ddb-af17-2a0c3ff133b1">
 
 MATLAB exits with exit code 0 if the build runs successfully. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail.
 
@@ -67,7 +67,7 @@ To specify build options for your MATLAB build, first select **Specify build opt
 
 If you specify more than one build option, use a space to separate them.
 
-<img width="940" alt="specify_build_options" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/77766bae-284d-4bc7-b30d-daa84f8d02c5">
+<img width="full" alt="specify_build_options" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/77766bae-284d-4bc7-b30d-daa84f8d02c5">
 
 ### Run MATLAB Tests
 The **Run MATLAB Tests** task enables you to run MATLAB and Simulink tests and generate artifacts such as JUnit-style test results and HTML coverage reports. By default, the plugin includes any test files in your [MATLAB project](https://www.mathworks.com/help/matlab/projects.html) that have a `Test` label. If your plan does not use a MATLAB project, or if it uses a MATLAB release before R2019a, then the plugin includes all tests in the root of your repository and in any of its subfolders. The Bamboo build fails if any of the included tests fails.
