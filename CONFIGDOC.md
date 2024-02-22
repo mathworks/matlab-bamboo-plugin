@@ -5,6 +5,7 @@ This plugin enables you to build and test your MATLAB&reg; project as part of yo
 -  [Define MATLAB as Executable Capability](#define-matlab-as-executable-capability)
 -  [Configure Tasks](#configure-tasks)
       -  [Run MATLAB Build](#run-matlab-build)
+         - [Specify Build Options](#specify-build-options)
       -  [Run MATLAB Tests](#run-matlab-tests)
          - [Specify Source Folder](#specify-source-folder)
          - [Filter Tests](#filter-tests)
@@ -48,20 +49,25 @@ The plugin provides you with three tasks:
 
 When you add a task to your plan, you must specify a MATLAB executable for it. To specify a MATLAB executable for a task, if your preferred MATLAB version is already defined as an executable capability, select it from the **Executable** list in the task configuration interface. Otherwise, click the **Add new executable** link to specify an executable label and the full path to the MATLAB root folder.
 
-You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the **Options** box in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM&trade; software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
+You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the box that appears in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM&trade; software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
 > :information_source: **Note:** Using the **Options** box to specify the `-batch` or `-r` option is not supported.
 
 ### Run MATLAB Build
 The **Run MATLAB Build** task enables you to run a build using the [MATLAB build tool](https://www.mathworks.com/help/matlab/matlab_prog/overview-of-matlab-build-tool.html). You can use this task to run the MATLAB build tasks specified in a file named `buildfile.m` in the root of your repository. To use the **Run MATLAB Build** task, you need MATLAB R2022b or a later release.
 
-To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify the MATLAB build tasks you want to execute in the **Build tasks** box. If you specify more than one task, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
+To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify your MATLAB build tasks and build options. If you specify more than one task in the **Tasks** box, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
 
-![run_matlab_build](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/de110406-170c-4e10-a3ec-269862cdb8eb)
+<img width="940" alt="run_matlab_build" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/97a03376-4c15-4ddb-af17-2a0c3ff133b1">
 
 MATLAB exits with exit code 0 if the build runs successfully. Otherwise, MATLAB terminates with a nonzero exit code, which causes the Bamboo build to fail.
 
-When you use this task, a file named `buildfile.m` must be in the root of your repository. For more information about the build tool, see [Create and Run Tasks Using Build Tool](https://www.mathworks.com/help/matlab/matlab_prog/create-and-run-tasks-using-build-tool.html).
+#### Specify Build Options
+To specify build options for your MATLAB build, first select **Specify build options**  and then populate the box that appears in the task configuration interface. For example, specify `-continueOnFailure` to continue running the MATLAB build upon a build environment setup or task failure. The plugin supports the same [options](https://www.mathworks.com/help/matlab/ref/buildtool.html#mw_50c0f35e-93df-4579-963d-f59f2fba1dba) that you can pass to the `buildtool` command when running a MATLAB build.
+
+If you specify more than one build option, use a space to separate them.
+
+<img width="940" alt="specify_build_options" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/77766bae-284d-4bc7-b30d-daa84f8d02c5">
 
 ### Run MATLAB Tests
 The **Run MATLAB Tests** task enables you to run MATLAB and Simulink tests and generate artifacts such as JUnit-style test results and HTML coverage reports. By default, the plugin includes any test files in your [MATLAB project](https://www.mathworks.com/help/matlab/projects.html) that have a `Test` label. If your plan does not use a MATLAB project, or if it uses a MATLAB release before R2019a, then the plugin includes all tests in the root of your repository and in any of its subfolders. The Bamboo build fails if any of the included tests fails.
