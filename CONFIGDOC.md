@@ -37,7 +37,6 @@ This figure shows an example of how to define MATLAB R2023b as an agent-specific
 
 ![executable_capability](https://github.com/mw-hrastega/Times-Table-App/assets/48831250/86b42194-bb3e-44f7-aad2-b75f2ecd0c91)
 
-
 For more information on how to define executables in Bamboo, see [Defining a new executable capability](https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html).
 
 ## Configure Tasks
@@ -52,6 +51,8 @@ When you add a task to your plan, you must specify a MATLAB executable for it. T
 You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the box that appears in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM&trade; software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
 > :information_source: **Note:** Using the **Options** box to specify the `-batch` or `-r` option is not supported.
+
+> :information_source: **Note:** By default, when you use the **Run MATLAB Build**, **Run MATLAB Tests**, or **Run MATLAB Command** task, the root of your repository serves as the MATLAB startup folder. To run your MATLAB code using a different folder, include the `-sd` startup option or the `cd` command in the task.
 
 ### Run MATLAB Build
 The **Run MATLAB Build** task enables you to run a build using the [MATLAB build tool](https://www.mathworks.com/help/matlab/matlab_prog/overview-of-matlab-build-tool.html). You can use this task to run the MATLAB build tasks specified in a file named `buildfile.m` in the root of your repository. To use the **Run MATLAB Build** task, you need MATLAB R2022b or a later release.
