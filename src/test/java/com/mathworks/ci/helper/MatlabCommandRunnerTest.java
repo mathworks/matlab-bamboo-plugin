@@ -1,5 +1,5 @@
 /**
- * Copyright 2022-2023 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.helper;
@@ -109,6 +109,19 @@ public class MatlabCommandRunnerTest {
     }
 
     @Test
+    public void testRunSetsOrigFolderEnvVariable() throws TaskException, IOException {
+        ConfigurationMapImpl configurationMap = new ConfigurationMapImpl();
+        configurationMap.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
+
+        matlabCommandRunner.run("myScript", taskContext);
+
+        ArgumentCaptor<ExternalProcessBuilder> captor = ArgumentCaptor.forClass(ExternalProcessBuilder.class);
+        Mockito.verify(processService).createExternalProcess(Mockito.any(TaskContext.class), captor.capture());
+        List<String> arg = captor.getValue().getCommand();
+        assertTrue(arg.get(1).contains("setenv('MW_ORIG_WORKING_FOLDER', cd('"));
+    }
+
+    @Test
     public void testRunIgnoresOptionsWhenUnchecked() throws TaskException, IOException {
         ConfigurationMapImpl configurationMap = new ConfigurationMapImpl();
         configurationMap.put(MatlabBuilderConstants.MATLAB_CFG_KEY, "R2019b");
@@ -121,7 +134,7 @@ public class MatlabCommandRunnerTest {
         ArgumentCaptor<ExternalProcessBuilder> captor = ArgumentCaptor.forClass(ExternalProcessBuilder.class);
         Mockito.verify(processService).createExternalProcess(Mockito.any(TaskContext.class), captor.capture());
         List<String> arg = captor.getValue().getCommand();
-        assertFalse(arg.contains("-nojvm -display -logfile myfile.log"));
+        assertFalse(arg.containsAll(Arrays.asList("-nojvm -display -logfile myfile.log")));
     }
 
     @Test

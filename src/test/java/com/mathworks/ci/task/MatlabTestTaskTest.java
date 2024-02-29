@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.task;
@@ -76,6 +76,7 @@ public class MatlabTestTaskTest {
         configurationMap.put("outputDetail", "Default");
         configurationMap.put("loggingLevel", "Default");
         when(taskContext.getConfigurationMap()).thenReturn(configurationMap);
+        when(matlabCommandRunner.getTempDirectory()).thenReturn(new File("/path/to/.matlab"));
     }
 
     @Test
@@ -88,7 +89,8 @@ public class MatlabTestTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        String expectedCommand = "testScript = genscript('Test');\n\n"
+        String expectedCommand = "addpath('/path/to/.matlab');\n" 
+            + "testScript = genscript('Test');\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
@@ -130,7 +132,8 @@ public class MatlabTestTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        String expectedCommand = "testScript = genscript("
+        String expectedCommand = "addpath('/path/to/.matlab');\n"
+            + "testScript = genscript("
             + "'Test','JUnitTestResults','junit.xml',"
             + "'HTMLTestReport','test-reports',"
             + "'PDFTestReport','report.pdf',"
@@ -144,8 +147,7 @@ public class MatlabTestTaskTest {
             + "'UseParallel',true,"
             + "'OutputDetail','Detailed',"
             + "'LoggingLevel','Detailed'"
-            + ");\n\n"
-
+            + ");\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";

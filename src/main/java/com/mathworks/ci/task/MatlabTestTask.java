@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2022 The MathWorks, Inc.
+ * Copyright 2020-2024 The MathWorks, Inc.
  * 
  * Run MATLAB Test Task Invocation
  */
@@ -50,7 +50,8 @@ public class MatlabTestTask implements TaskType {
         BuildLogger buildLogger = taskContext.getBuildLogger();
 
         String matlabTestOptions = getInputArguments(taskContext);
-        String testCommand = getRunnerScript(MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions);
+        String tempFolder = matlabCommandRunner.getTempDirectory().getAbsolutePath();
+        String testCommand = getRunnerScript(MatlabBuilderConstants.TEST_RUNNER_SCRIPT, matlabTestOptions, tempFolder);
 
         buildLogger.addBuildLogEntry("Running MATLAB tests: ");
         try {
@@ -65,7 +66,8 @@ public class MatlabTestTask implements TaskType {
         return taskResultBuilder.build();
     }
 
-    String getRunnerScript(String script, String params) {
+    String getRunnerScript(String script, String params, String tempFolder) {
+        script = script.replace("${TEMPFOLDER}", tempFolder);
         script = script.replace("${PARAMS}", params);
         return script;
     }
