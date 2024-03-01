@@ -50,14 +50,14 @@ When you add a task to your plan, you must specify a MATLAB executable for it. T
 
 You can specify optional startup options for a MATLAB executable by first selecting **Specify startup options**  and then populating the box that appears in the task configuration interface. For example, specify `-nojvm` to start MATLAB without the JVM&trade; software. If you specify more than one startup option, use a space to separate them (for example, `-nojvm -logfile "output.log"`). For more information about MATLAB startup options, see [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
-> :information_source: **Note:** Using the **Options** box to specify the `-batch` or `-r` option is not supported.
+> :information_source: **Note:** Specifying the `-batch` or `-r` startup option is not supported.
 
-> :information_source: **Note:** By default, when you use the **Run MATLAB Build**, **Run MATLAB Tests**, or **Run MATLAB Command** task, the root of your repository serves as the MATLAB startup folder. To run your MATLAB code using a different folder, include the `-sd` startup option or the `cd` command in the task.
+> :information_source: **Note:** By default, when you use the **Run MATLAB Build**, **Run MATLAB Tests**, or **Run MATLAB Command** task, the root of your repository serves as the MATLAB startup folder. To run your MATLAB code using a different folder, specify the `-sd` startup option or include the `cd` command when using the **Run MATLAB Command** task.
 
 ### Run MATLAB Build
 The **Run MATLAB Build** task enables you to run a build using the [MATLAB build tool](https://www.mathworks.com/help/matlab/matlab_prog/overview-of-matlab-build-tool.html). You can use this task to run the MATLAB build tasks specified in a file named `buildfile.m` in the root of your repository. To use the **Run MATLAB Build** task, you need MATLAB R2022b or a later release.
 
-To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify your MATLAB build tasks and options. If you specify more than one task in the **Tasks** box, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
+To configure the **Run MATLAB Build** task, first specify the MATLAB executable and optional startup options to use for the task. Then, specify your MATLAB build tasks and build options. If you specify more than one task in the **Tasks** box, use a space to separate them. If you do not specify any tasks, the plugin runs the default tasks in `buildfile.m` as well as all the tasks on which they depend. For example, use MATLAB R2023b to run a task named `mytask` as well as all the tasks on which it depends.
 
 <img width="full" alt="run_matlab_build" src="https://github.com/mathworks/matlab-bamboo-plugin/assets/48831250/97a03376-4c15-4ddb-af17-2a0c3ff133b1">
 
