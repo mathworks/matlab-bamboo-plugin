@@ -1,5 +1,5 @@
 /**
- * Copyright 2022-2023 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.helper;
@@ -27,6 +27,10 @@ public class MatlabCommandRunner implements MatlabBuild {
     private File tempDirectory = getTempWorkingDirectory();
     private final CapabilityContext capabilityContext;
     private final ProcessService processService;
+
+    public File getTempDirectory() {
+        return this.tempDirectory;
+    }
 
     public MatlabCommandRunner(ProcessService processService, CapabilityContext capabilityContext) {
         this.capabilityContext = capabilityContext;
@@ -72,7 +76,7 @@ public class MatlabCommandRunner implements MatlabBuild {
         List<String> command = new ArrayList<>();
         final String uniqueCommandFile =
             "matlab_" + UUID.randomUUID().toString().replaceAll("-", "_");
-        String commandToExecute = "addpath('" + tempDirectory.toString().replaceAll("'", "''") + "');" + uniqueCommandFile;
+        String commandToExecute = "setenv('MW_ORIG_WORKING_FOLDER', cd('" + tempDirectory.toString().replaceAll("'", "''") + "'));" + uniqueCommandFile;
 
         // Create MATLAB script
         createMatlabScriptByName(matlabCommand, workingDirectory, tempDirectory, uniqueCommandFile);
@@ -86,7 +90,7 @@ public class MatlabCommandRunner implements MatlabBuild {
         final File matlabCommandFile =
             new File(uniqeTmpFolderPath, uniqueScriptName + ".m");
         final String matlabCommandFileContent =
-            "cd '" + workingDirectory.toString().replaceAll("'", "''") + "';\n" + command;
+            "cd(getenv('MW_ORIG_WORKING_FOLDER'));\n" + command;
         BufferedWriter writer = new BufferedWriter(new FileWriter(matlabCommandFile));
         writer.write(matlabCommandFileContent);
         writer.close();

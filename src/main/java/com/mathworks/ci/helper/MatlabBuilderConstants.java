@@ -73,7 +73,8 @@ public class MatlabBuilderConstants {
     public static final String LOGGING_LEVEL_KEY = "loggingLevel";
 
     // MATLAB runner script
-    public static final String TEST_RUNNER_SCRIPT = "testScript = genscript(${PARAMS});\n" + "\n"
+    public static final String TEST_RUNNER_SCRIPT = "addpath('${TEMPFOLDER}');\n"
+            + "testScript = genscript(${PARAMS});\n" 
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
             + "fprintf('___________________________________\\n\\n');\n" + "run(testScript);\n" + "";
