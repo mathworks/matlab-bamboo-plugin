@@ -5,7 +5,7 @@ extraUtility=addExecutableLink  list=uiConfigSupport.getExecutableLabels('matlab
 [@ui.bambooSection]
     [@ww.checkbox labelKey='matlab.options' name='optionsChecked'  toggle='true'/]
         [@ui.bambooSection dependsOn='optionsChecked' showOn=true]
-            [@ww.textfield labelKey='matlab.options.field' cssClass="long-field" name="matlabOptions"
+            [@ww.textfield cssClass="long-field" name="matlabOptions"
                 description="Specify MATLAB startup options as a space-separated list."/]
         [/@ui.bambooSection]
 [/@ui.bambooSection]

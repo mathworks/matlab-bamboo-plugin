@@ -1,5 +1,5 @@
 /**
- * Copyright 2022-2023 The MathWorks, Inc.
+ * Copyright 2022-2024 The MathWorks, Inc.
  * 
  * Run MATLAB Build Task Invocation
  */
@@ -49,9 +49,13 @@ public class MatlabBuildTask implements TaskType {
 
         // Construct buildtool command from inputs
         String buildTasks = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_BUILD_TASKS).trim();
+        String buildOptions = taskContext.getConfigurationMap().get(MatlabBuilderConstants.MATLAB_BUILD_OPTIONS).trim();
         String buildtoolCommand = "buildtool";
         if (!buildTasks.isEmpty()) {
             buildtoolCommand += " " + buildTasks;
+        }
+        if (Boolean.parseBoolean(taskContext.getConfigurationMap().get("buildOptionsChecked")) && !buildOptions.isEmpty()) {
+            buildtoolCommand += " " + buildOptions;
         }
 
         try {

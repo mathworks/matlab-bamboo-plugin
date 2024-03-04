@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2023 The MathWorks, Inc.
+ * Copyright 2020-2024 The MathWorks, Inc.
  */
 
 package com.mathworks.ci.helper;
@@ -19,6 +19,8 @@ public class MatlabBuilderConstants {
 
     // MATLAB build field
     public static final String MATLAB_BUILD_TASKS = "buildTasks";
+    public static final String MATLAB_BUILD_OPTIONS_CHX = "buildOptionsChecked";
+    public static final String MATLAB_BUILD_OPTIONS = "buildOptions";
 
     //MATLAB command field
     public static final String MATLAB_COMMAND_CFG_KEY = "matlabCommand";
