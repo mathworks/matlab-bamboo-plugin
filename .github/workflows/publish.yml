@@ -12,8 +12,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Remove SNAPSHOT from pom.xml version
-        run: sed -i 's/-SNAPSHOT//g' pom.xml
       - name: setup Atlassian SDK
         run: |
           sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
@@ -22,13 +20,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
+      - name: Set plugin version in pom.xml
+        run: |
+          export MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')
+          echo "MATLAB_PLUGIN_VERSION=$MATLAB_PLUGIN_VERSION" >> $GITHUB_ENV
+          atlas-mvn versions:set -DnewVersion=$MATLAB_PLUGIN_VERSION
       - name: Install dependencies
         run: atlas-mvn install -q
       - name: Package plugin
         run: atlas-package
       - name: Upload release asset
         run: |
-          export PLUGIN_ARTIFACT_NAME=$(ls target | grep "matlab-bamboo-plugin-[0-9]*.[0-9]*.[0-9]*.jar")
-          gh release upload ${{ github.event.release.tag_name }} target/$PLUGIN_ARTIFACT_NAME
+          gh release upload ${{ github.event.release.tag_name }} target/matlab-bamboo-plugin-$MATLAB_PLUGIN_VERSION.jar
         env:
           GH_TOKEN: ${{ github.token }}
