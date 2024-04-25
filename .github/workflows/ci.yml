@@ -7,7 +7,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: setup Atlassian SDK
         run: |
           sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
@@ -29,7 +29,7 @@ jobs:
       - name: Package plugin
         run: atlas-package
       - name: Upload plugin as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: matlab-bamboo-plugin
           path: target/matlab-bamboo-plugin-*-SNAPSHOT.jar
