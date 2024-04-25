@@ -20,6 +20,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Set plugin version in pom.xml
         run: |
           export MATLAB_PLUGIN_VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/[^0-9\.]*//g')
