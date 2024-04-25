@@ -16,6 +16,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
       - name: Install dependencies
         run: atlas-mvn install -q
       - name: Unit test
