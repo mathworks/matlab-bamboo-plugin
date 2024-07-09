@@ -62,7 +62,11 @@ public interface MatlabBuild {
             sourceFile = "win64/run-matlab-command.exe";
             destinationFile = tempDirectory + "/" + "run-matlab-command.exe";
         } else if (SystemUtils.IS_OS_MAC) {
-            sourceFile = "maci64/run-matlab-command";
+            if (System.getProperty("os.arch").equals("aarch64")) {
+                sourceFile = "maca64/run-matlab-command";
+            } else {
+                sourceFile = "maci64/run-matlab-command";
+            }
             destinationFile = tempDirectory + "/" + "run-matlab-command";
         } else {
             sourceFile = "glnxa64/run-matlab-command";

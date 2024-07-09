@@ -178,11 +178,25 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v1/glnxa64/run-matlab-command</url>
+                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v2/glnxa64/run-matlab-command</url>
                             <unpack>false</unpack>
                             <skipCache> true </skipCache>
                             <overwrite> true </overwrite>
                             <outputDirectory>${basedir}/src/main/resources/glnxa64</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>get-matlab-runner-maca</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v2/maca64/run-matlab-command</url>
+                            <unpack>false</unpack>
+                            <skipCache> true </skipCache>
+                            <overwrite> true </overwrite>
+                            <outputDirectory>${basedir}/src/main/resources/maca64</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -192,7 +206,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v1/maci64/run-matlab-command</url>
+                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v2/maci64/run-matlab-command</url>
                             <unpack>false</unpack>
                             <skipCache> true </skipCache>
                             <overwrite> true </overwrite>
@@ -206,7 +220,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v1/win64/run-matlab-command.exe</url>
+                            <url>https://ssd.mathworks.com/supportfiles/ci/run-matlab-command/v2/win64/run-matlab-command.exe</url>
                             <unpack>false</unpack>
                             <skipCache> true </skipCache>
                             <overwrite> true </overwrite>
