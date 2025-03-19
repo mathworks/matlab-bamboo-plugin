@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mathworks.ci</groupId>
     <artifactId>matlab-bamboo-plugin</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.6.0-SNAPSHOT</version>
 
     <!-- Organization name needs to be revisited -->
     <organization>
@@ -19,16 +19,17 @@
     <packaging>atlassian-plugin</packaging>
 
     <properties>
-        <bamboo.version>6.8.0</bamboo.version>
-        <bamboo.data.version>6.8.0</bamboo.data.version>
-        <amps.version>8.10.1</amps.version>
-        <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
-        <atlassian.spring.scanner.version>1.2.13</atlassian.spring.scanner.version>
+        <bamboo.version>10.2.1</bamboo.version>
+        <bamboo.data.version>10.2.1</bamboo.data.version>
+        <amps.version>9.1.1</amps.version>
+        <plugin.testrunner.version>2.0.9</plugin.testrunner.version>
+        <atlassian.spring.scanner.version>2.2.4</atlassian.spring.scanner.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <dependencies>
