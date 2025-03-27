@@ -7,13 +7,11 @@ package com.mathworks.ci.configuration;
 import com.atlassian.bamboo.collections.ActionParametersMap;
 import com.atlassian.bamboo.task.TaskDefinition;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.struts.TextProvider;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
-@Scanned
 public class MatlabBuildTaskConfigurator extends MatlabTaskConfigurator {
     private TextProvider textProvider;
 
