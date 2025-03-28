@@ -2,7 +2,7 @@
  * Copyright 2020 - 2023 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.task.test;
 
 import org.junit.Test;
 import com.mathworks.ci.helper.MatlabCommandRunner;

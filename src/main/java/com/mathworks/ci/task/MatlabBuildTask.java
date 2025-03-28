@@ -6,6 +6,7 @@
 
 package com.mathworks.ci.task;
 
+import javax.inject.Inject;
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
 import com.atlassian.bamboo.task.TaskContext;
@@ -21,9 +22,11 @@ import com.mathworks.ci.helper.MatlabCommandRunner;
 import org.jetbrains.annotations.NotNull;
 
 public class MatlabBuildTask implements TaskType {
+    @Inject
     @ComponentImport
     private final ProcessService processService;
 
+    @Inject
     @ComponentImport
     private final CapabilityContext capabilityContext;
 

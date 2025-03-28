@@ -2,7 +2,7 @@
  * Copyright 2022-2024 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.helper;
+package com.mathworks.ci.helper.test;
 
 import org.junit.Test;
 import com.atlassian.bamboo.build.logger.BuildLogger;

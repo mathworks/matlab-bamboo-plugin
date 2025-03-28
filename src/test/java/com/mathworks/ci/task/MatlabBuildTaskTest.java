@@ -2,8 +2,9 @@
  * Copyright 2022-2024 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.task.test;
 
+import com.mathworks.ci.task.MatlabBuildTask;
 import org.junit.Test;
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.configuration.ConfigurationMap;

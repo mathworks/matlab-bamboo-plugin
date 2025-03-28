@@ -2,7 +2,7 @@
  * Copyright 2021-2022 The MathWorks, Inc.
  */
 
-package com.mathworks.ci.task;
+package com.mathworks.ci.task.test;
 
 import com.mathworks.ci.MatlabCapabilityDefaultsHelper;
 import com.atlassian.bamboo.v2.build.agent.capability.ExecutablePathUtils;
