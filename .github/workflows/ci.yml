@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 21
+          cache: maven
       - name: setup Atlassian SDK
         run: |
           sudo sh -c 'echo "deb https://packages.atlassian.com/debian/atlassian-sdk-deb/ stable contrib" >> /etc/apt/sources.list'
@@ -16,11 +22,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install atlassian-plugin-sdk=8.2.8
           atlas-version
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
       - name: Install dependencies
         run: atlas-mvn install -q
       - name: Unit test

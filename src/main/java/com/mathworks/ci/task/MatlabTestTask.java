@@ -6,6 +6,7 @@
 
 package com.mathworks.ci.task;
 
+import javax.inject.Inject;
 import com.atlassian.bamboo.build.logger.BuildLogger;
 import com.atlassian.bamboo.process.ProcessService;
 import com.atlassian.bamboo.task.TaskContext;
@@ -15,7 +16,6 @@ import com.atlassian.bamboo.task.TaskResultBuilder;
 import com.atlassian.bamboo.task.TaskType;
 import com.atlassian.bamboo.v2.build.agent.capability.CapabilityContext;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.utils.process.ExternalProcess;
 import com.mathworks.ci.helper.MatlabBuilderConstants;
 import com.mathworks.ci.helper.MatlabCommandRunner;
@@ -23,11 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-@Scanned
 public class MatlabTestTask implements TaskType {
+    @Inject
     @ComponentImport
     private final ProcessService processService;
 
+    @Inject
     @ComponentImport
     private final CapabilityContext capabilityContext;
 
