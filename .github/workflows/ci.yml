@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: Install JDK 21
@@ -33,3 +33,13 @@ jobs:
         with:
           name: matlab-bamboo-plugin
           path: target/matlab-bamboo-plugin-*-SNAPSHOT.jar
+
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-test
+
+    steps:
+      - name: Download Plugin Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: plugin-zip
