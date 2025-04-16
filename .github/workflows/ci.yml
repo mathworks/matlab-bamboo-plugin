@@ -41,5 +41,3 @@ jobs:
     steps:
       - name: Download Plugin Artifact
         uses: actions/download-artifact@v4
-        with:
-          name: plugin-zip
