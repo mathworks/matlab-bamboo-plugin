@@ -41,3 +41,5 @@ jobs:
     steps:
       - name: Download Plugin Artifact
         uses: actions/download-artifact@v4
+        with:
+          path: C:\CI\Bamboo-home\shared\plugins
