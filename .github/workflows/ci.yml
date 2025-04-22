@@ -84,7 +84,7 @@ jobs:
               Write-Host "Failed to stop the Bamboo service within the allotted time."
               exit 1
           }
-        shell: pwsh
+        shell: powershell
         
       - name: Trigger and Validate Bamboo Pipeline
         run: |
