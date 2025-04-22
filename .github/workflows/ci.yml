@@ -43,3 +43,49 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: C:\CI\Bamboo-home\shared\plugins
+
+      - name: Move plugin to correct location
+        run: |
+          Move-Item -Path "C:\CI\Bamboo-home\shared\plugins\matlab-bamboo-plugin\*.jar" -Destination "C:\CI\Bamboo-home\shared\plugins\" -Force
+          Remove-Item -Path "C:\CI\Bamboo-home\shared\plugins\matlab-bamboo-plugin" -Recurse
+
+      - name: Restart Bamboo Server
+        run: |
+          # PowerShell script to stop and start the Bamboo service with status checks
+          $serviceName = "Bamboo"
+          $maxWaitTime = 60
+          $waitTime = 0
+
+          Stop-Service -Name $serviceName -Force
+
+          while ((Get-Service -Name $serviceName).Status -ne 'Stopped' -and $waitTime -lt $maxWaitTime) {
+              Start-Sleep -Seconds 10
+              $waitTime += 10
+          }
+
+          if ((Get-Service -Name $serviceName).Status -eq 'Stopped') {
+              Start-Service -Name $serviceName
+              Write-Host "Starting Bamboo service..."
+
+              $waitTime = 0
+
+              while ((Get-Service -Name $serviceName).Status -ne 'Running' -and $waitTime -lt $300) {
+                  Start-Sleep -Seconds 20
+                  $waitTime += 20
+              }
+
+              if ((Get-Service -Name $serviceName).Status -eq 'Running') {
+                  Write-Host "Bamboo service started successfully."
+              } else {
+                  Write-Host "Failed to start the Bamboo service within the allotted time."
+                  exit 1
+              }
+          } else {
+              Write-Host "Failed to stop the Bamboo service within the allotted time."
+              exit 1
+          }
+        shell: pwsh
+        
+      - name: Trigger and Validate Bamboo Pipeline
+        run: |
+          python src/test/system/test1.py
