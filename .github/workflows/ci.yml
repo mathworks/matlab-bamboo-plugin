@@ -34,11 +34,14 @@ jobs:
           name: matlab-bamboo-plugin
           path: target/matlab-bamboo-plugin-*-SNAPSHOT.jar
 
-  deploy:
+  run-system-tests:
     runs-on: self-hosted
     needs: build-and-test
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Download Plugin Artifact
         uses: actions/download-artifact@v4
         with:
@@ -53,39 +56,56 @@ jobs:
         run: |
           # PowerShell script to stop and start the Bamboo service with status checks
           $serviceName = "Bamboo"
-          $maxWaitTime = 60
+          $timeout = 120
+          $interval = 10 # seconds
           $waitTime = 0
 
           Stop-Service -Name $serviceName -Force
 
-          while ((Get-Service -Name $serviceName).Status -ne 'Stopped' -and $waitTime -lt $maxWaitTime) {
-              Start-Sleep -Seconds 10
-              $waitTime += 10
+          while ((Get-Service -Name $serviceName).Status -ne 'Stopped' -and $waitTime -lt $timeout) {
+              Start-Sleep -Seconds $interval
+              $waitTime += $interval
           }
 
           if ((Get-Service -Name $serviceName).Status -eq 'Stopped') {
               Start-Service -Name $serviceName
               Write-Host "Starting Bamboo service..."
 
+              $BambooUrl = "http://test-cicd-win64:8085/rest/api/latest/server"
+              $timeout = 600 # seconds
+              $interval = 20 # seconds
               $waitTime = 0
 
-              while ((Get-Service -Name $serviceName).Status -ne 'Running' -and $waitTime -lt $300) {
-                  Start-Sleep -Seconds 20
-                  $waitTime += 20
+              while ( $waitTime -lt $timeout) {
+                  try {
+                      $response = Invoke-WebRequest -Uri $BambooUrl -UseBasicParsing -TimeoutSec 5
+                      if ($response.StatusCode -eq 200) {
+                          Write-Host "Bamboo is fully initialized"
+                          break
+                      }
+                  } catch {
+                      # Ignore errors, server may not be up yet
+                  }
+                  Start-Sleep -Seconds $interval
+                  $waitTime += $interval
               }
-
-              if ((Get-Service -Name $serviceName).Status -eq 'Running') {
-                  Write-Host "Bamboo service started successfully."
-              } else {
-                  Write-Host "Failed to start the Bamboo service within the allotted time."
-                  exit 1
-              }
-          } else {
-              Write-Host "Failed to stop the Bamboo service within the allotted time."
-              exit 1
           }
-        shell: pwsh
+
+        shell: powershell
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x' 
         
       - name: Trigger and Validate Bamboo Pipeline
         run: |
-          python src/test/system/test1.py
+          python -m unittest src/test/system/test_plugin.py
+
+      - name: Clean up server
+        # This ensures cleanup runs even if previous steps fail
+        if: always()
+        run: |
+          Remove-Item -Path "C:\CI\Bamboo-home\shared\plugins\matlab-bamboo-plugin-*-SNAPSHOT.jar" -Force
+          Write-Host "Cleanup completed successfully"
+        shell: powershell
