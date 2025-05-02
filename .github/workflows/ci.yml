@@ -37,6 +37,8 @@ jobs:
   run-system-tests:
     runs-on: self-hosted
     needs: build-and-test
+    env:
+      BAMBOO_API_TOKEN: ${{ secrets.BAMBOO_API_TOKEN }}
 
     steps:
       - name: Checkout Repository

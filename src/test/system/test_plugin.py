@@ -1,12 +1,11 @@
 import unittest
 import requests
 import time
-from requests.auth import HTTPBasicAuth
+import os
 
-BAMBOO_URL = "http://172.18.78.20:8085"
-PLAN_KEY = "YIT-YIT"
-USERNAME = "admin1"
-PASSWORD = "admin1"
+BAMBOO_URL = "http://test-cicd-win64:8085"
+PLAN_KEY = "SYS-TEST"
+TOKEN = os.getenv("BAMBOO_API_TOKEN")
 
 class TestBuilds(unittest.TestCase):
 
@@ -20,8 +19,10 @@ class TestBuilds(unittest.TestCase):
 def trigger_pipeline():
     response = requests.post(
         f"{BAMBOO_URL}/rest/api/latest/queue/{PLAN_KEY}", 
-        auth=HTTPBasicAuth(USERNAME, PASSWORD),
-        headers={'Accept': 'application/json'})
+        headers={
+            'Accept': 'application/json',
+            'Authorization': f'Bearer {TOKEN}'
+        })
     
     # Print response details for debugging
     print(f"Status Code: {response.status_code}")
@@ -35,15 +36,16 @@ def trigger_pipeline():
         raise Exception("Failed to trigger pipeline")
 
 
-def check_pipeline_status(build_key, timeout=300, interval=20):
+def check_pipeline_status(build_key, timeout=600, interval=20):
     start_time = time.time()
     
     while time.time() - start_time < timeout:
         try:
             response = requests.get(
                 f"{BAMBOO_URL}/rest/api/latest/result/{build_key}", 
-                auth=HTTPBasicAuth(USERNAME, PASSWORD),
-                headers={'Accept': 'application/json'})
+                headers={'Accept': 'application/json',
+                         'Authorization': f'Bearer {TOKEN}'
+                })
             
             if response.status_code == 200:
                 result = response.json()
