@@ -21,7 +21,7 @@
     <properties>
         <bamboo.version>10.2.1</bamboo.version>
         <bamboo.data.version>10.2.1</bamboo.data.version>
-        <amps.version>9.1.4</amps.version>
+        <amps.version>9.4.0</amps.version>
         <plugin.testrunner.version>2.0.9</plugin.testrunner.version>
         <atlassian.spring.scanner.version>5.0.2</atlassian.spring.scanner.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
