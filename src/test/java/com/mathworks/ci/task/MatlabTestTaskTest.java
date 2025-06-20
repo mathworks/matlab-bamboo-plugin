@@ -90,7 +90,8 @@ public class MatlabTestTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        String expectedCommand = "addpath('/path/to/.matlab');\n" 
+        String expectedPath = new File("/path/to/.matlab").getAbsolutePath();
+        String expectedCommand = "addpath('" + expectedPath + "');\n" 
             + "testScript = genscript('Test');\n"
             + "disp('Running MATLAB script with contents:');\n"
             + "disp(testScript.Contents);\n"
@@ -133,7 +134,8 @@ public class MatlabTestTaskTest {
         ArgumentCaptor<String> matlabCommand = ArgumentCaptor.forClass(String.class);
         Mockito.verify(matlabCommandRunner).run(matlabCommand.capture(), Mockito.any());
 
-        String expectedCommand = "addpath('/path/to/.matlab');\n"
+        String expectedPath = new File("/path/to/.matlab").getAbsolutePath();
+        String expectedCommand = "addpath('" + expectedPath + "');\n"
             + "testScript = genscript("
             + "'Test','JUnitTestResults','junit.xml',"
             + "'HTMLTestReport','test-reports',"
