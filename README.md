@@ -1,5 +1,5 @@
 # Continuous Integration with MATLAB on Bamboo
-This plugin enables you to build and test your MATLAB&reg; project as part of your Bamboo&reg; build. For example, you can automatically identify any code issues in your project, run tests and generate test and coverage artifacts, and package your files into a toolbox.
+This plugin enables you to build and test your MATLAB&reg; project as part of your Bamboo&reg; build. For example, you can automatically identify any code issues in your project, run tests and generate test and coverage artifacts, and build a MATLAB package.
 
 ## Releases
 To view the release notes and download a specific release, see [Releases](https://github.com/mathworks/matlab-bamboo-plugin/releases). 
