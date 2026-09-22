@@ -1,6 +1,6 @@
 # Plugin Configuration Guide
 
-This plugin enables you to build and test your MATLAB&reg; project as part of your Bamboo&reg; build. For example, you can automatically identify any code issues in your project, run tests and generate test and coverage artifacts, and package your files into a toolbox.
+This plugin enables you to build and test your MATLAB&reg; project as part of your Bamboo&reg; build. For example, you can automatically identify any code issues in your project, run tests and generate test and coverage artifacts, and build a MATLAB package.
 
 -  [Define MATLAB as Executable Capability](#define-matlab-as-executable-capability)
 -  [Configure Tasks](#configure-tasks)
